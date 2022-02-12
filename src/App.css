@@ -94,7 +94,6 @@ body {
   border-radius: 4px;
   background-color: #ffffff;
 }
-
 .navbar-item {
   margin: 1em;
   font-size: 2em;
@@ -105,13 +104,14 @@ body {
   text-indent: .3em;
   color: #181818;
   border-bottom: 3px solid transparent;
+  transition: all .5s ease-in-out;
 }
 
 .navbar-item:hover {
-  transform: translateY(-2px);
+  transform: translateY(-12px);
 }
 
 .navbar-item.active {
   border-bottom: 3px solid #000000;
-  transition: border-bottom .5s ease-in-out;
+  transition: all .5s ease-in-out;
 }
