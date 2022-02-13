@@ -5,38 +5,6 @@
   justify-content: center;
 }
 
-.polaroid-wrapper {
-  width: 250px;
-}
-
-.polaroid {
-  width: 80%;
-  background-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.home-img {
-  width: 100%
-}
-.home-images {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.container {
-  text-align: center;
-  padding: 10px 20px;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.home-title {
-  font-size: 1.5em;
-  font-weight: 500;
-}
-
 .welcome-shell p {
   margin:0;
   padding-bottom:0.1em;

@@ -1,0 +1,32 @@
+.polaroid-wrapper {
+  width: 250px;
+}
+
+.polaroid {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.gallery-img {
+  width: 100%
+}
+.gallery-images {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.container {
+  text-align: center;
+  padding: 10px 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.home-title {
+  font-size: 1.5em;
+  font-weight: 500;
+}

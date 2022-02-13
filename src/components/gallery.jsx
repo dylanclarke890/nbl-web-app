@@ -4,13 +4,14 @@ import samplework2 from "../images/portfolio/samplework2.jpg";
 import samplework3 from "../images/portfolio/samplework3.jpg";
 import samplework4 from "../images/portfolio/samplework4.jpg";
 import samplework5 from "../images/portfolio/samplework5.jpg";
+import '../styles/gallery.css';
 
 export default function Gallery() {
   return (
-    <div className="home-images">
+    <div className="gallery-images">
       <div className="polaroid-wrapper">
         <div className="polaroid">
-          <img src={samplework1} className="home-img" alt="samplework1" />
+          <img src={samplework1} className="gallery-img" alt="samplework1" />
           <div className="container">
             <p>
               #hybridextensions #dolleye #cateyelashes #tattilashes
@@ -21,7 +22,7 @@ export default function Gallery() {
       </div>
       <div className="polaroid-wrapper">
         <div className="polaroid">
-          <img src={samplework2} className="home-img" alt="samplework2" />
+          <img src={samplework2} className="gallery-img" alt="samplework2" />
           <div className="container">
             <p>🧚 🧚 🧚 </p>
             <p>#lashextensions #fluffylashes #browdefinition #browshaping</p>
@@ -30,7 +31,7 @@ export default function Gallery() {
       </div>
       <div className="polaroid-wrapper">
         <div className="polaroid">
-          <img src={samplework3} className="home-img" alt="samplework3" />
+          <img src={samplework3} className="gallery-img" alt="samplework3" />
           <div className="container">
             <p>using baby biab and gold foil for some cute little hearts 💕</p>
             <p>#valentinesnails #biabnails</p>
@@ -39,7 +40,7 @@ export default function Gallery() {
       </div>
       <div className="polaroid-wrapper">
         <div className="polaroid">
-          <img src={samplework4} className="home-img" alt="samplework4" />
+          <img src={samplework4} className="gallery-img" alt="samplework4" />
           <div className="container">
             <p>From basic to boujee 💅🏻 </p>
             <p>#browlamination #brows #malebrows #malemodel</p>
@@ -48,7 +49,7 @@ export default function Gallery() {
       </div>
       <div className="polaroid-wrapper">
         <div className="polaroid">
-          <img src={samplework5} className="home-img" alt="samplework5" />
+          <img src={samplework5} className="gallery-img" alt="samplework5" />
           <div className="container">
             <p>
               Heartless BIAB by @the_gelbottle_inc with silver and black leopard

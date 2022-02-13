@@ -4,7 +4,7 @@
   width: 100%;
   background: var(--neutral-color);
   border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--calender-border-color) !important;
+  /* border-bottom: 1px solid var(--calender-border-color) !important; */
 }
 
 .calendar .header {
