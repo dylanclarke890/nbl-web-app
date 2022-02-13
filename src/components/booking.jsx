@@ -19,7 +19,7 @@ export default function Booking() {
       <div>
         {showModal ? (
           <Modal setShowModal={setShowModal}>
-            <AppointmentBooker date={selectedDate} availableTimes={["2:30 - 3:30", "3:30 - 4:30", "4:30 - 5:30"]} />
+            <AppointmentBooker setShowModal={setShowModal} date={selectedDate} availableTimes={["2:30 - 3:30", "3:30 - 4:30", "4:30 - 5:30"]} />
           </Modal>
         ) : null}
       </div>

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import {format} from "date-fns";
 import '../styles/appointmentBooker.css';
 
-export default function AppointmentBooker(props) {
+export default function AppointmentBooker({setShowModal, availableTimes, date }) {
   const times = [];
-  const { availableTimes, date } = props;
   for (let i = 0; i < availableTimes.length; i++) {
     const element = availableTimes[i];
     times.push(
@@ -31,6 +30,19 @@ export default function AppointmentBooker(props) {
     setNameActive(n);
     setName(n);
   }
+
+  const isNumber = (n) => {
+    const nums = [0,1,2,3,4,5,6,7,8,9];
+    console.log(nums.includes(n))
+    return nums.includes(parseInt(n));
+  }
+
+  const handleNumberKeyPress = (e) => {
+    if (e.key != '+' && !isNumber(e.key)) {
+      e.preventDefault();
+    }
+  }
+
   const updateNumber = (n) => {
     setNumberActive(n);
     setNumber(n);
@@ -128,7 +140,7 @@ export default function AppointmentBooker(props) {
           <span className="error-message" aria-live="polite">{inputValidation.name}</span>
         </div>
         <div className="custom-field">
-          <input id="phone-field" type="text" placeholder="&nbsp;" onChange={e => updateNumber(e.currentTarget.value)}/> 
+          <input id="phone-field" type="text" placeholder="&nbsp;" onKeyPress={handleNumberKeyPress} onChange={e => updateNumber(e.currentTarget.value)}/> 
           <label htmlFor="phone-field" className={numberActive ? 'placeholder has-content' : 'placeholder'}>Enter Number</label>
           <span className="error-message" aria-live="polite">{inputValidation.number}</span>
         </div>
@@ -138,6 +150,7 @@ export default function AppointmentBooker(props) {
           <span className="error-message" aria-live="polite">{inputValidation.email}</span>
         </div>
           <br/>
+          <button className="btn cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
           <button className="btn float-right" onClick={() => submit()}>Confirm</button>
         </div>
       </div>
