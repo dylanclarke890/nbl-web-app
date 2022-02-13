@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Calendar from "./calendar";
 import Modal from "./modal";
 import AppointmentBooker from "./appointmentBooker";
+import '../styles/booking.css';
 
 export default function Booking() {
   const [showModal, setShowModal] = useState(false);
@@ -14,7 +15,7 @@ export default function Booking() {
   }
 
   return (
-    <div>
+    <div className="booking-content">
       <div>
         {showModal ? (
           <Modal setShowModal={setShowModal}>

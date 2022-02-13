@@ -1,13 +1,9 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
-import Home from "./components/home";
-import Booking from "./components/booking";
-import Contact from "./components/contact";
+import { BrowserRouter as Router } from "react-router-dom";
+
 import Navbar from "./components/navbar";
+import MainContent from "./components/mainContent";
+import Footer from "./components/footer";
 
 import "./styles/App.css";
 
@@ -18,14 +14,11 @@ export default class App extends React.Component {
         <div className="App">
           <main>
             <div>
-              {<Navbar />}
-              <div className='main-content'>
-                <Routes>
-                  <Route exact path="/" element={<Home />}></Route>
-                  <Route exact path="/book-appointment" element={<Booking />}></Route>
-                  <Route exact path="/contact" element={<Contact />}></Route>
-                </Routes>
+              <Navbar />
+              <div className="main-content">
+                <MainContent />
               </div>
+              <Footer />
             </div>
           </main>
         </div>
