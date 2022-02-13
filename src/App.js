@@ -32,7 +32,7 @@ class App extends React.Component {
                   </NavLink>
                   <NavLink
                     className="navbar-item"
-                    to="/booking"
+                    to="/book-appointment"
                   >
                     Book Appointment
                   </NavLink>
@@ -47,7 +47,7 @@ class App extends React.Component {
               <div className='main-content'>
                 <Routes>
                   <Route exact path="/" element={<Home />}></Route>
-                  <Route exact path="/booking" element={<Booking />}></Route>
+                  <Route exact path="/book-appointment" element={<Booking />}></Route>
                   <Route exact path="/contact" element={<Contact />}></Route>
                 </Routes>
               </div>
