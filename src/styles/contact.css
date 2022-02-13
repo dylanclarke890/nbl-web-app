@@ -12,11 +12,15 @@
   justify-content: center;
 }
 
+.contact-form {
+  margin-top: 10px;
+}
+
 .text-center {
   text-align: center;
 }
 
-.title {
+.contact-title {
   margin: 0;
   padding: 0;
   font-size: 1.5em;
@@ -24,14 +28,14 @@
   border-bottom: 4px solid rgba(127, 127, 127, 1);
 }
 
-.custom-field {
+.custom-contact-field {
   font-size: 14px;
   position: relative;
   border-top: 20px solid transparent;
   margin-bottom: -10px;
 }
 
-.custom-field input {
+.custom-contact-field input {
   border: none;
   -webkit-appearance: none;
   -ms-appearance: none;
@@ -40,12 +44,12 @@
   background: #f2f2f2;
   padding: 12px;
   border-radius: 3px;
-  width: 250px;
+  width: 500px;
   font-size: 14px;
   cursor: default;
 }
 
-.custom-field textarea {
+.custom-contact-field textarea {
   border: none;
   -webkit-appearance: none;
   -ms-appearance: none;
@@ -54,12 +58,12 @@
   background: #f2f2f2;
   padding: 12px;
   border-radius: 3px;
-  width: 250px;
+  width: 500px;
   font-size: 14px;
   cursor: default;
 }
 
-.custom-field .placeholder {
+.custom-contact-field .placeholder {
   position: absolute;
   left: 12px;
   bottom: 50%;
@@ -75,23 +79,23 @@
   transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
 }
 
-.custom-field input:focus + .placeholder {
+.custom-contact-field input:focus + .placeholder {
   top: -10px;
   font-size: 10px;
   color: #222;
 }
 
-.custom-field textarea:focus + .placeholder {
+.custom-contact-field textarea:focus + .placeholder {
   top: -10px;
   font-size: 10px;
   color: #222;
 }
 
-.custom-field .has-content,
-.custom-field
+.custom-contact-field .has-content,
+.custom-contact-field
   input:not(:placeholder-shown)
   + .placeholder
-  .custom-field
+  .custom-contact-field
   input:focus
   + .placeholder {
   top: -10px;
@@ -99,11 +103,11 @@
   color: #222;
 }
 
-.custom-field .has-content,
-.custom-field
+.custom-contact-field .has-content,
+.custom-contact-field
   textarea:not(:placeholder-shown)
   + .placeholder
-  .custom-field
+  .custom-contact-field
   textarea:focus
   + .placeholder {
   top: -10px;
@@ -111,19 +115,19 @@
   color: #222;
 }
 
-.custom-field .has-content .custom-field + input {
+.custom-contact-field .has-content .custom-contact-field + input {
   cursor: text;
 }
 
-.custom-field input {
+.custom-contact-field input {
   cursor: text;
 }
 
-.custom-field textarea {
+.custom-contact-field textarea {
   cursor: text;
 }
 
-.custom-field .error-message {
+.custom-contact-field .error-message {
   width: 100%;
   display: flex;
   align-items: center;
@@ -133,6 +137,25 @@
   color: #fff;
   height: 24px;
 }
-.custom-field .error-message:empty {
+.custom-contact-field .error-message:empty {
   opacity: 0;
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-btn {
+  background-color: rgba(183,110,121,1);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  bottom: 0px;
 }
