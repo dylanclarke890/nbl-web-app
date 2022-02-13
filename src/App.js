@@ -10,7 +10,7 @@ import Booking from "./components/booking";
 import Contact from "./components/contact";
 import navbarLogo from "./images/nbl-logo-brand.jpeg";
 
-import "./App.css";
+import "./styles/App.css";
 
 class App extends React.Component {
   render() {
