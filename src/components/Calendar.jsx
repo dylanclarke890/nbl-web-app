@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as dateFns from "date-fns";
 import './calendar.css'
 
@@ -8,13 +8,7 @@ function Calendar(){
 
   const nextMonth = () => setMonth(dateFns.addMonths(currentMonth, 1));
   const prevMonth = () => setMonth(dateFns.subMonths(currentMonth, 1));
-  const onDateClick = day => 
-  {
-    setDate(day);
-  };
-
-  useEffect(() => {console.log(selectedDate);}, [selectedDate]);
-
+  const onDateClick = day => setDate(day);
 
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
