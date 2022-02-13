@@ -13,7 +13,7 @@ function Calendar(){
     setDate(day);
   };
 
-  useEffect(() => {console.log(selectedDate);}, selectedDate);
+  useEffect(() => {console.log(selectedDate);}, [selectedDate]);
 
 
   const renderHeader = () => {

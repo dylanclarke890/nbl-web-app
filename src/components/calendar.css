@@ -3,7 +3,8 @@
   position: relative;
   width: 100%;
   background: var(--neutral-color);
-  border: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--calender-border-color) !important;
 }
 
 .calendar .header {
@@ -11,7 +12,7 @@
   font-weight: 700;
   font-size: 115%;
   padding: 1.5em 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--calender-border-color);
 }
 
 .calendar .header .icon {
@@ -39,13 +40,13 @@
   color: var(--text-color-light);
   font-size: 70%;
   padding: .75em 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--calender-border-color);
 }
 
 .calendar .body .cell {
   position: relative;
   height: 5em;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--calender-border-color);
   overflow: hidden;
   cursor: pointer;
   background: var(--neutral-color);
@@ -64,7 +65,7 @@
 }
 
 .calendar .body .row {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--calender-border-color);
 }
 
 .calendar .body .row:last-child {

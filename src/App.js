@@ -25,22 +25,18 @@ class App extends React.Component {
                 </NavLink>
                 <div className="navbar-items-wrapper">
                   <NavLink
-                    exact
-                    activeClassName="navbar-item-active"
                     className="navbar-item"
                     to="/"
                   >
                     Home
                   </NavLink>
                   <NavLink
-                    activeClassName="navbar-item-active"
                     className="navbar-item"
                     to="/booking"
                   >
                     Book Appointment
                   </NavLink>
                   <NavLink
-                    activeClassName="navbar-item-active"
                     className="navbar-item"
                     to="/contact"
                   >
