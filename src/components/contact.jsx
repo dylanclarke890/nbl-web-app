@@ -241,8 +241,9 @@ export default function Contact() {
             {inputValidation.message}
           </span>
         </div>
+        <br/>
         <div className="form-button">
-          <button className="contact-btn" type="button">
+          <button onClick={submit} className="contact-btn" type="button">
             Send
           </button>
         </div>
