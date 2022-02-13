@@ -1,11 +1,10 @@
-
 /* FONT IMPORTS */
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 .icon {
-  font-family: 'Material Icons', serif;
+  font-family: "Material Icons", serif;
   font-style: normal;
   display: inline-block;
   vertical-align: middle;
@@ -19,22 +18,20 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'liga';
+  font-feature-settings: "liga";
 }
-
 
 /* VARIABLES */
 
 :root {
-  --main-color: rgba(183,110,121,1);
+  --main-color: rgba(183, 110, 121, 1);
   --text-color: #777;
   --text-color-light: #ccc;
   --border-color: #eee;
   --bg-color: #f9f9f9;
   --neutral-color: #fff;
-  --calender-border-color: rgba(183,110,121,1);
+  --calender-border-color: rgba(183, 110, 121, 1);
 }
-
 
 /* GENERAL */
 
@@ -43,13 +40,13 @@
 }
 
 body {
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--text-color);
-    background: var(--bg-color);
-    position: relative;
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-color);
+  background: var(--bg-color);
+  position: relative;
 }
 
 /* GRID */
@@ -88,9 +85,7 @@ body {
   text-align: right;
 }
 
-/**/
-
 .main-content {
   min-height: fit-content;
-  background-color: rgba(183,110,121,0.1);
+  background-color: #fff;
 }
