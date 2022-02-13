@@ -120,11 +120,20 @@ header p {
   color: #222;
 }
 
+.custom-field .has-content,
 .custom-field input:not(:placeholder-shown) + .placeholder
 .custom-field input:focus + .placeholder {
   top: -10px;
   font-size: 10px;
   color: #222;
+}
+
+.custom-field .has-content .custom-field + input {
+  cursor: text;
+}
+
+.custom-field input {
+  cursor: text;
 }
 
 .custom-field .error-message {
