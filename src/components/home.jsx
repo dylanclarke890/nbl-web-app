@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/home.css'
 
-function Home (){
+export default function Home (){
     return (
       <div className='page-wrapper'>
         <div className='welcome-shell'>
@@ -11,8 +11,4 @@ function Home (){
         </div>
       </div>
     )
-
-    
 }
- 
-export default Home;

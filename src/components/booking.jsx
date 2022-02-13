@@ -3,7 +3,7 @@ import Calendar from "./calendar";
 import Modal from "./modal";
 import AppointmentBooker from "./appointmentBooker";
 
-function Booking() {
+export default function Booking() {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
 
@@ -26,5 +26,3 @@ function Booking() {
     </div>
   );
 }
-
-export default Booking;

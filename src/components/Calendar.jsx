@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as dateFns from "date-fns";
 import '../styles/calendar.css'
 
-function Calendar({handleSelectedDate}){
+export default function Calendar({handleSelectedDate}){
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());
 
@@ -99,5 +99,3 @@ function Calendar({handleSelectedDate}){
     </div>
     );
 }
-
-export default Calendar;
