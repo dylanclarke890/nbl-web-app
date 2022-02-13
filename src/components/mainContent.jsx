@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./home";
 import Booking from "./booking";
 import Contact from "./contact";
+import Treatments from "./treatments";
+import Gallery from "./gallery";
 
 export default function MainContent() {
   return (
@@ -14,6 +16,8 @@ export default function MainContent() {
         path="/book-appointment"
         element={<Booking />}
       ></Route>
+      <Route exact path="/treatments" element={<Treatments />}></Route>
+      <Route exact path="/gallery" element={<Gallery />}></Route>
       <Route exact path="/contact" element={<Contact />}></Route>
   </Routes>
   )

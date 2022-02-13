@@ -180,7 +180,7 @@ export default function Contact() {
           />
           <label
             htmlFor="name-field"
-            className={nameActive ? "placeholder has-content" : "placeholder"}
+            className={nameActive ? "contact-placeholder has-content" : "contact-placeholder"}
           >
             Enter Name
           </label>
@@ -198,7 +198,7 @@ export default function Contact() {
           />
           <label
             htmlFor="phone-field"
-            className={numberActive ? "placeholder has-content" : "placeholder"}
+            className={numberActive ? "contact-placeholder has-content" : "contact-placeholder"}
           >
             Enter Number
           </label>
@@ -215,7 +215,7 @@ export default function Contact() {
           />
           <label
             htmlFor="email-field"
-            className={emailActive ? "placeholder has-content" : "placeholder"}
+            className={emailActive ? "contact-placeholder has-content" : "contact-placeholder"}
           >
             Enter Email
           </label>
@@ -232,7 +232,7 @@ export default function Contact() {
           <label
             htmlFor="message-field"
             className={
-              messageActive ? "placeholder has-content" : "placeholder"
+              messageActive ? "contact-placeholder has-content" : "contact-placeholder"
             }
           >
             Enter Message

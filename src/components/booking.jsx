@@ -23,7 +23,9 @@ export default function Booking() {
           </Modal>
         ) : null}
       </div>
-      <Calendar handleSelectedDate={date => updateDate(date)}/>
+      <div className="calendar-wrapper">
+        <Calendar handleSelectedDate={date => updateDate(date)}/>
+      </div>
     </div>
   );
 }

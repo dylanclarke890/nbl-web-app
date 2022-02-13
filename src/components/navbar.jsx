@@ -17,9 +17,21 @@ export default function Navbar() {
       </NavLink>
       <NavLink
         className="navbar-item"
+        to="/treatments"
+      >
+        Treatments
+      </NavLink>
+      <NavLink
+        className="navbar-item"
         to="/book-appointment"
       >
         Book Appointment
+      </NavLink>
+      <NavLink
+        className="navbar-item"
+        to="/gallery"
+      >
+        Gallery
       </NavLink>
       <NavLink
         className="navbar-item"
