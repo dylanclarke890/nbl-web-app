@@ -23,7 +23,6 @@ export default function AppointmentBooker(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
-
   const [nameActive, setNameActive] = useState(false);
   const [emailActive, setEmailActive] = useState(false);
   const [numberActive, setNumberActive] = useState(false);
@@ -111,8 +110,8 @@ export default function AppointmentBooker(props) {
       return;
     }
   };
-
   const dateFormat = "eee dd MMM yyyy";
+
   return (
     <div className="w-100">
       <header className="booker-header">
@@ -125,17 +124,17 @@ export default function AppointmentBooker(props) {
         <div className="appointment-form">
         <div className="custom-field">
           <input id="name-field" type="text" placeholder="&nbsp;" onChange={e => updateName(e.currentTarget.value)}/> 
-          <label for="name-field" className={nameActive ? 'placeholder has-content' : 'placeholder'}>Enter Name</label>
+          <label htmlFor="name-field" className={nameActive ? 'placeholder has-content' : 'placeholder'}>Enter Name</label>
           <span className="error-message" aria-live="polite">{inputValidation.name}</span>
         </div>
         <div className="custom-field">
           <input id="phone-field" type="text" placeholder="&nbsp;" onChange={e => updateNumber(e.currentTarget.value)}/> 
-          <label for="phone-field" className={numberActive ? 'placeholder has-content' : 'placeholder'}>Enter Number</label>
+          <label htmlFor="phone-field" className={numberActive ? 'placeholder has-content' : 'placeholder'}>Enter Number</label>
           <span className="error-message" aria-live="polite">{inputValidation.number}</span>
         </div>
         <div className="custom-field">
           <input id="email-field" type="text" placeholder="&nbsp;" onChange={e => updateEmail(e.currentTarget.value)}/> 
-          <label for="email-field" className={emailActive ? 'placeholder has-content' : 'placeholder'}>Enter Email</label>
+          <label htmlFor="email-field" className={emailActive ? 'placeholder has-content' : 'placeholder'}>Enter Email</label>
           <span className="error-message" aria-live="polite">{inputValidation.email}</span>
         </div>
           <br/>

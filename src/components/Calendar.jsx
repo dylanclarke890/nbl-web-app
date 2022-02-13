@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import * as dateFns from "date-fns";
 import '../styles/calendar.css'
 
-function Calendar(){
+function Calendar({handleSelectedDate}){
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());
 
   const nextMonth = () => setMonth(dateFns.addMonths(currentMonth, 1));
   const prevMonth = () => setMonth(dateFns.subMonths(currentMonth, 1));
-  const onDateClick = day => setDate(day);
-
+  const onDateClick = day => {
+    setDate(day);
+    handleSelectedDate(day);
+  }
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
 
@@ -52,7 +54,6 @@ function Calendar(){
     const monthEnd = dateFns.endOfMonth(monthStart);
     const startDate = dateFns.startOfWeek(monthStart);
     const endDate = dateFns.endOfWeek(monthEnd);
-
     const dateFormat = "d";
     const rows = [];
 
@@ -67,7 +68,7 @@ function Calendar(){
         days.push(
           <div
             className={`col cell ${
-              !dateFns.isSameMonth(day, monthStart)
+              !dateFns.isSameMonth(day, monthStart) || (!dateFns.isToday(day) && dateFns.isAfter(new Date(), day))
                 ? "disabled"
                 : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
             }`}
