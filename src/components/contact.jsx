@@ -29,7 +29,7 @@ export default function Contact() {
   };
 
   const handleNumberKeyPress = (e) => {
-    if (e.key != "+" && !isNumber(e.key)) {
+    if (e.key !== "+" && !isNumber(e.key)) {
       e.preventDefault();
     }
   };
@@ -48,7 +48,8 @@ export default function Contact() {
   };
 
   const validateEmail = (email) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    let regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;
+    if (regex.test(email)) {
       return true;
     }
     return false;
@@ -58,8 +59,8 @@ export default function Contact() {
 
     if (
       !(
-        (num[0] == "0" && allNums(num)) ||
-        (num[0] == "+" && allNums(num.substring(1, num.length)))
+        (num[0] === "0" && allNums(num)) ||
+        (num[0] === "+" && allNums(num.substring(1, num.length)))
       )
     ) {
       return false;
@@ -67,11 +68,11 @@ export default function Contact() {
 
     // 07946792581
     // +447946792581
-    if (num[0] == "0" && num.length != 11) {
+    if (num[0] === "0" && num.length !== 11) {
       return false;
     }
 
-    if (num[0] == "+" && num.length != 13) {
+    if (num[0] === "+" && num.length !== 13) {
       return false;
     }
 
