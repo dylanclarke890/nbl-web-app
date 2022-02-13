@@ -31,7 +31,7 @@ function Calendar(){
   }
 
   const renderDays = () => {
-    const dateFormat = "dddd";
+    const dateFormat = "eee";
     const days = [];
 
     let startDate = dateFns.startOfWeek(currentMonth);

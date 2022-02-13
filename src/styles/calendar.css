@@ -60,7 +60,7 @@
 
 .calendar .body .selected {
   border-left: 10px solid transparent;
-  border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
+  border-image: linear-gradient(45deg, rgba(183,110,121,1) 0%,rgba(183,110,121,0.2) 40%);
   border-image-slice: 1;
 }
 

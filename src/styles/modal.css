@@ -12,17 +12,15 @@
 }
 .container .modal {
   z-index: 1;
-  width: 350px;
-  height: 220px;
+  width: 700px;
+  height: 440px;
   background: white;
   display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 5px;
   position: relative;
   animation: animate 0.5s;
 }
-.modal button {
+.modal-button {
   position: absolute;
   top: 7px;
   right: 7px;

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import ReactDom from "react-dom";
 import '../styles/modal.css'
 
-export default function Modal({ setShowModal }) {
+export default function Modal({ setShowModal, children }) {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
@@ -15,8 +15,8 @@ export default function Modal({ setShowModal }) {
   return ReactDom.createPortal(
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal">
-        <h2>This is a Modal</h2>
-        <button onClick={() => setShowModal(false)}>X</button>
+        {children}
+        <button className="modal-button" onClick={() => setShowModal(false)}>X</button>
       </div>
     </div>,
     document.getElementById("portal")

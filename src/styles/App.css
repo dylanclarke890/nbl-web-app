@@ -26,7 +26,7 @@
 /* VARIABLES */
 
 :root {
-  --main-color: #1a8fff;
+  --main-color: rgba(183,110,121,1);
   --text-color: #777;
   --text-color-light: #ccc;
   --border-color: #eee;
