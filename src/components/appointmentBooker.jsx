@@ -82,7 +82,7 @@ export default function AppointmentBooker({setShowModal, availableTimes, date })
   const validate = () => {
     let error = false;
     if (!name) {
-      setInputValidation(inputValidation => ({...inputValidation, name:"Name is required (3 - 30 characters)."}));
+      setInputValidation(inputValidation => ({...inputValidation, name:"Must provide a name. (3 - 30 characters)."}));
       error = true;
     } else if (name < 3) {
       setInputValidation(inputValidation => ({...inputValidation, name:"Name must be between 3 and 30 characters."}));
@@ -105,14 +105,18 @@ export default function AppointmentBooker({setShowModal, availableTimes, date })
       setInputValidation(inputValidation => ({...inputValidation, number:""}));
     }
 
-    if (!email && !number) {
-      setInputValidation(inputValidation => ({...inputValidation, number:"Must provide an email or phone number.", email:"Must provide an email or phone number."}));
+    if (!email) {
+      setInputValidation(inputValidation => ({...inputValidation, email:"Must provide an email address."}));
+      error = true
+    }
+
+    if (!number){
+      setInputValidation(inputValidation => ({...inputValidation, number:"Must provide a phone number."}));
       error = true
     }
     if (error) {
       return false;
     }
-    setInputValidation(inputValidation => ({...inputValidation, email: "", number:""}));
     return true;
   }
 
