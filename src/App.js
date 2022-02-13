@@ -37,7 +37,7 @@ class App extends React.Component {
                     className="navbar-item"
                     to="/booking"
                   >
-                    Make A Booking
+                    Book Appointment
                   </NavLink>
                   <NavLink
                     activeClassName="navbar-item-active"

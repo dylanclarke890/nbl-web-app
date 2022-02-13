@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as dateFns from "date-fns";
 import './calendar.css'
 
@@ -8,7 +8,12 @@ function Calendar(){
 
   const nextMonth = () => setMonth(dateFns.addMonths(currentMonth, 1));
   const prevMonth = () => setMonth(dateFns.subMonths(currentMonth, 1));
-  const onDateClick = day => setDate(day);
+  const onDateClick = day => 
+  {
+    setDate(day);
+  };
+
+  useEffect(() => {console.log(selectedDate);}, selectedDate);
 
 
   const renderHeader = () => {
@@ -73,7 +78,7 @@ function Calendar(){
                 : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => onDateClick(dateFns.parse(cloneDay))}
+            onClick={() => onDateClick(cloneDay)}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
@@ -88,7 +93,7 @@ function Calendar(){
       );
       days = [];
     }
-    return <div className="body">{rows}</div>;
+    return (<div className="body">{rows}</div>);
   }
 
   return (
@@ -97,7 +102,7 @@ function Calendar(){
       {renderDays()}
       {renderCells()}
     </div>
-  );
+    );
 }
 
-export default Calendar
+export default Calendar;
