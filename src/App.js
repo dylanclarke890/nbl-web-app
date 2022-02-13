@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   NavLink,
 } from "react-router-dom";
 import Home from "./components/home";
@@ -21,7 +20,7 @@ class App extends React.Component {
           <main>
             <div>
               <nav className="navbar">
-                <NavLink className="navbar-brand" exact to="/">
+                <NavLink className="navbar-brand" to="/">
                   <img src={navbarLogo} className="navbar-img" />
                 </NavLink>
                 <div className="navbar-items-wrapper">
