@@ -3,9 +3,12 @@ import './home.css'
 
 function Home (){
     return (
-      <div className='wrapper'>
-        <h1>Welcome to NBL!</h1>
-        <hr/>
+      <div className='page-wrapper'>
+        <div className='welcome-shell'>
+          <p>Welcome to NBL!</p>
+          <hr/>
+           
+        </div>
       </div>
     )
 
