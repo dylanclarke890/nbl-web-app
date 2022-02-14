@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import {format} from "date-fns";
-import '../styles/appointmentBooker.css';
+import './appointment-picker.css';
 
-export default function AppointmentBooker({setShowModal, availableTimes, date }) {
+export default function AppointmentPicker({setShowModal, availableTimes, date }) {
   const times = [];
   for (let i = 0; i < availableTimes.length; i++) {
     const element = availableTimes[i];

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Calendar from "./calendar";
-import Modal from "./modal";
-import AppointmentBooker from "./appointmentBooker";
-import '../styles/booking.css';
+import Modal from "../modal";
+import AppointmentPicker from "./appointment-picker";
+import './booking.css';
 
 export default function Booking() {
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +19,7 @@ export default function Booking() {
       <div>
         {showModal ? (
           <Modal setShowModal={setShowModal}>
-            <AppointmentBooker setShowModal={setShowModal} date={selectedDate} availableTimes={["2:30 - 3:30", "3:30 - 4:30", "4:30 - 5:30"]} />
+            <AppointmentPicker setShowModal={setShowModal} date={selectedDate} availableTimes={["2:30 - 3:30", "3:30 - 4:30", "4:30 - 5:30"]} />
           </Modal>
         ) : null}
       </div>

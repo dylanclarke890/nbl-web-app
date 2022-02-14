@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as dateFns from "date-fns";
-import '../styles/calendar.css'
+import './calendar.css'
 
 export default function Calendar({handleSelectedDate}){
   const [selectedDate, setDate] = useState(new Date());
