@@ -6,7 +6,7 @@ import samplework3 from "../../images/portfolio/samplework3.jpg";
 import samplework4 from "../../images/portfolio/samplework4.jpg";
 import samplework5 from "../../images/portfolio/samplework5.jpg";
 import GalleryItem from "./gallery-item";
-import '../../styles/gallery.css';
+import '../../styles/gallery/gallery.css';
 
 export default function GalleryImageRow(){
   return (

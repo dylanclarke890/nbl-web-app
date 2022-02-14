@@ -1,0 +1,9 @@
+.gallery-images {
+  margin-top: 20px;
+}
+
+.gallery-image-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
