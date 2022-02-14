@@ -1,5 +1,5 @@
 import React from "react";
-import '../../styles/footer/social-icon.css';
+import './social-icon.css';
 
 export default function SocialIcon({link, children})
 {

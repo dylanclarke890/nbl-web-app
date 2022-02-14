@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import "../../styles/footer/footer.css";
+import "./footer.css";
 import SocialIcon from "./social-icon";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 

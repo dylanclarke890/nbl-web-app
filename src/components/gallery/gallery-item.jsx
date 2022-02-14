@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../styles/gallery/gallery-item.css";
+import "./gallery-item.css";
 
 export default function GalleryItem({ img, tags, caption, alt }) {
   return (
