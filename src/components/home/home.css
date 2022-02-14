@@ -4,17 +4,3 @@
   align-items: center;
   justify-content: center;
 }
-
-.welcome-shell p {
-  margin:0;
-  padding-bottom:0.1em;
-}
-.welcome-shell hr {
-  border-width:1.75px;
-  width: 100%;
-}
-
-.home-action-btn {
-  display: flex;
-  justify-content: center;
-}
