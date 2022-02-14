@@ -5,7 +5,7 @@ import Home from "./home";
 import Booking from "./booking";
 import Contact from "./contact";
 import Treatments from "./treatments";
-import Gallery from "./gallery";
+import Gallery from "./gallery/gallery";
 
 export default function MainContent() {
   return (
