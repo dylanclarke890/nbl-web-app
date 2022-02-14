@@ -1,6 +1,6 @@
 import React from 'react';
 import './navbar.css';
-import navbarLogo from "../../images/nbl-logo-brand.jpeg";
+import navbarLogo from "../../../images/nbl-logo-brand.jpeg";
 import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {

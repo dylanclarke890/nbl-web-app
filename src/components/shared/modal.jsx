@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import ReactDom from "react-dom";
-import '../styles/modal.css'
+import './modal.css'
 
 export default function Modal({ setShowModal, children }) {
   // close the modal when clicking outside the modal.

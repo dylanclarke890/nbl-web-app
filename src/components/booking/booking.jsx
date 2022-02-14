@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "./calendar";
-import Modal from "../modal";
+import Modal from "../shared/modal";
 import AppointmentPicker from "./appointment-picker";
 import './booking.css';
 

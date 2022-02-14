@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import Navbar from "./components/navbar/navbar";
-import MainContent from "./components/routing/main-content";
-import Footer from "./components/footer/footer";
+import Navbar from "./components/shared/navbar/navbar";
+import MainContent from "./components/shared/routing/main-content";
+import Footer from "./components/shared/footer/footer";
 
 import "./styles/App.css";
 

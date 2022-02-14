@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "../home/home";
-import Booking from "../booking/booking";
-import Contact from "../contact/contact";
-import Treatments from "../treatments/treatments";
-import Gallery from "../gallery/gallery";
+import Home from "../../home/home";
+import Booking from "../../booking/booking";
+import Contact from "../../contact/contact";
+import Treatments from "../../treatments/treatments";
+import Gallery from "../../gallery/gallery";
 
 export default function Router(){
   return (
