@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/contact.css";
+import "./contact.css";
 
 export default function Contact() {
   const [inputValidation, setInputValidation] = useState({
