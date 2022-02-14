@@ -6,6 +6,7 @@ import MainContent from "./components/shared/routing/main-content";
 import Footer from "./components/shared/footer/footer";
 
 import "./styles/App.css";
+import "./styles/site.css";
 
 export default class App extends React.Component {
   render() {

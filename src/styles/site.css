@@ -1,0 +1,121 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.text-left-padded {
+  text-align: left;
+  padding-left: 18%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.no-pad-margin {
+  padding: 0;
+  margin: 0;
+}
+
+svg {
+  height: 2em;
+  width: 2em;
+  margin: 0.5em;
+  color: rgba(183, 110, 121, 1);
+}
+
+.validation-message {
+  color: red;
+  font-size: 0.75em;
+  padding: 0;
+  margin: 0;
+
+}
+
+.float-right {
+  float: right;
+}
+
+.custom-field {
+  font-size: 14px;
+  position: relative;
+  border-top: 20px solid transparent;
+  margin-bottom: -10px;
+}
+
+.custom-field input {
+  border: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #f2f2f2;
+  padding: 12px;
+  border-radius: 3px;
+  width: 250px;
+  font-size: 14px;
+  cursor: default;
+}
+
+.custom-field .placeholder {
+  position: absolute;
+  left: 12px;
+  bottom: 50%;
+  height: fit-content;
+  top: 20px;  
+  transform: translateY(-50%);
+  width: calc(100% - 24px);  
+  color: #aaa;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: text;
+  text-overflow: ellipsis;
+  transition: 
+  top 0.3s ease,
+  color 0.3s ease,
+  font-size 0.3s ease;
+}
+
+.custom-field input:focus + .placeholder {
+  top: -10px;
+  font-size: 10px;
+  color: #222;
+}
+
+.custom-field .has-content,
+.custom-field input:not(:placeholder-shown) + .placeholder
+.custom-field input:focus + .placeholder {
+  top: -10px;
+  font-size: 10px;
+  color: #222;
+}
+
+.custom-field .has-content .custom-field + input {
+  cursor: text;
+}
+
+.custom-field input {
+  cursor: text;
+}
+
+.custom-field .error-message {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 12px;
+  background: #d30909;
+  color: #fff;
+  height: 24px;
+}
+.custom-field .error-message:empty {
+  opacity: 0;
+}
