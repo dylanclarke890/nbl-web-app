@@ -1,17 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import "../styles/footer.css";
-import Facebook from "./social-icons/facebook";
-import Instagram from "./social-icons/instagram";
+import "../../styles/footer/footer.css";
+import SocialIcon from "./social-icon";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const facebookLink = "https://www.facebook.com/NBLbyTanya/";
+  const instaLink = "https://www.instagram.com/nbl_bytanya/";
+
   return (
     <div className="footer">
       <div className="social-icons">
-        <Facebook />
-        <Instagram />
+        <SocialIcon link={facebookLink}><FaFacebook/></SocialIcon>
+        <SocialIcon link={instaLink}><FaInstagram/></SocialIcon>
       </div>
       <nav className="footer-nav">
         <div className="footer-items-wrapper">

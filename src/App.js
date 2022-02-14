@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import Navbar from "./components/navbar";
-import MainContent from "./components/mainContent";
-import Footer from "./components/footer";
+import MainContent from "./components/main-content";
+import Footer from "./components/footer/footer";
 
 import "./styles/App.css";
 
