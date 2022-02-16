@@ -9,7 +9,7 @@ export default function AppointmentPicker({setShowModal, availableTimes, date })
     const element = availableTimes[i];
     times.push(
       <div className="time-slot" key={i}>
-        {element}
+        {element.from} - {element.to}
       </div>
     );
   }

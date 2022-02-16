@@ -13,8 +13,8 @@ export default function CallToAction() {
         <div className="hero-img hero-work-three">
         </div>
       </div>
-    <div class="hero-box">
-      <div class="left-side">
+    <div className="hero-box">
+      <div className="left-side">
         <p className="title hero-title text-white">NBL by Tanya</p>
         <p className="text-white">
           High quality treatments available at low prices.
@@ -26,9 +26,9 @@ export default function CallToAction() {
           Book Now!
         </button>
       </div>
-      <div class="right-side">
-        <div class="image-box">
-          <div class="hero-image"></div>
+      <div className="right-side">
+        <div className="image-box">
+          <div className="hero-image"></div>
         </div>
       </div>
     </div>
