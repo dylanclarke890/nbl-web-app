@@ -13,7 +13,6 @@
 
 .hero-work-one {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../images/portfolio/samplework3.jpg");
-  
 }
 .hero-work-two {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../images/portfolio/samplework2.jpg");
@@ -21,7 +20,6 @@
 }
 .hero-work-three {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../images/portfolio/samplework1.jpg");
-  
 }
 
 .hero-img {

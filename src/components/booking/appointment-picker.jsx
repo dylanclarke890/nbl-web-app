@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {format} from "date-fns";
+import CustomInput from '../shared/input/custom-input.tsx';
 import './appointment-picker.css';
 
 export default function AppointmentPicker({setShowModal, availableTimes, date }) {
@@ -137,21 +138,9 @@ export default function AppointmentPicker({setShowModal, availableTimes, date })
       <div className="appointment-booker">
         <div className="available-times">{times}</div>
         <div className="appointment-form">
-        <div className="custom-field">
-          <input id="name-field" type="text" placeholder="&nbsp;" onChange={e => updateName(e.currentTarget.value)}/> 
-          <label htmlFor="name-field" className={nameActive ? 'placeholder has-content' : 'placeholder'}>Enter Name</label>
-          <span className="error-message" aria-live="polite">{inputValidation.name}</span>
-        </div>
-        <div className="custom-field">
-          <input id="phone-field" type="text" placeholder="&nbsp;" onKeyPress={handleNumberKeyPress} onChange={e => updateNumber(e.currentTarget.value)}/> 
-          <label htmlFor="phone-field" className={numberActive ? 'placeholder has-content' : 'placeholder'}>Enter Number</label>
-          <span className="error-message" aria-live="polite">{inputValidation.number}</span>
-        </div>
-        <div className="custom-field">
-          <input id="email-field" type="text" placeholder="&nbsp;" onChange={e => updateEmail(e.currentTarget.value)}/> 
-          <label htmlFor="email-field" className={emailActive ? 'placeholder has-content' : 'placeholder'}>Enter Email</label>
-          <span className="error-message" aria-live="polite">{inputValidation.email}</span>
-        </div>
+          <CustomInput inputId={'name'} active={nameActive} error={inputValidation.name} onChange={updateName} />
+          <CustomInput inputId={'phone'} active={numberActive} error={inputValidation.number} onChange={updateNumber} onKeyPress={handleNumberKeyPress} />
+          <CustomInput inputId={'email'} active={emailActive} error={inputValidation.email} onChange={updateEmail} />
           <br/>
           <button className="btn cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
           <button className="btn float-right" onClick={() => submit()}>Confirm</button>

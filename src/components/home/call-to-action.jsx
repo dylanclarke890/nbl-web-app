@@ -1,10 +1,6 @@
 import React from "react";
 
-import samplework1 from '../../images/portfolio/samplework1.jpg';
-import samplework2 from '../../images/portfolio/samplework2.jpg';
-import samplework3 from '../../images/portfolio/samplework3.jpg';
 import "./call-to-action.css";
-
 
 export default function CallToAction() {
   return (

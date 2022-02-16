@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import CustomInput from "../shared/input/custom-input.tsx";
+import CustomTextArea from "../shared/input/custom-textarea.tsx";
+
 import "./contact.css";
 
 export default function Contact() {
@@ -171,76 +174,10 @@ export default function Contact() {
     <div className="contact-content">
       <p className="text-center contact-title">Contact Us</p>
       <div className="contact-form">
-        <div className="custom-contact-field">
-          <input
-            id="name-field"
-            type="text"
-            placeholder="&nbsp;"
-            onChange={(e) => updateName(e.currentTarget.value)}
-          />
-          <label
-            htmlFor="name-field"
-            className={nameActive ? "contact-placeholder has-content" : "contact-placeholder"}
-          >
-            Enter Name
-          </label>
-          <span className="error-message" aria-live="polite">
-            {inputValidation.name}
-          </span>
-        </div>
-        <div className="custom-contact-field">
-          <input
-            id="phone-field"
-            type="text"
-            placeholder="&nbsp;"
-            onKeyPress={handleNumberKeyPress}
-            onChange={(e) => updateNumber(e.currentTarget.value)}
-          />
-          <label
-            htmlFor="phone-field"
-            className={numberActive ? "contact-placeholder has-content" : "contact-placeholder"}
-          >
-            Enter Number
-          </label>
-          <span className="error-message" aria-live="polite">
-            {inputValidation.number}
-          </span>
-        </div>
-        <div className="custom-contact-field">
-          <input
-            id="email-field"
-            type="text"
-            placeholder="&nbsp;"
-            onChange={(e) => updateEmail(e.currentTarget.value)}
-          />
-          <label
-            htmlFor="email-field"
-            className={emailActive ? "contact-placeholder has-content" : "contact-placeholder"}
-          >
-            Enter Email
-          </label>
-          <span className="error-message" aria-live="polite">
-            {inputValidation.email}
-          </span>
-        </div>
-        <div className="custom-contact-field">
-          <textarea
-            id="message-field"
-            placeholder="&nbsp;"
-            onChange={(e) => updateMessage(e.currentTarget.value)}
-          />
-          <label
-            htmlFor="message-field"
-            className={
-              messageActive ? "contact-placeholder has-content" : "contact-placeholder"
-            }
-          >
-            Enter Message
-          </label>
-          <span className="error-message" aria-live="polite">
-            {inputValidation.message}
-          </span>
-        </div>
+        <CustomInput inputId={'name'} active={nameActive} error={inputValidation.name} onChange={updateName} />
+        <CustomInput inputId={'phone'} active={numberActive} error={inputValidation.number} onChange={updateNumber} onKeyPress={handleNumberKeyPress} />
+        <CustomInput inputId={'email'} active={emailActive} error={inputValidation.email} onChange={updateEmail} />
+        <CustomTextArea inputId={'message'} active={messageActive} error={inputValidation.message} onChange={updateMessage} />
         <br/>
         <div className="form-button">
           <button onClick={submit} className="contact-btn" type="button">
