@@ -4,7 +4,7 @@ import './custom-textarea.css';
 
 export default function CustomTextArea({ inputId, error, active, onChange }) {
   return (
-    <div className="custom-contact-field">
+    <div className="custom-field">
       <textarea
         id={inputId}
         placeholder="&nbsp;"
@@ -14,8 +14,8 @@ export default function CustomTextArea({ inputId, error, active, onChange }) {
         htmlFor={inputId}
         className={
           active
-            ? "contact-placeholder has-content"
-            : "contact-placeholder"
+            ? "placeholder has-content"
+            : "placeholder"
         }
       >
         Enter {inputId}
