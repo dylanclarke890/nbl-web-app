@@ -1,40 +1,56 @@
 import React, { useState, useEffect } from "react";
-import Axios from 'axios';
+import Axios from "axios";
 
 import Calendar from "./calendar";
 import Modal from "../shared/modal";
 import AppointmentPicker from "./appointment-picker";
-import './booking.css';
+import "./booking.css";
 
 export default function Booking() {
   const [showModal, setShowModal] = useState(false);
-  const [selectedDate, setDate] = useState(new Date());
   const [availableTimes, setAvailableTimes] = useState("");
+  const [selectedDate, setDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState("");
 
   const openModal = () => setShowModal(true);
 
   const updateDate = (date) => {
     setDate(date);
     openModal();
+  };
+
+  const updateTime = (time) => {
+    setSelectedTime(time);
+  }
+
+  const closeModal = () => {
+    setSelectedTime("");
+    setShowModal(false);
   }
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/appointments").then(res => {
-    setAvailableTimes(res.data.times);
-    console.log(res.data.times);
-  })}, []);
+    Axios.get("http://localhost:3001/api/appointments").then((res) => {
+      setAvailableTimes(res.data.times);
+    });
+  }, []);
 
   return (
     <div className="booking-content">
       <div>
         {showModal ? (
           <Modal setShowModal={setShowModal}>
-            <AppointmentPicker setShowModal={setShowModal} date={selectedDate} availableTimes={availableTimes} />
+            <AppointmentPicker
+              closeModal={closeModal}
+              date={selectedDate}
+              availableTimes={availableTimes}
+              setSelectedTime={updateTime}
+              selectedTime={selectedTime}
+            />
           </Modal>
         ) : null}
       </div>
       <div className="calendar-wrapper">
-        <Calendar handleSelectedDate={date => updateDate(date)}/>
+        <Calendar handleSelectedDate={(date) => updateDate(date)} />
       </div>
     </div>
   );

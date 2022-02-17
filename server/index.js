@@ -7,12 +7,12 @@ const app = express();
 app.use(cors());
 
 const times = [
-  { from: "1:30pm", to: "2:30pm" },
-  { from: "1:30am", to: "2:30am" },
-  { from: "12:30pm", to: "13:30pm" },
-  { from: "12:30am", to: "1:30am" },
-  { from: "2:30pm", to: "3:30pm" },
-  { from: "2:30am", to: "3:30am" },
+  { id:"1", from: "1:30pm", to: "2:30pm" },
+  { id:"2", from: "1:30am", to: "2:30am" },
+  { id:"3", from: "12:30pm", to: "13:30pm" },
+  { id:"4", from: "12:30am", to: "1:30am" },
+  { id:"5", from: "2:30pm", to: "3:30pm" },
+  { id:"6", from: "2:30am", to: "3:30am" },
 ];
 
 app.get("/api/appointments", (req, res) => {
