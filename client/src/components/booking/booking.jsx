@@ -28,6 +28,13 @@ export default function Booking() {
     setShowModal(false);
   }
 
+  const setModal = (isActive) => {
+    if (!isActive) {
+      setSelectedTime("");
+    }
+    setShowModal(isActive);
+  } 
+
   useEffect(() => {
     Axios.get("http://localhost:3001/api/appointments").then((res) => {
       setAvailableTimes(res.data.times);
@@ -38,7 +45,7 @@ export default function Booking() {
     <div className="booking-content">
       <div>
         {showModal ? (
-          <Modal setShowModal={setShowModal}>
+          <Modal setShowModal={setModal}>
             <AppointmentPicker
               closeModal={closeModal}
               date={selectedDate}
