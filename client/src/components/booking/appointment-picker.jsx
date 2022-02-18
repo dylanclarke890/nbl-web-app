@@ -16,7 +16,7 @@ export default function AppointmentPicker({
     const content = `${currItem.from} - ${currItem.to}`;
     times.push(
       <div
-        className={selectedTime == currItem.id ? "time-slot selected-time" : "time-slot"}
+        className={selectedTime === currItem.id ? "time-slot selected-time" : "time-slot"}
         key={i}
         onClick={() => setSelectedTime(currItem.id)}
       >
@@ -166,7 +166,7 @@ export default function AppointmentPicker({
     }
   };
   const dateFormat = "eee dd MMM yyyy";
-  const titleMessage = selectedTime == "" ? format(date, dateFormat) : `${format(date, dateFormat)} - ${selectedTime}`
+  const titleMessage = selectedTime === "" ? format(date, dateFormat) : `${format(date, dateFormat)} - ${selectedTime}`
   return (
     <div className="w-100">
       <header className="booker-header">
