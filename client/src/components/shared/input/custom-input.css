@@ -69,6 +69,7 @@
   background: #d30909;
   color: #fff;
   height: 24px;
+  margin-bottom: 15px;
 }
 .custom-field .error-message:empty {
   opacity: 0;

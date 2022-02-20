@@ -16,7 +16,6 @@ export default function AppointmentPicker({
   const times = [];
   for (let i = 0; i < availableTimes.length; i++) {
     const currItem = availableTimes[i];
-    const content = `${currItem.from} - ${currItem.to}`;
     times.push(
       <div
         className={
@@ -25,7 +24,7 @@ export default function AppointmentPicker({
         key={i}
         onClick={() => setSelectedTime(currItem.id)}
       >
-        {content}
+        {currItem.appointmentTime(" - ")}
       </div>
     );
   }
@@ -55,7 +54,7 @@ export default function AppointmentPicker({
   const titleMessage =
     selectedTime === ""
       ? format(date, dateFormat)
-      : `${format(date, dateFormat)} - ${selectedTime}`;
+      : `${format(date, dateFormat)} - ${availableTimes.find(t => t.id === selectedTime)?.appointmentTime(" to ")}`;
   return (
     <div className="w-100">
       <header className="booker-header">
@@ -76,7 +75,6 @@ export default function AppointmentPicker({
             phone={phone}
             setPhone={setPhone}
           />
-          <br />
           <button className="btn cancel-btn" onClick={() => closeModal()}>
             Cancel
           </button>

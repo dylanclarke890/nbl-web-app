@@ -5,10 +5,11 @@ import Calendar from "./calendar";
 import Modal from "../shared/modal";
 import AppointmentPicker from "./appointment-picker";
 import "./booking.css";
+import Appointment from "../../models/appointment";
 
 export default function Booking() {
   const [showModal, setShowModal] = useState(false);
-  const [availableTimes, setAvailableTimes] = useState("");
+  const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
   const [selectedDate, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
 
@@ -37,7 +38,9 @@ export default function Booking() {
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/appointments").then((res) => {
-      setAvailableTimes(res.data.times);
+      let times: Appointment[] = [];
+      res.data.times.forEach((el: { id: string; day: Date; from: string; to: string; }) => times.push(new Appointment(el.id, el.from, el.to)));
+      setAvailableTimes(times);
     });
   }, []);
 
