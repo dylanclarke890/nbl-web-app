@@ -6,7 +6,7 @@ interface ICalendar {
   handleSelectedDate: any
 }
 
-export default function Calendar({handleSelectedDate} : ICalendar){
+export default function Calendar({ handleSelectedDate }: ICalendar) {
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());
 
@@ -71,11 +71,10 @@ export default function Calendar({handleSelectedDate} : ICalendar){
         const cloneDay = day;
         days.push(
           <div
-            className={`col cell ${
-              !dateFns.isSameMonth(day, monthStart) || (!dateFns.isToday(day) && dateFns.isAfter(new Date(), day))
+            className={`col cell ${!dateFns.isSameMonth(day, monthStart) || (!dateFns.isToday(day) && dateFns.isAfter(new Date(), day))
                 ? "disabled"
                 : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
-            }`}
+              }`}
             key={JSON.stringify(day)}
             onClick={() => onDateClick(cloneDay)}
           >
@@ -101,5 +100,5 @@ export default function Calendar({handleSelectedDate} : ICalendar){
       {renderDays()}
       {renderCells()}
     </div>
-    );
+  );
 }

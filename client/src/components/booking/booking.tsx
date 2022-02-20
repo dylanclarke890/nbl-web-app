@@ -14,12 +14,12 @@ export default function Booking() {
 
   const openModal = () => setShowModal(true);
 
-  const updateDate = (date : Date) => {
+  const updateDate = (date: Date) => {
     setDate(date);
     openModal();
   };
 
-  const updateTime = (time : string) => {
+  const updateTime = (time: string) => {
     setSelectedTime(time);
   }
 
@@ -28,12 +28,12 @@ export default function Booking() {
     setShowModal(false);
   }
 
-  const setModal = (isActive : boolean) => {
+  const setModal = (isActive: boolean) => {
     if (!isActive) {
       setSelectedTime("");
     }
     setShowModal(isActive);
-  } 
+  }
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/appointments").then((res) => {
