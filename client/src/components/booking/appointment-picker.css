@@ -15,7 +15,7 @@ header p {
 .time-slot {
   width: 12em;
   height: 3em;
-  background-color: rgba(183,110,121,0.1);
+  background-color: rgba(183, 110, 121, 0.1);
   border-radius: 0.25em;
   margin: 1em;
   display: flex;
@@ -30,7 +30,7 @@ header p {
 }
 
 .time-slot:hover {
-  background-color: rgba(183,110,121,0.2);
+  background-color: rgba(183, 110, 121, 0.2);
 }
 
 .selected-time {
@@ -38,7 +38,7 @@ header p {
 }
 
 .btn {
-  background-color: rgba(183,110,121,1);
+  background-color: rgba(183, 110, 121, 1);
   border: none;
   color: white;
   padding: 15px 32px;
@@ -52,7 +52,7 @@ header p {
 }
 
 .cancel-btn {
-  background-color: rgba(183,110,121,0.6);
+  background-color: rgba(183, 110, 121, 0.6);
   padding: 10px 24px;
   margin-top: 10px;
 }

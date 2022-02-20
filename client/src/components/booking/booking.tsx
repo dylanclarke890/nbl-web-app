@@ -14,12 +14,12 @@ export default function Booking() {
 
   const openModal = () => setShowModal(true);
 
-  const updateDate = (date) => {
+  const updateDate = (date : Date) => {
     setDate(date);
     openModal();
   };
 
-  const updateTime = (time) => {
+  const updateTime = (time : string) => {
     setSelectedTime(time);
   }
 
@@ -28,7 +28,7 @@ export default function Booking() {
     setShowModal(false);
   }
 
-  const setModal = (isActive) => {
+  const setModal = (isActive : boolean) => {
     if (!isActive) {
       setSelectedTime("");
     }
@@ -57,7 +57,7 @@ export default function Booking() {
         ) : null}
       </div>
       <div className="calendar-wrapper">
-        <Calendar handleSelectedDate={(date) => updateDate(date)} />
+        <Calendar handleSelectedDate={(date: Date) => updateDate(date)} />
       </div>
     </div>
   );

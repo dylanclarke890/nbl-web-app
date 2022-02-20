@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import * as dateFns from "date-fns";
 import './calendar.css'
 
-export default function Calendar({handleSelectedDate}){
+interface ICalendar {
+  handleSelectedDate: any
+}
+
+export default function Calendar({handleSelectedDate} : ICalendar){
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());
 
   const nextMonth = () => setMonth(dateFns.addMonths(currentMonth, 1));
   const prevMonth = () => setMonth(dateFns.subMonths(currentMonth, 1));
-  const onDateClick = day => {
+  const onDateClick = (day: Date) => {
     setDate(day);
     handleSelectedDate(day);
   }
@@ -72,7 +76,7 @@ export default function Calendar({handleSelectedDate}){
                 ? "disabled"
                 : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
             }`}
-            key={day}
+            key={JSON.stringify(day)}
             onClick={() => onDateClick(cloneDay)}
           >
             <span className="number">{formattedDate}</span>
@@ -82,7 +86,7 @@ export default function Calendar({handleSelectedDate}){
         day = dateFns.addDays(day, 1);
       }
       rows.push(
-        <div className="row" key={day}>
+        <div className="row" key={JSON.stringify(day)}>
           {days}
         </div>
       );
