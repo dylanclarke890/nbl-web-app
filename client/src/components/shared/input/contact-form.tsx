@@ -1,4 +1,5 @@
 import React from 'react'
+import { useCallback, useEffect } from 'react';
 
 import * as Validation from '../../../helpers/validation'
 import CustomInput from "./custom-input";
@@ -22,16 +23,9 @@ interface IContactForm {
 }
 
 export default function ContactForm({ inputValidation, setInputValidation, name, setName, email, setEmail, phone, setPhone }: IContactForm) {
-
-  const handleNumberKeyPress = (e: KeyboardEvent) => {
-    if (e.key !== "+" && !Validation.isNumber(e.key)) {
-      e.preventDefault();
-    }
-  };
-
   const emptyKeyBoardEventHandler = (e: KeyboardEvent) => { };
 
-  function validateName(): void {
+  const validateName = useCallback((): void => {
     if (!name) {
       setInputValidation((inputValidation: formValidation) => ({
         ...inputValidation,
@@ -41,7 +35,7 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
     } else if (name.length < 3) {
       setInputValidation((inputValidation: formValidation) => ({
         ...inputValidation,
-        name: "Name must be between 3 and 30 characters.",
+        name: "Must be between 3 and 30 characters.",
         error: true
       }));
     } else {
@@ -51,24 +45,23 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
         error: false
       }));
     }
-  }
+  }, [name, setInputValidation])
 
-  const nameChanged = (e: string) => {
-    setName(e);
+  useEffect(() => {
     validateName();
-  }
+  }, [name, validateName])
 
-  function validateEmail(): void {
+  const validateEmail = useCallback((): void => {
     if (!email) {
       setInputValidation((inputValidation: formValidation) => ({
         ...inputValidation,
-        email: "Must provide an email address.",
+        email: "Must provide an email.",
         error: true
       }));
     } else if (email && !Validation.validateEmail(email)) {
       setInputValidation((inputValidation: formValidation) => ({
         ...inputValidation,
-        email: "Must provide a valid email address.",
+        email: "Must provide a valid email.",
         error: true
       }));
     } else {
@@ -78,22 +71,20 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
         error: false
       }));
     }
-  }
+  }, [email, setInputValidation])
 
-  const emailChanged = (e: string) => {
-    setEmail(e);
+  useEffect(() => {
     validateEmail();
-  }
+  }, [email, validateEmail])
 
-  function validatePhone(): void {
+  const validatePhone = useCallback((): void => {
     if (!phone) {
       setInputValidation((inputValidation: formValidation) => ({
         ...inputValidation,
         phone: "Must provide a phone number.",
         error: true
       }));
-    }
-    if (phone && !Validation.validatePhone(phone)) {
+    }else if (phone && !Validation.validatePhone(phone)) {
       setInputValidation((inputValidation: formValidation) => ({
         ...inputValidation,
         phone: "Must provide a valid number.",
@@ -106,31 +97,30 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
         error: false
       }));
     }
-  }
+  }, [phone, setInputValidation])
 
-  const phoneChanged = (e: string) => {
-    setPhone(e);
+  useEffect(() => {
     validatePhone();
-  }
+  }, [phone, validatePhone])
 
   return (
     <>
       <CustomInput inputId={"name"}
         active={name !== ""}
         error={inputValidation.name}
-        onChange={nameChanged}
+        onChange={setName}
         onKeyPress={emptyKeyBoardEventHandler}
       />
       <CustomInput inputId={"phone"}
         active={phone !== ""}
         error={inputValidation.phone}
-        onChange={phoneChanged}
-        onKeyPress={handleNumberKeyPress}
+        onChange={setPhone}
+        onKeyPress={Validation.handleNumberKeyPress}
       />
       <CustomInput inputId={"email"}
         active={email !== ""}
         error={inputValidation.email}
-        onChange={emailChanged}
+        onChange={setEmail}
         onKeyPress={emptyKeyBoardEventHandler}
       />
     </>
