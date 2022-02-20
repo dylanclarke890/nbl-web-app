@@ -1,12 +1,12 @@
 import React from 'react';
 import './navbar.css';
-import navbarLogo from "../../../images/nbl-logo-brand.jpeg";
 import { NavLink } from 'react-router-dom';
+const imageSrc = require("../../../images/nbl-logo-brand.jpeg")
 
 export default function Navbar() {
   return <nav className="navbar">
     <NavLink className="navbar-brand" to="/">
-      <img src={navbarLogo} className="navbar-img" alt='brand'/>
+      <img src={imageSrc} className="navbar-img" alt='brand'/>
     </NavLink>
     <div className="navbar-items-wrapper">
       <NavLink

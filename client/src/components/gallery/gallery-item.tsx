@@ -2,7 +2,14 @@ import React from "react";
 
 import "./gallery-item.css";
 
-export default function GalleryItem({ img, tags, caption, alt }) {
+interface IGalleryItem {
+  img: string,
+  tags: string,
+  caption: string,
+  alt: string
+}
+
+export default function GalleryItem({ img, tags, caption, alt } : IGalleryItem) {
   return (
     <div className="polaroid-wrapper">
       <div className="polaroid">

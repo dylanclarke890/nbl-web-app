@@ -1,8 +1,12 @@
 import React from "react";
 import './social-icon.css';
 
-export default function SocialIcon({link, children})
-{
+interface ISocialIcon {
+  link: string,
+  children: React.ReactChild
+}
+
+export default function SocialIcon({ link, children }: ISocialIcon) {
   const onClick = () => {
     window.location.href = link;
   }

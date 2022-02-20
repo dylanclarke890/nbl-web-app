@@ -10,11 +10,11 @@ import Gallery from "../../gallery/gallery";
 export default function Router(){
   return (
     <Routes>
-    <Route exact path="/" element={<Home />}></Route>
-    <Route exact path="/book-appointment" element={<Booking />}></Route>
-    <Route exact path="/treatments" element={<Treatments />}></Route>
-    <Route exact path="/gallery" element={<Gallery />}></Route>
-    <Route exact path="/contact" element={<Contact />}></Route>
+    <Route path="/" element={<Home />}></Route>
+    <Route path="/book-appointment" element={<Booking />}></Route>
+    <Route path="/treatments" element={<Treatments />}></Route>
+    <Route path="/gallery" element={<Gallery />}></Route>
+    <Route path="/contact" element={<Contact />}></Route>
   </Routes>
   )
 }
