@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import "./appointment-picker.css";
 import ContactForm from "../shared/input/contact-form";
-import { useEffect } from "react";
-import { useRef } from "react";
+import useOnInitialized from "../../custom-hooks/onInitialized";
 
 interface IAppointmentPicker {
   closeModal: any,
@@ -55,13 +54,8 @@ export default function AppointmentPicker({
     }
   };
 
-  const firstRender = useRef(true);
-  useEffect(() => {
-    if (!firstRender.current) {
-      return;
-    }
+  useOnInitialized(() => {
     setInputValidation({ name: "", email: "", phone: "", error: false });
-    firstRender.current = false;
   }, [])
 
   const dateFormat = "eee dd MMM yyyy";

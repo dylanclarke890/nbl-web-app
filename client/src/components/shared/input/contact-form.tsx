@@ -84,7 +84,7 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
         phone: "Must provide a phone number.",
         error: true
       }));
-    }else if (phone && !Validation.validatePhone(phone)) {
+    } else if (phone && !Validation.validatePhone(phone)) {
       setInputValidation((inputValidation: formValidation) => ({
         ...inputValidation,
         phone: "Must provide a valid number.",

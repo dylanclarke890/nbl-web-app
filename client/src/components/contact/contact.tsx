@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useCallback } from "react";
+import useOnInitialized from "../../custom-hooks/onInitialized";
 
 import ContactForm from "../shared/input/contact-form";
 import CustomTextArea from "../shared/input/custom-textarea";
@@ -42,13 +43,8 @@ export default function Contact() {
     validateMessage();
   }, [message, validateMessage])
 
-  const firstRender = useRef(true);
-  useEffect(() => {
-    if (!firstRender.current) {
-      return;
-    }
+  useOnInitialized(() => {
     setInputValidation({ name: "", email: "", phone: "", message: "", error: false });
-    firstRender.current = false;
   }, [])
 
   const submit = () => {
