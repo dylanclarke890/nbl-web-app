@@ -4,14 +4,7 @@ import { format } from "date-fns";
 import "./appointment-picker.css";
 import ContactForm from "../shared/input/contact-form";
 import useOnInitialized from "../../custom-hooks/onInitialized";
-
-interface IAppointmentPicker {
-  closeModal: any,
-  availableTimes: any,
-  date: Date,
-  setSelectedTime: any,
-  selectedTime: string
-}
+import IAppointmentPicker from "../../interfaces/IAppointmentPicker";
 
 export default function AppointmentPicker({
   closeModal,

@@ -2,44 +2,28 @@ import React from 'react'
 import { useCallback, useEffect } from 'react';
 
 import * as Validation from '../../../helpers/validation'
+import IContactForm from '../../../interfaces/IContactForm';
+import IInputValidation from '../../../interfaces/IInputValidation';
 import CustomInput from "./custom-input";
-
-interface formValidation {
-  name: string,
-  phone: string,
-  email: string,
-  error: Boolean
-}
-
-interface IContactForm {
-  inputValidation: any,
-  setInputValidation: any,
-  name: string,
-  setName: any,
-  email: string,
-  setEmail: any,
-  phone: string,
-  setPhone: any
-}
 
 export default function ContactForm({ inputValidation, setInputValidation, name, setName, email, setEmail, phone, setPhone }: IContactForm) {
   const emptyKeyBoardEventHandler = (e: KeyboardEvent) => { };
 
   const validateName = useCallback((): void => {
     if (!name) {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         name: "Must provide a name. (3 - 30 characters).",
         error: true
       }));
     } else if (name.length < 3) {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         name: "Must be between 3 and 30 characters.",
         error: true
       }));
     } else {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         name: "",
         error: false
@@ -53,19 +37,19 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
 
   const validateEmail = useCallback((): void => {
     if (!email) {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         email: "Must provide an email.",
         error: true
       }));
     } else if (email && !Validation.validateEmail(email)) {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         email: "Must provide a valid email.",
         error: true
       }));
     } else {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         email: "",
         error: false
@@ -79,19 +63,19 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
 
   const validatePhone = useCallback((): void => {
     if (!phone) {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         phone: "Must provide a phone number.",
         error: true
       }));
     } else if (phone && !Validation.validatePhone(phone)) {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         phone: "Must provide a valid number.",
         error: true
       }));
     } else {
-      setInputValidation((inputValidation: formValidation) => ({
+      setInputValidation((inputValidation: IInputValidation) => ({
         ...inputValidation,
         phone: "",
         error: false

@@ -1,13 +1,7 @@
 import React from "react";
+import IGalleryItem from "../../interfaces/IGalleryItem";
 
 import "./gallery-item.css";
-
-interface IGalleryItem {
-  img: string,
-  tags: string,
-  caption: string,
-  alt: string
-}
 
 export default function GalleryItem({ img, tags, caption, alt } : IGalleryItem) {
   return (

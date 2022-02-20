@@ -1,11 +1,7 @@
 import React, { useRef } from "react";
 import ReactDom from "react-dom";
+import IModal from "../../interfaces/IModal";
 import './modal.css'
-
-interface IModal {
-  setShowModal: any,
-  children: any
-}
 
 export default function Modal({ setShowModal, children } : IModal) {
   // close the modal when clicking outside the modal.

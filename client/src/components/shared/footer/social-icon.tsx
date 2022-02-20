@@ -1,10 +1,6 @@
 import React from "react";
+import ISocialIcon from "../../../interfaces/ISocialIcon";
 import './social-icon.css';
-
-interface ISocialIcon {
-  link: string,
-  children: React.ReactChild
-}
 
 export default function SocialIcon({ link, children }: ISocialIcon) {
   const onClick = () => {

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import * as dateFns from "date-fns";
 import './calendar.css'
-
-interface ICalendar {
-  handleSelectedDate: any
-}
+import ICalendar from '../../interfaces/ICalendar';
 
 export default function Calendar({ handleSelectedDate }: ICalendar) {
   const [selectedDate, setDate] = useState(new Date());

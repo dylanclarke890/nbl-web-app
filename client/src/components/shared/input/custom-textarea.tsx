@@ -1,15 +1,9 @@
 import React from "react";
+import ICustomTextArea from "../../../interfaces/ICustomTextArea";
 
 import './custom-textarea.css';
 
-interface TextArea {
-  inputId: string,
-  error: string,
-  active: boolean,
-  onChange: any,
-}
-
-export default function CustomTextArea({ inputId, error, active, onChange }: TextArea) {
+export default function CustomTextArea({ inputId, error, active, onChange }: ICustomTextArea) {
   return (
     <div className="custom-field">
       <textarea
