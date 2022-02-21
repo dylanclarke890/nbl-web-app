@@ -6,6 +6,7 @@ import Modal from "../shared/modal";
 import AppointmentPicker from "./appointment-picker";
 import "./booking.css";
 import Appointment from "../../models/appointment";
+import AppointmentConfirmation from "./appointment-confirmation";
 
 export default function Booking() {
   const [showModal, setShowModal] = useState(false);
@@ -66,16 +67,14 @@ export default function Booking() {
                 onSuccessfulSubmit={changeSlide}
               />
             ) : (
-              <div className="appointment-confirmation">
-                <p className="text-center title">Success! Your appointment is confirmed for {selectedDate.toDateString()} {successInfo.time}.</p>
-                <p className="text-center title">{successInfo.reference}</p>
-              </div>
+              <AppointmentConfirmation reference={successInfo.reference}
+                date={selectedDate} time={successInfo.time} />
             )}
           </Modal>
         ) : null}
       </div>
       <div className="calendar-wrapper">
-        <Calendar handleSelectedDate={(date: Date) => updateDate(date)} />
+        <Calendar handleSelectedDate={updateDate} />
       </div>
     </div>
   );

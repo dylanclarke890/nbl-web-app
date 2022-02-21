@@ -15,7 +15,6 @@
   width: 700px;
   height: 440px;
   background: white;
-  display: flex;
   border-radius: 5px;
   position: relative;
   animation: animate 0.5s;
