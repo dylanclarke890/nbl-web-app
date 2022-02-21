@@ -71,3 +71,7 @@ svg {
 .float-left {
   float: left;
 }
+
+.hidden {
+  display: none;
+}
