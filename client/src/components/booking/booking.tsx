@@ -44,18 +44,33 @@ export default function Booking() {
     });
   }, []);
 
+  const [currSlide, setCurrSlide] = useState(0);
+  const [successInfo, setSuccessInfo] = useState({ message: "", reference: "", time: "" });
+  const changeSlide = (res: any) => {
+    setSuccessInfo(res);
+    setCurrSlide(1);
+  }
+
   return (
     <div className="booking-content">
       <div>
         {showModal ? (
           <Modal setShowModal={setModal}>
-            <AppointmentPicker
-              closeModal={closeModal}
-              date={selectedDate}
-              availableTimes={availableTimes}
-              setSelectedTime={updateTime}
-              selectedTime={selectedTime}
-            />
+            {currSlide === 0 ? (
+              <AppointmentPicker
+                closeModal={closeModal}
+                date={selectedDate}
+                availableTimes={availableTimes}
+                setSelectedTime={updateTime}
+                selectedTime={selectedTime}
+                onSuccessfulSubmit={changeSlide}
+              />
+            ) : (
+              <div className="appointment-confirmation">
+                <p className="text-center title">Success! Your appointment is confirmed for {selectedDate.toDateString()} {successInfo.time}.</p>
+                <p className="text-center title">{successInfo.reference}</p>
+              </div>
+            )}
           </Modal>
         ) : null}
       </div>

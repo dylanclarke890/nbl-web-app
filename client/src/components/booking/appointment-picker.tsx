@@ -13,6 +13,7 @@ export default function AppointmentPicker({
   date,
   setSelectedTime,
   selectedTime,
+  onSuccessfulSubmit
 }: IAppointmentPicker) {
   const times = [];
   for (let i = 0; i < availableTimes.length; i++) {
@@ -47,13 +48,47 @@ export default function AppointmentPicker({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
+  const checkForEmptyInputs = () => {
+    if (!name) {
+      setInputValidation((inputValidation) => ({
+        ...inputValidation,
+        name: "Must provide a name.",
+        error: true
+      }))
+    }
+    if (!email) {
+      setInputValidation((inputValidation) => ({
+        ...inputValidation,
+        email: "Must provide an email address.",
+        error: true
+      }))
+    }
+    if (!phone) {
+      setInputValidation((inputValidation) => ({
+        ...inputValidation,
+        phone: "Must provide a number.",
+        error: true
+      }))
+    }
+  }
+
   const submit = () => {
+    checkForEmptyInputs();
+
     if (inputValidation.error || selectedTime === "") {
       return;
     }
 
-    axios.post("http://localhost:3001/api/appointments/new", { id: selectedTime, name: name, email: email, phone: phone })
-    .then(res => console.log(res));
+    axios.post("http://localhost:3001/api/appointments/new",
+      { id: selectedTime, name: name, email: email, phone: phone })
+      .then(res => {
+        const successInfo = {
+          message: res.data.message,
+          reference: res.data.reference,
+          time: availableTimes.find(i => i.id === selectedTime)?.appointmentTime(" - ")
+        };
+        onSuccessfulSubmit(successInfo);
+      });
   };
 
   useOnInitialized(() => {

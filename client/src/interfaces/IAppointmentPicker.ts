@@ -5,5 +5,6 @@ export default interface IAppointmentPicker {
   availableTimes: Appointment[],
   date: Date,
   setSelectedTime: any,
-  selectedTime: string
+  selectedTime: string,
+  onSuccessfulSubmit: any
 }
