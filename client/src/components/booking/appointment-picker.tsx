@@ -124,10 +124,9 @@ export default function AppointmentPicker({
   return (
     <div className="w-100">
       <header className="booker-header">
-        <p className={timeErrorShowing ?
-          "text-center title text-error" : "text-center title"}>{titleMessage}</p>
+        <p className="text-center title">{titleMessage}</p>
         <br />
-        <p className="text-left pad-left-18 title">Select a time:</p>
+        <p className={`text-left pad-left-18 title ${timeErrorShowing ? "text-error": null}`}>Select a time:</p>
       </header>
       <div className="appointment-booker">
         <div>
