@@ -32,6 +32,10 @@
   color: #fff;
 }
 
+.text-error {
+  color: #d30909;
+}
+
 .pad-left-18 {
   padding-left: 18%;
 }
