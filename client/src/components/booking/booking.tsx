@@ -17,8 +17,8 @@ export default function Booking() {
   const openModal = () => setShowModal(true);
 
   const updateDate = (date: Date) => {
-    setDate(date);
     openModal();
+    setDate(date);
   };
 
   const updateTime = (time: string) => {
@@ -38,12 +38,14 @@ export default function Booking() {
   }
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/appointments").then((res) => {
-      let times: Appointment[] = [];
-      res.data.times.forEach((el: { id: string; day: Date; from: string; to: string; }) => times.push(new Appointment(el.id, el.from, el.to)));
-      setAvailableTimes(times);
-    });
-  }, []);
+    if (!selectedDate) return;
+    Axios.get(`http://localhost:3001/api/appointments/${selectedDate.getDate()}/${selectedDate.getMonth()}/${selectedDate.getFullYear()}`)
+      .then((res) => {
+        let times: Appointment[] = [];
+        res.data.times.forEach((el: { id: string; day: Date; from: string; to: string; }) => times.push(new Appointment(el.id, el.from, el.to)));
+        setAvailableTimes(times);
+      });
+  }, [selectedDate]);
 
   const [currSlide, setCurrSlide] = useState(0);
   const [successInfo, setSuccessInfo] = useState({ message: "", reference: "", time: "" });

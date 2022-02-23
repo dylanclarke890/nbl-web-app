@@ -2,8 +2,7 @@ import { connect } from 'mongoose';
 
 require('dotenv').config();
 
-const server = process.env.server;
-const database = process.env.database;
+const connectionString = process.env.connectionString;
 
 class Database {
   constructor() {
@@ -11,7 +10,7 @@ class Database {
   }
   
 _connect() {
-     connect(`mongodb://${server}/${database}`)
+     connect(connectionString!)
        .then(() => {
          console.log('Database connection successful')
        })
