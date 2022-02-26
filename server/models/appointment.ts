@@ -1,25 +1,46 @@
-let mongoose = require('mongoose')
+let mongoose = require("mongoose");
+import * as Validation from "../validation";
 
 let appointmentSchema = new mongoose.Schema({
-  name: {
-    type: String,
+  person: {
+    name: {
+      type: String,
+      required: true,
+      minLength: 3,
+      maxLength: 30,
+    },
+    email: {
+      type: String,
+      required: true,
+      validate: {
+        validator: (v: string) => Validation.validateEmail(v),
+        message: (props: { value: string }) =>
+          `${props.value} is not a valid email.`,
+      },
+    },
+    phone: {
+      type: String,
+      required: true,
+      validate: {
+        validator: (v: string) => Validation.validatePhone(v),
+        message: (props: { value: string }) =>
+          `${props.value} is not a valid phone number.`,
+      },
+    },
+  },
+  date: {
+    type: Date,
     required: true,
   },
-  email: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-  },
-  from: {
-    type: String,
-    required: true,
-  },
-  to: {
-    type: String,
-    required: true,
+  time: {
+    from: {
+      type: String,
+      required: true,
+    },
+    to: {
+      type: String,
+      required: true,
+    },
   },
   appointmentType: {
     type: String,
@@ -27,4 +48,4 @@ let appointmentSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Appointment', appointmentSchema);
+module.exports = mongoose.model("Appointment", appointmentSchema);

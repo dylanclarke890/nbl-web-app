@@ -86,14 +86,18 @@ export default function AppointmentPicker({
 
     const time = availableTimes.find(ti => ti.id === selectedTime);
     axios.post(`http://localhost:3001/api/appointments/new/`,
-      { from: time?.from, to: time?.to, name: name, email: email, phone: phone })
+      { time, name, email, phone, date })
       .then(res => {
+        let booking = res.data;
         const successInfo = {
           message: res.data.message,
-          reference: res.data.reference,
-          time: availableTimes.find(i => i.id === selectedTime)?.appointmentTime(" - ")
+          reference: booking._id,
+          time: `${booking.time?.from} - ${booking.time?.to}`
         };
         onSuccessfulSubmit(successInfo);
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
@@ -127,7 +131,7 @@ export default function AppointmentPicker({
       <header className="booker-header">
         <p className="text-center title">{titleMessage}</p>
         <br />
-        <p className={`text-left pad-left-18 title ${timeErrorShowing ? "text-error": null}`}>Select a time:</p>
+        <p className={`text-left pad-left-18 title ${timeErrorShowing ? "text-error" : null}`}>Select a time:</p>
       </header>
       <div className="appointment-booker">
         <div>

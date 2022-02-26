@@ -1,50 +1,68 @@
 let mongoose = require("mongoose");
 let AppointmentModel = require("../models/appointment");
 
-import * as Validation from "../validation";
-
-const isInputValid = (data: { name: string; email: string; phone: string }) => {
-  return (
-    !Validation.validateField(data.name, 3, 30) ||
-    !Validation.validateEmail(data.email) ||
-    !Validation.validatePhone(data.phone)
-  );
-};
-
-export function addAppointment(req: any) {
+export async function addAppointment(req: any) {
   const data = req.body;
-  if (!data.name || !data.email || !data.phone || !data.from || !data.to) {
-    return { message: "Need all inputs." };
-  }
-  if (isInputValid(data)) {
-    return { message: "Invalid input." };
+
+  if (await hasExistingAppointment(data.date, data.time.from)) {
+    return { message: "Appointment already exists." };
   }
 
   let appointment = new AppointmentModel({
-    name: data.name,
-    email: data.email,
-    phone: data.phone,
-    from: data.from,
-    to: data.to,
-    appointmentType: "nails"
+    person: {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+    },
+    date: data.date,
+    time: {
+      from: data.time.from,
+      to: data.time.to,
+    },
+    appointmentType: "nails",
   });
 
-  appointment
-    .save()
-    .then((doc: any) => console.log(doc))
-    .catch((err: any) => console.error(err));
+  try {
+    await appointment.save();
+  } catch (e) {
+    console.error(e);
+    return { message: "Error whilst saving." };
+  }
 
-  return { reference: "123Success", appointment };
+  console.log(appointment);
+  return { appointment };
 }
 
-export function getAppointments(req: any) {
+export async function getAppointments(req: any) {
   const params = req.params;
   const day = new Date(
     parseInt(params.year),
     parseInt(params.month),
     parseInt(params.day)
   );
+
+  let booked = await getExistingAppointments(day);
+  console.log(booked);
+
   return { times };
+}
+
+async function getExistingAppointments(date: Date) {
+  let existing = await AppointmentModel.find({ date: date });
+  let existingTimes: { from: string; to: string }[] = [];
+  existing.forEach((app: { time: { from: string; to: string } }) => {
+    existingTimes.push(app.time);
+  });
+
+  return existingTimes;
+}
+
+async function hasExistingAppointment(
+  date: Date,
+  from: string
+): Promise<boolean> {
+  let res = (await AppointmentModel.where("date").equals(date).where("time.from").equals(from));
+  return res.length !== 0;
 }
 
 const times = [

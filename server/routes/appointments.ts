@@ -3,20 +3,20 @@ import { addAppointment, getAppointments } from "../services/appointmentService"
 
 const appointmentRouter = express.Router();
 
-appointmentRouter.get("/:day/:month/:year", (req, res,) => {
-  const result = getAppointments(req);
+appointmentRouter.get("/:day/:month/:year", async (req, res,) => {
+  const result = await getAppointments(req);
   if (!result) {
-    return res.status(500).send('internal error');
+    return res.status(500).send(`Internal error`);
   }
-  res.json(result);
+  return res.json(result);
 });
 
-appointmentRouter.post("/new", (req, res) => {
-  const result = addAppointment(req);
-  if (!result.appointment?.id) {
-    return res.status(500).send(result.message);
+appointmentRouter.post("/new", async (req, res) => {
+  const result = await addAppointment(req);
+  if (!result.appointment?._id) {
+    return res.status(500).send(`Internal error: ${result.message}`);
   }
-  res.json(result);
+  return res.json(result.appointment);
 });
 
 export default appointmentRouter;
