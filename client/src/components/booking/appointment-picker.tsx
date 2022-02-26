@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import "./appointment-picker.css";
 import ContactForm from "../shared/input/contact-form";
-import useOnInitialized from "../../custom-hooks/onInitialized";
+import useOnInitialized from "../../custom-hooks/useOnInitialized";
 import IAppointmentPicker from "../../interfaces/IAppointmentPicker";
 import axios from "axios";
 

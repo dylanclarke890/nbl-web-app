@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useCallback } from "react";
-import useOnInitialized from "../../custom-hooks/onInitialized";
+import useOnInitialized from "../../custom-hooks/useOnInitialized";
 
 import ContactForm from "../shared/input/contact-form";
 import CustomTextArea from "../shared/input/custom-textarea";
