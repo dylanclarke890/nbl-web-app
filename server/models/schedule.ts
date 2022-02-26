@@ -31,4 +31,4 @@ const scheduleSchema = new mongoose.Schema({
   availabilty: [availabilitySchema],
 });
 
-module.exports = mongoose.model("Schedule", availabilitySchema);
+module.exports = mongoose.model("Schedule", scheduleSchema);
