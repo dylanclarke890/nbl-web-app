@@ -29,7 +29,6 @@ export async function addAppointment(req: any) {
     return { message: "Error whilst saving." };
   }
 
-  console.log(appointment);
   return { appointment };
 }
 
