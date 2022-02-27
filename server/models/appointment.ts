@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-import * as Validation from "../validation";
+import * as Validation from "../helpers/validation";
 
 let appointmentSchema = new mongoose.Schema({
   person: {

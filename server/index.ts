@@ -1,5 +1,5 @@
 import express from "express";
-let database = require('./src/database');
+let database = require('./services/database');
 import cors from "cors";
 import appointmentRouter from "./routes/appointments";
 
