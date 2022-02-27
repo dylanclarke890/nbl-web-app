@@ -6,29 +6,48 @@ const availabilitySchema = new mongoose.Schema({
     required: true,
     lowercase: true,
   },
-  times: [
-    {
-      from: {
-        type: String,
-        required: true,
-        lowercase: true,
+  times: {
+    type: [
+      {
+        from: {
+          type: String,
+          required: true,
+          lowercase: true,
+        },
+        to: {
+          type: String,
+          required: true,
+          lowercase: true,
+        },
       },
-      to: {
-        type: String,
-        required: true,
-        lowercase: true,
-      },
-    },
-  ],
+    ],
+  },
 });
 
 const scheduleSchema = new mongoose.Schema({
   name: {
     type: String,
     minLength: 2,
-    default: "DefaultSchedule"
+    default: "DefaultSchedule",
   },
-  availabilty: [availabilitySchema],
+  starts: {
+    type: Date,
+    required: true,
+  },
+  ends: {
+    type: Date,
+    required: true,
+  },
+  availability: { type: [availabilitySchema],
+    validate: [hasSevenItems, 'Needs 7 days of availability.']
+  },
 });
 
-module.exports = mongoose.model("Schedule", scheduleSchema);
+function hasSevenItems(val: any[]) {
+  return val.length === 7
+}
+
+module.exports = {
+  scheduleModel: mongoose.model("Schedule", scheduleSchema),
+  availabilityModel: mongoose.model("Availability", availabilitySchema),
+};

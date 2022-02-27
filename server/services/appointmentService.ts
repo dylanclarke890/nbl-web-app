@@ -1,6 +1,8 @@
 let mongoose = require("mongoose");
 let AppointmentModel = require("../models/appointment");
-import ITimeSlot from '../interfaces/timeslot';
+import { format } from "date-fns";
+import ITimeSlot from "../interfaces/timeslot";
+import { getScheduleInUse } from "./scheduleService";
 
 export async function addAppointment(req: any) {
   const data = req.body;
@@ -41,8 +43,13 @@ export async function getAppointments(req: any) {
     parseInt(params.day)
   );
 
-  let booked = await getExistingAppointments(day);
-  console.log(booked);
+  const booked = await getExistingAppointments(day);
+  const schedule = await getScheduleInUse(day);
+  const scheduleForToday = schedule.availability.find(
+    (a: { day: string; times: any[] }) =>
+      a.day === format(day, "EEEE").toLowerCase()
+  );
+  console.log(scheduleForToday.times);
 
   return { times };
 }
@@ -61,7 +68,10 @@ async function hasExistingAppointment(
   date: Date,
   from: string
 ): Promise<boolean> {
-  let res = (await AppointmentModel.where("date").equals(date).where("time.from").equals(from));
+  let res = await AppointmentModel.where("date")
+    .equals(date)
+    .where("time.from")
+    .equals(from);
   return res.length !== 0;
 }
 
