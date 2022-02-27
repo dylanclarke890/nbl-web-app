@@ -1,5 +1,6 @@
 let mongoose = require("mongoose");
 let AppointmentModel = require("../models/appointment");
+import ITimeSlot from '../interfaces/timeslot';
 
 export async function addAppointment(req: any) {
   const data = req.body;
@@ -48,8 +49,8 @@ export async function getAppointments(req: any) {
 
 async function getExistingAppointments(date: Date) {
   let existing = await AppointmentModel.find({ date: date });
-  let existingTimes: { from: string; to: string }[] = [];
-  existing.forEach((app: { time: { from: string; to: string } }) => {
+  let existingTimes: ITimeSlot[] = [];
+  existing.forEach((app: { time: ITimeSlot }) => {
     existingTimes.push(app.time);
   });
 
