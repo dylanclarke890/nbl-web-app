@@ -42,7 +42,7 @@ export default function Booking() {
     Axios.get(`http://localhost:3001/api/appointments/${selectedDate.getDate()}/${selectedDate.getMonth()}/${selectedDate.getFullYear()}`)
       .then((res) => {
         let times: Appointment[] = [];
-        res.data.times.forEach((el: { id: string; day: Date; from: string; to: string; }) => times.push(new Appointment(el.id, el.from, el.to)));
+        res.data.times.forEach((el: { _id: string; day: Date; from: string; to: string; }) => times.push(new Appointment(el._id, el.from, el.to)));
         setAvailableTimes(times);
       });
   }, [selectedDate]);

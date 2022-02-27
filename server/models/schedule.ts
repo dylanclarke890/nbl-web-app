@@ -12,12 +12,12 @@ const availabilitySchema = new mongoose.Schema({
         from: {
           type: String,
           required: true,
-          lowercase: true,
+          uppercase: true,
         },
         to: {
           type: String,
           required: true,
-          lowercase: true,
+          uppercase: true,
         },
       },
     ],

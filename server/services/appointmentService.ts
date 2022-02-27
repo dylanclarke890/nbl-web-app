@@ -3,6 +3,7 @@ let AppointmentModel = require("../models/appointment");
 import { format } from "date-fns";
 import ITimeSlot from "../interfaces/timeslot";
 import { getScheduleInUse } from "./scheduleService";
+import { getAvailableTimeSlots } from "./timeService";
 
 export async function addAppointment(req: any) {
   const data = req.body;
@@ -43,15 +44,16 @@ export async function getAppointments(req: any) {
     parseInt(params.day)
   );
 
-  const booked = await getExistingAppointments(day);
+  // const booked = await getExistingAppointments(day);
   const schedule = await getScheduleInUse(day);
   const scheduleForToday = schedule.availability.find(
     (a: { day: string; times: any[] }) =>
       a.day === format(day, "EEEE").toLowerCase()
   );
-  console.log(scheduleForToday.times);
 
-  return { times };
+  const availableTimeSlots = getAvailableTimeSlots(scheduleForToday.times, 30);
+
+  return { times: availableTimeSlots };
 }
 
 async function getExistingAppointments(date: Date) {
@@ -74,12 +76,3 @@ async function hasExistingAppointment(
     .equals(from);
   return res.length !== 0;
 }
-
-const times = [
-  { id: "1", from: "1:30pm", to: "2:30pm" },
-  { id: "2", from: "1:30am", to: "2:30am" },
-  { id: "3", from: "12:30pm", to: "13:30pm" },
-  { id: "4", from: "12:30am", to: "1:30am" },
-  { id: "5", from: "2:30pm", to: "3:30pm" },
-  { id: "6", from: "2:30am", to: "3:30am" },
-];

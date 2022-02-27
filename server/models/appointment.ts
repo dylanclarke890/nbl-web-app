@@ -36,10 +36,12 @@ let appointmentSchema = new mongoose.Schema({
     from: {
       type: String,
       required: true,
+      uppercase: true
     },
     to: {
       type: String,
       required: true,
+      uppercase: true
     },
   },
   appointmentType: {

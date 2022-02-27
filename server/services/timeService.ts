@@ -3,7 +3,7 @@ import parse from "date-fns/parse";
 import add from "date-fns/add";
 import ITimeSlot from "../interfaces/timeslot";
 
-const TIMEFORMAT = "HH:MMa";
+const TIMEFORMAT = "p";
 const DATEREF = new Date();
 
 export function getAvailableTimeSlots(
@@ -15,13 +15,14 @@ export function getAvailableTimeSlots(
   times.forEach((ele) => {
     let fd = parse(ele.from, TIMEFORMAT, DATEREF);
     let td = parse(ele.to, TIMEFORMAT, DATEREF);
-
-    const duration = differenceInMinutes(fd, td, {
+    const duration = differenceInMinutes(td, fd, {
       roundingMethod: "ceil",
     });
     const slots = getSlots(fd, appointmentLength, duration);
     availableTimes = availableTimes.concat(slots);
   });
+
+  console.log(availableTimes);
 
   return availableTimes.sort();
 }
@@ -37,16 +38,14 @@ function getSlots(
     if (durationInMinutes - appointmentLength < 0) break;
 
     slots.push(formatAppointment(currTime, appointmentLength));
+    currTime = add(currTime, { minutes: appointmentLength });
     durationInMinutes -= appointmentLength;
   }
 
   return slots;
 }
 
-function formatAppointment(
-  time: Date,
-  length: number
-): ITimeSlot {
+function formatAppointment(time: Date, length: number): ITimeSlot {
   const endTime = add(time, { minutes: length });
   return { from: format(time, TIMEFORMAT), to: format(endTime, TIMEFORMAT) };
 }
