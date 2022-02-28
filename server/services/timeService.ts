@@ -32,10 +32,10 @@ function getSlots(
 ) {
   let slots: ITimeSlot[] = [];
   let currTime = startDate;
-  while (minutesAvailable - appointmentLength > 0) {
+  while (minutesAvailable - appointmentLength >= 0) {
     slots.push(formatAppointment(currTime, appointmentLength));
     currTime = add(currTime, { minutes: appointmentLength });
-    minutesAvailable -= appointmentLength;
+    minutesAvailable -= appointmentLength ;
   }
 
   return slots;
