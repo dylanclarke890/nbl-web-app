@@ -33,8 +33,9 @@ export default function AppointmentPicker({
 
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
   const groups = [];
-  for (let i = 0; i < times.length / 3; i++) {
-    groups.push(times.slice(i, i + 3));
+  for (let i = 0; i < times.length; i += 3) {
+    const slice = times.slice(i, i + 3);
+    groups.push(slice);
   }
 
   const [inputValidation, setInputValidation] = useState({

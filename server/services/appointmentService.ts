@@ -52,7 +52,6 @@ export async function getAppointments(req: any) {
   );
 
   const availableTimeSlots = getAvailableTimeSlots(scheduleForToday.times, 30);
-
   return { times: availableTimeSlots };
 }
 

@@ -7,6 +7,7 @@ import AppointmentPicker from "./appointment-picker";
 import "./booking.css";
 import Appointment from "../../models/appointment";
 import AppointmentConfirmation from "./appointment-confirmation";
+import { sortByTimeStamp } from "../../helpers/timeSort";
 
 export default function Booking() {
   const [showModal, setShowModal] = useState(false);
@@ -42,8 +43,8 @@ export default function Booking() {
     Axios.get(`http://localhost:3001/api/appointments/${selectedDate.getDate()}/${selectedDate.getMonth()}/${selectedDate.getFullYear()}`)
       .then((res) => {
         let times: Appointment[] = [];
-        res.data.times.forEach((el: { _id: string; day: Date; from: string; to: string; }) => times.push(new Appointment(el._id, el.from, el.to)));
-        setAvailableTimes(times);
+        res.data.times.forEach((el: { day: Date; from: string; to: string; }) => times.push(new Appointment(res.data.times.indexOf(el), el.from, el.to)));
+        setAvailableTimes(sortByTimeStamp(times));
       });
   }, [selectedDate]);
 
