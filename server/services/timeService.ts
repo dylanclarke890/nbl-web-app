@@ -6,19 +6,19 @@ import ITimeSlot from "../interfaces/timeslot";
 const TIMEFORMAT = "p";
 
 export function getAvailableTimeSlots(
-  times: ITimeSlot[],
+  availability: ITimeSlot[],
   appointmentLength: number
-  ) {
-    const DATEREF = new Date();
-    let availableTimes: ITimeSlot[] = [];
+) {
+  const DATEREF = new Date();
+  let availableTimes: ITimeSlot[] = [];
 
-  times.forEach((ele) => {
+  availability.forEach((ele) => {
     let fd = parse(ele.from, TIMEFORMAT, DATEREF);
     let td = parse(ele.to, TIMEFORMAT, DATEREF);
     const duration = differenceInMinutes(td, fd, {
       roundingMethod: "ceil",
     });
-    const slots = getSlots(fd, appointmentLength, duration);
+    const slots = getSlots(fd, duration, appointmentLength);
     availableTimes = availableTimes.concat(slots);
   });
 
@@ -27,21 +27,21 @@ export function getAvailableTimeSlots(
 
 function getSlots(
   startDate: Date,
-  appointmentLength: number,
-  durationInMinutes: number
+  minutesAvailable: number,
+  appointmentLength: number
 ) {
   let slots: ITimeSlot[] = [];
   let currTime = startDate;
-  while (durationInMinutes - appointmentLength > 0) {
+  while (minutesAvailable - appointmentLength > 0) {
     slots.push(formatAppointment(currTime, appointmentLength));
     currTime = add(currTime, { minutes: appointmentLength });
-    durationInMinutes -= appointmentLength;
+    minutesAvailable -= appointmentLength;
   }
 
   return slots;
 }
 
-function formatAppointment(time: Date, length: number): ITimeSlot {
-  const endTime = add(time, { minutes: length });
-  return { from: format(time, TIMEFORMAT), to: format(endTime, TIMEFORMAT) };
+function formatAppointment(appointment: Date, appointmentDuration: number): ITimeSlot {
+  const endTime = add(appointment, { minutes: appointmentDuration });
+  return { from: format(appointment, TIMEFORMAT), to: format(endTime, TIMEFORMAT) };
 }

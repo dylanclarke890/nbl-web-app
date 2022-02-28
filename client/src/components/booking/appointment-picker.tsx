@@ -98,7 +98,7 @@ export default function AppointmentPicker({
         onSuccessfulSubmit(successInfo);
       })
       .catch(err => {
-        console.error(err);
+        console.log(err.response.data);
       });
   };
 

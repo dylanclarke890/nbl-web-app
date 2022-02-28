@@ -45,7 +45,10 @@ export default function Booking() {
         let times: Appointment[] = [];
         res.data.times.forEach((el: { day: Date; from: string; to: string; }) => times.push(new Appointment(res.data.times.indexOf(el), el.from, el.to)));
         setAvailableTimes(sortByTimeStamp(times));
-      });
+      })
+      .catch(err => {
+        console.log(err.response.data);
+      });;
   }, [selectedDate]);
 
   const [currSlide, setCurrSlide] = useState(0);
