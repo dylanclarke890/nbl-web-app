@@ -49,6 +49,7 @@ header p {
   cursor: pointer;
   position: relative;
   bottom: 0px;
+  border-radius: 5px;
 }
 
 .cancel-btn {
