@@ -40,14 +40,14 @@ export default function Booking() {
 
   useEffect(() => {
     if (!selectedDate) return;
-    Axios.get(`http://localhost:3001/api/appointments/${selectedDate.getDate()}/${selectedDate.getMonth()}/${selectedDate.getFullYear()}`)
+    Axios.get(`/api/appointments/${selectedDate.getDate()}/${selectedDate.getMonth()}/${selectedDate.getFullYear()}`)
       .then((res) => {
         let times: Appointment[] = [];
         res.data.times.forEach((el: { day: Date; from: string; to: string; }) => times.push(new Appointment(res.data.times.indexOf(el), el.from, el.to)));
         setAvailableTimes(sortByTimeStamp(times));
       })
       .catch(err => {
-        console.log(err.response.data);
+        alert(err.response.data);
       });;
   }, [selectedDate]);
 

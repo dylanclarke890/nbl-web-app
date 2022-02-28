@@ -86,7 +86,7 @@ export default function AppointmentPicker({
     }
 
     const time = availableTimes.find(ti => ti.id === selectedTime);
-    axios.post(`http://localhost:3001/api/appointments/new/`,
+    axios.post(`/api/appointments/new/`,
       { time, name, email, phone, date })
       .then(res => {
         let booking = res.data;
