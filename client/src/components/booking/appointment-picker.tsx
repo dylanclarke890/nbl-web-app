@@ -13,6 +13,7 @@ export default function AppointmentPicker({
   date,
   setSelectedTime,
   selectedTime,
+  onError,
   onSuccessfulSubmit
 }: IAppointmentPicker) {
   const times = [];
@@ -98,7 +99,7 @@ export default function AppointmentPicker({
         onSuccessfulSubmit(successInfo);
       })
       .catch(err => {
-        console.log(err.response.data);
+        onError();
       });
   };
 
@@ -128,38 +129,40 @@ export default function AppointmentPicker({
       ? format(date, dateFormat)
       : `${format(date, dateFormat)} - ${availableTimes.find(t => t.id === selectedTime)?.appointmentTime(" to ")}`;
   return (
-    <div className="w-100">
-      <header className="booker-header">
-        <p className="text-center title">{titleMessage}</p>
-        <p className={`text-left pad-left-18 title ${timeErrorShowing ? "text-error" : null}`}>Select a time:</p>
-      </header>
-      <div className="appointment-booker">
-        <div>
-          <div className="available-times">{groups[selectedGroupIndex]}</div>
-          <div className="times-action-buttons">
-            <button className="btn" onClick={() => updateSelectedGroup(false)}>Prev</button>
-            <button className="btn" onClick={() => updateSelectedGroup(true)}>Next</button>
+    <>
+      <div className="w-100">
+        <header className="booker-header">
+          <p className="text-center title">{titleMessage}</p>
+          <p className={`text-left pad-left-18 title ${timeErrorShowing ? "text-error" : null}`}>Select a time:</p>
+        </header>
+        <div className="appointment-booker">
+          <div>
+            <div className="available-times">{groups[selectedGroupIndex]}</div>
+            <div className="times-action-buttons">
+              <button className="btn" onClick={() => updateSelectedGroup(false)}>Prev</button>
+              <button className="btn" onClick={() => updateSelectedGroup(true)}>Next</button>
+            </div>
+          </div>
+          <div className="appointment-form">
+            <ContactForm
+              inputValidation={inputValidation}
+              setInputValidation={setInputValidation}
+              name={name}
+              setName={setName}
+              email={email}
+              setEmail={setEmail}
+              phone={phone}
+              setPhone={setPhone}
+            />
+            <button className="btn cancel-btn" onClick={() => closeModal()}>
+              Cancel
+            </button>
+            <button className="btn float-right" onClick={() => submit()}>
+              Confirm
+            </button>
           </div>
         </div>
-        <div className="appointment-form">
-          <ContactForm
-            inputValidation={inputValidation}
-            setInputValidation={setInputValidation}
-            name={name}
-            setName={setName}
-            email={email}
-            setEmail={setEmail}
-            phone={phone}
-            setPhone={setPhone}
-          />
-          <button className="btn cancel-btn" onClick={() => closeModal()}>
-            Cancel
-          </button>
-          <button className="btn float-right" onClick={() => submit()}>
-            Confirm
-          </button>
-        </div>
       </div>
-    </div>
+    </>
   );
 }

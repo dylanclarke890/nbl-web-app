@@ -1,39 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import IToast from '../../../interfaces/IToast';
 
 import './toast.css';
 
-export default function Toast({ toastList, position, autoDelete, autoDeleteTime }: { toastList: IToast[], position: string, autoDelete: boolean, autoDeleteTime: number }) {
-  const [list, setList] = useState(toastList);
+export default function Toast({ toastList, setToastList, position, autoDelete, autoDeleteTime }: { toastList: IToast[], setToastList:any, position: string, autoDelete: boolean, autoDeleteTime: number }) {
 
-  useEffect(() => {
-    setList(toastList);
-  }, [toastList, list]);
-  
   /* eslint-disable */
   useEffect(() => {
+    if (!autoDelete || !toastList.length) return;
     const interval = setInterval(() => {
-        if (autoDelete && toastList.length && list.length) {
+        if (autoDelete && toastList.length) {
             deleteToast(toastList[0].id);
         }
+        console.log("set");
     }, autoDeleteTime);
     return () => {
         clearInterval(interval);
     }
-}, []);
+}, [toastList]);
   /* eslint-enable */
   
   const deleteToast = (id: number) => {
-    const index = list.findIndex(e => e.id === id);
-    list.splice(index, 1);
-    setList([...list]);
+    const index = toastList.findIndex(e => e.id === id);
+    toastList.splice(index, 1);
+    setToastList([...toastList]);
   }
 
   return (
     <>
       <div className={`notification-container ${position}`}>
         {
-          list.map((toast, i) =>
+          toastList.map((toast, i) =>
             <div
               key={i}
               className={`notification toast ${position}`}
