@@ -44,14 +44,17 @@ export async function getAppointments(req: any) {
     parseInt(params.day)
   );
 
-  // const booked = await getExistingAppointments(day);
+  const existingAppointments = await getExistingAppointments(day);
   const schedule = await getScheduleInUse(day);
   const scheduleForToday = schedule.availability.find(
     (a: { day: string; times: any[] }) =>
       a.day === format(day, "EEEE").toLowerCase()
   );
-
-  const availableTimeSlots = getAvailableTimeSlots(scheduleForToday.times, 30);
+  const availableTimeSlots = getAvailableTimeSlots(
+    scheduleForToday.times,
+    30,
+    existingAppointments
+  );
   return { times: availableTimeSlots };
 }
 

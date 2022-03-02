@@ -4,23 +4,31 @@ import add from "date-fns/add";
 import ITimeSlot from "../interfaces/timeslot";
 
 const TIMEFORMAT = "p";
+const DATEREF = new Date();
 
 export function getAvailableTimeSlots(
   availability: ITimeSlot[],
-  appointmentLength: number
+  appointmentLength: number,
+  existingAppointments: ITimeSlot[]
 ) {
-  const DATEREF = new Date();
   let availableTimes: ITimeSlot[] = [];
 
-  availability.forEach((ele) => {
+  for (let i = 0; i < availability.length; i++) {
+    const ele = availability[i];
+
     let fd = parse(ele.from, TIMEFORMAT, DATEREF);
     let td = parse(ele.to, TIMEFORMAT, DATEREF);
     const duration = differenceInMinutes(td, fd, {
       roundingMethod: "ceil",
     });
-    const slots = getSlots(fd, duration, appointmentLength);
+    const slots = getSlots(
+      fd,
+      duration,
+      appointmentLength,
+      existingAppointments
+    );
     availableTimes = availableTimes.concat(slots);
-  });
+  }
 
   return availableTimes;
 }
@@ -28,20 +36,41 @@ export function getAvailableTimeSlots(
 function getSlots(
   startDate: Date,
   minutesAvailable: number,
-  appointmentLength: number
+  appointmentLength: number,
+  existingAppointments: ITimeSlot[]
 ) {
   let slots: ITimeSlot[] = [];
   let currTime = startDate;
   while (minutesAvailable - appointmentLength >= 0) {
+    const appointmentEnd = add(currTime, { minutes: appointmentLength });
+    if (
+      existingAppointments.some((app) => {
+        const from = parse(app.from, TIMEFORMAT, DATEREF);
+        const to = parse(app.to, TIMEFORMAT, DATEREF);
+        return (
+          from.valueOf() === currTime.valueOf() ||
+          to.valueOf() === appointmentEnd.valueOf()
+        );
+      })
+    ) {
+      currTime = appointmentEnd;
+      continue;
+    }
     slots.push(formatAppointment(currTime, appointmentLength));
-    currTime = add(currTime, { minutes: appointmentLength });
-    minutesAvailable -= appointmentLength ;
+    currTime = appointmentEnd;
+    minutesAvailable -= appointmentLength;
   }
 
   return slots;
 }
 
-function formatAppointment(appointment: Date, appointmentDuration: number): ITimeSlot {
+function formatAppointment(
+  appointment: Date,
+  appointmentDuration: number
+): ITimeSlot {
   const endTime = add(appointment, { minutes: appointmentDuration });
-  return { from: format(appointment, TIMEFORMAT), to: format(endTime, TIMEFORMAT) };
+  return {
+    from: format(appointment, TIMEFORMAT),
+    to: format(endTime, TIMEFORMAT),
+  };
 }
