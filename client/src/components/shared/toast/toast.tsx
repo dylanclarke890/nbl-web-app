@@ -12,7 +12,6 @@ export default function Toast({ toastList, setToastList, position, autoDelete, a
         if (autoDelete && toastList.length) {
             deleteToast(toastList[0].id);
         }
-        console.log("set");
     }, autoDeleteTime);
     return () => {
         clearInterval(interval);

@@ -41,7 +41,7 @@ export default function Booking() {
     setShowModal(isActive);
   }
 
-  const [toastList, setToastList]= useState(new Array<IToast>());
+  const [toastList, setToastList] = useState(new Array<IToast>());
   const createErrorToast = () => {
     setToastList(t => [...t, createToast("Error", "Unexpected error, please try again.")]);
   }
