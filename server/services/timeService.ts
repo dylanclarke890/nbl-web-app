@@ -1,7 +1,7 @@
 import { differenceInMinutes, format } from "date-fns";
 import parse from "date-fns/parse";
 import add from "date-fns/add";
-import ITimeSlot from "../interfaces/timeslot";
+import ITimeSlot from "../interfaces/ITimeSlot";
 
 const TIMEFORMAT = "p";
 const DATEREF = new Date();
@@ -10,7 +10,7 @@ export function getAvailableTimeSlots(
   availability: ITimeSlot[],
   appointmentLength: number,
   existingAppointments: ITimeSlot[]
-) {
+): ITimeSlot[] {
   let availableTimes: ITimeSlot[] = [];
 
   for (let i = 0; i < availability.length; i++) {
@@ -38,7 +38,7 @@ function getSlots(
   minutesAvailable: number,
   appointmentLength: number,
   existingAppointments: ITimeSlot[]
-) {
+): ITimeSlot[] {
   let slots: ITimeSlot[] = [];
   let currTime = startDate;
   while (minutesAvailable - appointmentLength >= 0) {

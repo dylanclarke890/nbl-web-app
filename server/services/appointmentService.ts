@@ -1,7 +1,8 @@
 let mongoose = require("mongoose");
 let AppointmentModel = require("../models/appointment");
 import { format, getDaysInMonth } from "date-fns";
-import ITimeSlot from "../interfaces/timeslot";
+import ITimeSlot from "../interfaces/ITimeSlot";
+import IAppointment from "../interfaces/IAppointment";
 import { getScheduleInUse } from "./scheduleService";
 import { getAvailableTimeSlots } from "./timeService";
 
@@ -9,7 +10,7 @@ export async function addAppointment(
   req: any
 ): Promise<
   | { message: string; appointment?: undefined }
-  | { appointment: any; message?: undefined }
+  | { appointment: IAppointment; message?: undefined }
 > {
   const data = req.body;
 

@@ -1,8 +1,9 @@
 import { add } from "date-fns";
+import ISchedule from "../interfaces/ISchedule";
 
 const timetableModels = require("../models/schedule");
 
-async function getSchedule(date: Date) {
+async function getSchedule(date: Date): Promise<ISchedule> {
   let defaultSchedule = new timetableModels.scheduleModel({
     name: "DefaultSchedule",
     starts: date,
@@ -68,16 +69,15 @@ async function getSchedule(date: Date) {
 }
 
 let _loadedSchedule: any = null;
-export async function getScheduleInUse(date: Date): Promise<any> {
+export async function getScheduleInUse(date: Date): Promise<ISchedule> {
   if (
     _loadedSchedule &&
     _loadedSchedule.starts <= date &&
     _loadedSchedule.ends >= date
   ) {
-    console.log("Returned existing...");
     return _loadedSchedule;
   }
-  console.log("Fetching new...");
+
   _loadedSchedule = await getSchedule(date);
   return _loadedSchedule;
 }
