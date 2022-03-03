@@ -43,11 +43,7 @@ export async function getScheduleInUse(date: Date) {
       }),
       new timetableModels.availabilityModel({
         day: "Thursday",
-        times: [
-          { from: "6:30 AM", to: "12:00 PM" },
-          { from: "8:30 PM", to: "11:30 PM" },
-          { from: "12:30 PM", to: "8:00 PM" },
-        ],
+        times: [],
       }),
       new timetableModels.availabilityModel({
         day: "Friday",

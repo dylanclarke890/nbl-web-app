@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 let AppointmentModel = require("../models/appointment");
-import { endOfMonth, format, startOfMonth } from "date-fns";
+import { endOfMonth, format, getDaysInMonth, startOfMonth } from "date-fns";
 import ITimeSlot from "../interfaces/timeslot";
 import { getScheduleInUse } from "./scheduleService";
 import { getAvailableTimeSlots } from "./timeService";
@@ -43,7 +43,6 @@ export async function getDailyAppointments(req: any) {
     parseInt(params.month),
     parseInt(params.day)
   );
-
   const existingAppointments = await getExistingAppointments(day);
   const schedule = await getScheduleInUse(day);
   const scheduleForToday = schedule.availability.find(
@@ -61,30 +60,42 @@ export async function getDailyAppointments(req: any) {
 
 export async function getMonthOverview(req: any) {
   const params = req.params;
-  const month = new Date(parseInt(params.year), parseInt(params.month));
+  const month = new Date(parseInt(params.year), parseInt(params.month), 1);
   const start = startOfMonth(month);
   const end = endOfMonth(month);
 
-  // No idea - was too tired m8 enjoy :-)
-  let existing: any[] = [];
-  AppointmentModel.find(
-    {
-      date: {
-        $gte: start,
-        $lt: end,
-      },
-    },
-    (err: any, apps: any) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      existing = apps;
-      console.log(apps);
-    }
-  );
+  const daysInMonth = getDaysInMonth(month);
+  let overview = new Map();
+  for (let num = 1; num <= daysInMonth; num++) {
+    let currDate = month;
+    currDate.setDate(num);
+    
+    const schedule = await getScheduleInUse(currDate);
+    const scheduleForToday = schedule.availability.find(
+      (a: { day: string; times: any[] }) =>
+        a.day === format(currDate, "EEEE").toLowerCase()
+    );
 
-  return existing;
+    if (!scheduleForToday.times.length) {
+      console.log(scheduleForToday);
+      overview.set(num, { full: false, unavailable: true })
+    }
+  }
+  let apps = await AppointmentModel.find({
+    date: {
+      $gte: start,
+      $lt: end,
+    },
+  });
+
+  // const unique = [
+  //   ...new Set<number>(apps.map((item: { date: Date }) => item.date.getDate())),
+  // ];
+
+
+  console.log(overview);
+
+  return overview;
 }
 
 async function getExistingAppointments(date: Date) {

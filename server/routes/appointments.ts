@@ -3,6 +3,14 @@ import { addAppointment, getDailyAppointments, getMonthOverview } from "../servi
 
 const appointmentRouter = express.Router();
 
+appointmentRouter.get("/overview/:year/:month", async (req, res,) => {
+  const result = await getMonthOverview(req);
+  if (!result) {
+    return res.status(500).send(`Internal error`);
+  }
+  return res.json(result);
+});
+
 appointmentRouter.get("/:day/:month/:year", async (req, res,) => {
   const result = await getDailyAppointments(req);
   if (!result) {
@@ -11,13 +19,6 @@ appointmentRouter.get("/:day/:month/:year", async (req, res,) => {
   return res.json(result);
 });
 
-appointmentRouter.get("overview/:year/:month", async (req, res,) => {
-  const result = await getMonthOverview(req);
-  if (!result) {
-    return res.status(500).send(`Internal error`);
-  }
-  return res.json(result);
-});
 
 appointmentRouter.post("/new", async (req, res) => {
   const result = await addAppointment(req);
