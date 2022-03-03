@@ -78,6 +78,6 @@ export async function getScheduleInUse(date: Date): Promise<any> {
     return _loadedSchedule;
   }
   console.log("Fetching new...");
-  _loadedSchedule = await getScheduleInUse(date);
+  _loadedSchedule = await getSchedule(date);
   return _loadedSchedule;
 }
