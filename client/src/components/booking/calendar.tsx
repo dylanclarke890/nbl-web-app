@@ -14,6 +14,18 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
     setDate(day);
     handleSelectedDate(day);
   }
+
+  const [overview, setOverview] = useState(new Array<[number, {full: boolean, unavailable: boolean}]>())
+  useEffect(() => {
+    axios.get(`/api/appointments/overview/${currentMonth.getFullYear()}/${currentMonth.getMonth()}`)
+      .then(res => {
+        setOverview(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [currentMonth]);
+
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
 
@@ -33,17 +45,6 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
       </div>
     );
   }
-
-  useEffect(() => {
-    axios.get(`/api/appointments/overview/${currentMonth.getFullYear()}/${currentMonth.getMonth()}`)
-      .then(res => {
-        let booking = res.data;
-        console.log(booking);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [currentMonth]);
 
   const renderDays = () => {
     const dateFormat = "eee";
@@ -80,7 +81,7 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
         const cloneDay = day;
         days.push(
           <div
-            className={`col cell ${!dateFns.isSameMonth(day, monthStart) || (!dateFns.isToday(day) && dateFns.isAfter(new Date(), day))
+            className={`col cell ${!dateFns.isSameMonth(day, monthStart) || (!dateFns.isToday(day) && dateFns.isAfter(new Date(), day)) || overview.some(d=> d[0] === day.getDate() && d[1].unavailable)
               ? "disabled"
               : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
               }`}

@@ -77,7 +77,6 @@ export async function getMonthOverview(req: any) {
     );
 
     if (!scheduleForToday.times.length) {
-      console.log(scheduleForToday);
       overview.set(num, { full: false, unavailable: true })
     }
   }
@@ -91,9 +90,6 @@ export async function getMonthOverview(req: any) {
   // const unique = [
   //   ...new Set<number>(apps.map((item: { date: Date }) => item.date.getDate())),
   // ];
-
-
-  console.log(overview);
 
   return overview;
 }
