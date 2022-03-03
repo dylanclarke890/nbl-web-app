@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 let AppointmentModel = require("../models/appointment");
-import { format } from "date-fns";
+import { endOfMonth, format, startOfMonth } from "date-fns";
 import ITimeSlot from "../interfaces/timeslot";
 import { getScheduleInUse } from "./scheduleService";
 import { getAvailableTimeSlots } from "./timeService";
@@ -36,7 +36,7 @@ export async function addAppointment(req: any) {
   return { appointment };
 }
 
-export async function getAppointments(req: any) {
+export async function getDailyAppointments(req: any) {
   const params = req.params;
   const day = new Date(
     parseInt(params.year),
@@ -55,7 +55,31 @@ export async function getAppointments(req: any) {
     30,
     existingAppointments
   );
+
+  await getMonthOverview(req);
+
   return { times: availableTimeSlots };
+}
+
+export async function getMonthOverview(req: any) {
+  const params = req.params;
+  const month = new Date(parseInt(params.year), parseInt(params.month));
+  const start = startOfMonth(month);
+  const end = endOfMonth(month);
+
+  let appointments = AppointmentModel.find({
+    date: {
+      $gte: start,
+      $lt: end,
+    }},
+    (err: any, apps: any) => {
+      if (err){
+        console.log(err);
+        return;
+      }
+      console.log(apps);
+    }
+  );
 }
 
 async function getExistingAppointments(date: Date) {
