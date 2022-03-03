@@ -2,11 +2,11 @@ import { add } from "date-fns";
 
 const timetableModels = require("../models/schedule");
 
-export async function getScheduleInUse(date: Date) {
+async function getSchedule(date: Date) {
   let defaultSchedule = new timetableModels.scheduleModel({
     name: "DefaultSchedule",
     starts: date,
-    ends: add(date, { days: 7 }),
+    ends: add(date, { months: 2 }),
     availability: [
       new timetableModels.availabilityModel({
         day: "Sunday",
@@ -65,4 +65,19 @@ export async function getScheduleInUse(date: Date) {
   });
 
   return defaultSchedule;
+}
+
+let _loadedSchedule: any = null;
+export async function getScheduleInUse(date: Date): Promise<any> {
+  if (
+    _loadedSchedule &&
+    _loadedSchedule.starts <= date &&
+    _loadedSchedule.ends >= date
+  ) {
+    console.log("Returned existing...");
+    return _loadedSchedule;
+  }
+  console.log("Fetching new...");
+  _loadedSchedule = await getScheduleInUse(date);
+  return _loadedSchedule;
 }

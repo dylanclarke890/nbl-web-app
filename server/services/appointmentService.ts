@@ -1,11 +1,16 @@
 let mongoose = require("mongoose");
 let AppointmentModel = require("../models/appointment");
-import { endOfMonth, format, getDaysInMonth, startOfMonth } from "date-fns";
+import { format, getDaysInMonth } from "date-fns";
 import ITimeSlot from "../interfaces/timeslot";
 import { getScheduleInUse } from "./scheduleService";
 import { getAvailableTimeSlots } from "./timeService";
 
-export async function addAppointment(req: any) {
+export async function addAppointment(
+  req: any
+): Promise<
+  | { message: string; appointment?: undefined }
+  | { appointment: any; message?: undefined }
+> {
   const data = req.body;
 
   if (await hasExistingAppointment(data.date, data.time.from)) {
@@ -19,10 +24,7 @@ export async function addAppointment(req: any) {
       phone: data.phone,
     },
     date: data.date,
-    time: {
-      from: data.time.from,
-      to: data.time.to,
-    },
+    time: { ...data.time },
     appointmentType: "nails",
   });
 
@@ -36,7 +38,9 @@ export async function addAppointment(req: any) {
   return { appointment };
 }
 
-export async function getDailyAppointments(req: any) {
+export async function getDailyAppointments(
+  req: any
+): Promise<{ times: ITimeSlot[] }> {
   const params = req.params;
   const day = new Date(
     parseInt(params.year),
@@ -58,44 +62,32 @@ export async function getDailyAppointments(req: any) {
   return { times: availableTimeSlots };
 }
 
-export async function getMonthOverview(req: any) {
+export async function getMonthOverview(req: any): Promise<number[]> {
   const params = req.params;
   const month = new Date(parseInt(params.year), parseInt(params.month), 1);
-  const start = startOfMonth(month);
-  const end = endOfMonth(month);
 
   const daysInMonth = getDaysInMonth(month);
-  let overview = new Map();
+  let overview: number[] = [];
   for (let num = 1; num <= daysInMonth; num++) {
     let currDate = month;
     currDate.setDate(num);
-    
+
     const schedule = await getScheduleInUse(currDate);
     const scheduleForToday = schedule.availability.find(
-      (a: { day: string; times: any[] }) =>
+      (a: { day: string; times: any[] }): boolean =>
         a.day === format(currDate, "EEEE").toLowerCase()
     );
 
     if (!scheduleForToday.times.length) {
-      overview.set(num, { full: false, unavailable: true })
+      overview.push(num);
     }
   }
-  let apps = await AppointmentModel.find({
-    date: {
-      $gte: start,
-      $lt: end,
-    },
-  });
-
-  // const unique = [
-  //   ...new Set<number>(apps.map((item: { date: Date }) => item.date.getDate())),
-  // ];
 
   return overview;
 }
 
-async function getExistingAppointments(date: Date) {
-  let existing = await AppointmentModel.find({ date: date });
+async function getExistingAppointments(date: Date): Promise<ITimeSlot[]> {
+  let existing = await AppointmentModel.where("date").equals(date);
   let existingTimes: ITimeSlot[] = [];
   existing.forEach((app: { time: ITimeSlot }) => {
     existingTimes.push(app.time);

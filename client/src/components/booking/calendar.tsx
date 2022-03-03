@@ -15,7 +15,7 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
     handleSelectedDate(day);
   }
 
-  const [overview, setOverview] = useState(new Array<[number, {full: boolean, unavailable: boolean}]>())
+  const [overview, setOverview] = useState<number[]>([])
   useEffect(() => {
     axios.get(`/api/appointments/overview/${currentMonth.getFullYear()}/${currentMonth.getMonth()}`)
       .then(res => {
@@ -81,11 +81,13 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
         const cloneDay = day;
         days.push(
           <div
-            className={`col cell ${!dateFns.isSameMonth(day, monthStart) || (!dateFns.isToday(day) && dateFns.isAfter(new Date(), day)) || overview.some(d=> d[0] === day.getDate() && d[1].unavailable)
+            className={`col cell ${!dateFns.isSameMonth(cloneDay, monthStart) ||
+              (!dateFns.isToday(cloneDay) && dateFns.isAfter(new Date(), cloneDay)) ||
+              overview.includes(cloneDay.getDate())
               ? "disabled"
-              : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
+              : dateFns.isSameDay(cloneDay, selectedDate) ? "selected" : ""
               }`}
-            key={JSON.stringify(day)}
+            key={JSON.stringify(cloneDay)}
             onClick={() => onDateClick(cloneDay)}
           >
             <span className="number">{formattedDate}</span>

@@ -8,7 +8,7 @@ appointmentRouter.get("/overview/:year/:month", async (req, res,) => {
   if (!result) {
     return res.status(500).send(`Internal error`);
   }
-  return res.json([...result.entries()]);
+  return res.json(result);
 });
 
 appointmentRouter.get("/:day/:month/:year", async (req, res,) => {
