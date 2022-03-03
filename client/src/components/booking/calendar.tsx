@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as dateFns from "date-fns";
 import './calendar.css'
 import ICalendar from '../../interfaces/ICalendar';
+import axios from 'axios';
 
 export default function Calendar({ handleSelectedDate }: ICalendar) {
   const [selectedDate, setDate] = useState(new Date());
@@ -32,6 +33,17 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
       </div>
     );
   }
+
+  useEffect(() => {
+    axios.get(`/api/appointments/overview/${currentMonth.getFullYear()}/${currentMonth.getMonth()}`)
+      .then(res => {
+        let booking = res.data;
+        console.log(booking);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [currentMonth]);
 
   const renderDays = () => {
     const dateFormat = "eee";
@@ -69,8 +81,8 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
         days.push(
           <div
             className={`col cell ${!dateFns.isSameMonth(day, monthStart) || (!dateFns.isToday(day) && dateFns.isAfter(new Date(), day))
-                ? "disabled"
-                : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
+              ? "disabled"
+              : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
               }`}
             key={JSON.stringify(day)}
             onClick={() => onDateClick(cloneDay)}

@@ -1,10 +1,18 @@
 import express from "express";
-import { addAppointment, getDailyAppointments } from "../services/appointmentService";
+import { addAppointment, getDailyAppointments, getMonthOverview } from "../services/appointmentService";
 
 const appointmentRouter = express.Router();
 
 appointmentRouter.get("/:day/:month/:year", async (req, res,) => {
   const result = await getDailyAppointments(req);
+  if (!result) {
+    return res.status(500).send(`Internal error`);
+  }
+  return res.json(result);
+});
+
+appointmentRouter.get("overview/:year/:month", async (req, res,) => {
+  const result = await getMonthOverview(req);
   if (!result) {
     return res.status(500).send(`Internal error`);
   }

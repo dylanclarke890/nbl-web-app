@@ -56,8 +56,6 @@ export async function getDailyAppointments(req: any) {
     existingAppointments
   );
 
-  await getMonthOverview(req);
-
   return { times: availableTimeSlots };
 }
 
@@ -67,19 +65,26 @@ export async function getMonthOverview(req: any) {
   const start = startOfMonth(month);
   const end = endOfMonth(month);
 
-  let appointments = AppointmentModel.find({
-    date: {
-      $gte: start,
-      $lt: end,
-    }},
+  // No idea - was too tired m8 enjoy :-)
+  let existing: any[] = [];
+  AppointmentModel.find(
+    {
+      date: {
+        $gte: start,
+        $lt: end,
+      },
+    },
     (err: any, apps: any) => {
-      if (err){
+      if (err) {
         console.log(err);
         return;
       }
+      existing = apps;
       console.log(apps);
     }
   );
+
+  return existing;
 }
 
 async function getExistingAppointments(date: Date) {
