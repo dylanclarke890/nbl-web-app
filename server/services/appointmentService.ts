@@ -5,6 +5,7 @@ import ITimeSlot from "../interfaces/ITimeSlot";
 import IAppointment from "../interfaces/IAppointment";
 import { getScheduleInUse } from "./scheduleService";
 import { getAvailableTimeSlots } from "./timeService";
+import IAvailability from "../interfaces/IAvailability";
 
 export async function addAppointment(
   req: any
@@ -35,6 +36,15 @@ export async function addAppointment(
   return { appointment };
 }
 
+async function getAvailabilityByDate(date: Date): Promise<IAvailability> {
+  const schedule = await getScheduleInUse(date);
+  const scheduleForToday = schedule.availability.find(
+    (a): boolean => a.day === format(date, "EEEE").toLowerCase()
+  );
+
+  return scheduleForToday;
+}
+
 export async function getDailyAppointments(
   req: any
 ): Promise<{ times: ITimeSlot[] }> {
@@ -45,11 +55,7 @@ export async function getDailyAppointments(
     parseInt(params.day)
   );
   const existingAppointments = await getExistingAppointments(day);
-  const schedule = await getScheduleInUse(day);
-  const scheduleForToday = schedule.availability.find(
-    (a: { day: string; times: any[] }) =>
-      a.day === format(day, "EEEE").toLowerCase()
-  );
+  const scheduleForToday = await getAvailabilityByDate(day);
   const availableTimeSlots = getAvailableTimeSlots(
     scheduleForToday!.times,
     30,
@@ -69,11 +75,7 @@ export async function getMonthOverview(req: any): Promise<number[]> {
     let currDate = month;
     currDate.setDate(num);
 
-    const schedule = await getScheduleInUse(currDate);
-    const scheduleForToday = schedule.availability.find(
-      (a: { day: string; times: any[] }): boolean =>
-        a.day === format(currDate, "EEEE").toLowerCase()
-    );
+    const scheduleForToday = await getAvailabilityByDate(currDate);
 
     if (!scheduleForToday!.times.length) {
       overview.push(num);
