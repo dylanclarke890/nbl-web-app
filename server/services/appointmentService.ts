@@ -19,11 +19,7 @@ export async function addAppointment(
   }
 
   let appointment = new AppointmentModel({
-    person: {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-    },
+    person: { ...data.person },
     date: data.date,
     time: { ...data.time },
     appointmentType: "nails",
@@ -55,7 +51,7 @@ export async function getDailyAppointments(
       a.day === format(day, "EEEE").toLowerCase()
   );
   const availableTimeSlots = getAvailableTimeSlots(
-    scheduleForToday.times,
+    scheduleForToday!.times,
     30,
     existingAppointments
   );
@@ -79,7 +75,7 @@ export async function getMonthOverview(req: any): Promise<number[]> {
         a.day === format(currDate, "EEEE").toLowerCase()
     );
 
-    if (!scheduleForToday.times.length) {
+    if (!scheduleForToday!.times.length) {
       overview.push(num);
     }
   }

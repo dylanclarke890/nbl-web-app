@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
 
+import { getAppointmentsByDay } from "../../services/appointmentService";
 import Calendar from "./calendar";
 import Modal from "../shared/modal";
 import AppointmentPicker from "./appointment-picker";
 import "./booking.css";
 import Appointment from "../../models/appointment";
 import AppointmentConfirmation from "./appointment-confirmation";
-import { sortByTimeStamp } from "../../helpers/timeSort";
 import IToast from "../../interfaces/IToast";
 import createToast from "../shared/toast/toast-helper";
 import Toast from "../shared/toast/toast";
@@ -47,14 +46,11 @@ export default function Booking() {
   }
 
   useEffect(() => {
-    if (!selectedDate) return;
-    Axios.get(`/api/appointments/${selectedDate.getDate()}/${selectedDate.getMonth()}/${selectedDate.getFullYear()}`)
-      .then((res) => {
-        let times: Appointment[] = [];
-        res.data.times.forEach((el: { day: Date; from: string; to: string; }) => times.push(new Appointment(res.data.times.indexOf(el), el.from, el.to)));
-        setAvailableTimes(sortByTimeStamp(times));
-      })
-      .catch(err => createErrorToast());;
+    const fetchData = async () => {
+      const data = await getAppointmentsByDay(selectedDate, createErrorToast);
+      setAvailableTimes(data);
+    }
+    fetchData().catch(console.error);
   }, [selectedDate]);
 
   const [currSlide, setCurrSlide] = useState(0);

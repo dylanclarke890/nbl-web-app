@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as dateFns from "date-fns";
 import './calendar.css'
 import ICalendar from '../../interfaces/ICalendar';
-import axios from 'axios';
+import { getMonthOverview } from '../../services/appointmentService';
 
 export default function Calendar({ handleSelectedDate }: ICalendar) {
   const [selectedDate, setDate] = useState(new Date());
@@ -17,13 +17,11 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
 
   const [overview, setOverview] = useState<number[]>([])
   useEffect(() => {
-    axios.get(`/api/appointments/overview/${currentMonth.getFullYear()}/${currentMonth.getMonth()}`)
-      .then(res => {
-        setOverview(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const fetchData = async () => {
+      let data = await getMonthOverview(currentMonth, console.log);
+      setOverview(data);
+    }
+    fetchData();
   }, [currentMonth]);
 
   const renderHeader = () => {
@@ -83,7 +81,7 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
           <div
             className={`col cell ${!dateFns.isSameMonth(cloneDay, monthStart) ||
               (!dateFns.isToday(cloneDay) && dateFns.isAfter(new Date(), cloneDay)) ||
-              overview.includes(cloneDay.getDate())
+              overview?.includes(cloneDay.getDate())
               ? "disabled"
               : dateFns.isSameDay(cloneDay, selectedDate) ? "selected" : ""
               }`}

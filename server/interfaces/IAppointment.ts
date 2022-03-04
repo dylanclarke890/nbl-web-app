@@ -1,6 +1,7 @@
 import ITimeSlot from "./ITimeSlot";
 
 export default interface IAppointment {
+  _id: string;
   person: IPerson;
   date: Date;
   time: ITimeSlot;

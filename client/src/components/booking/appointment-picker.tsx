@@ -5,7 +5,7 @@ import "./appointment-picker.css";
 import ContactForm from "../shared/input/contact-form";
 import useOnInitialized from "../../custom-hooks/useOnInitialized";
 import IAppointmentPicker from "../../interfaces/IAppointmentPicker";
-import axios from "axios";
+import { addAppointment } from "../../services/appointmentService";
 
 export default function AppointmentPicker({
   closeModal,
@@ -79,7 +79,7 @@ export default function AppointmentPicker({
     setTimeErrorShowing(selectedTime === "");
   }
 
-  const submit = () => {
+  const submit = async () => {
     checkForEmptyInputs();
     checkSelectedTime();
     if (inputValidation.error || timeErrorShowing) {
@@ -87,20 +87,10 @@ export default function AppointmentPicker({
     }
 
     const time = availableTimes.find(ti => ti.id === selectedTime);
-    axios.post(`/api/appointments/new/`,
-      { time, name, email, phone, date })
-      .then(res => {
-        let booking = res.data;
-        const successInfo = {
-          message: res.data.message,
-          reference: booking._id,
-          time: `${booking.time?.from} - ${booking.time?.to}`
-        };
-        onSuccessfulSubmit(successInfo);
-      })
-      .catch(err => {
-        onError();
-      });
+    if (!time) {
+      onError();
+    }
+    await addAppointment(time!, {name, email, phone}, date, onSuccessfulSubmit, onError);
   };
 
   useOnInitialized(() => {
