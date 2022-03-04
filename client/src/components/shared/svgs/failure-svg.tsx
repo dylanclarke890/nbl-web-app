@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function FailureSvg({ }) {
+import './failure-svg.css';
+
+export default function FailureSvg() {
   return (<div className="failure-wrapper mt-2 mb-2">
     <svg className="failure" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
       <circle className="failure__circle" cx="26" cy="26" r="25" fill="none" />

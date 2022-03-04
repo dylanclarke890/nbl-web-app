@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 
 import ContactForm from "../shared/input/contact-form";
-import useOnInitialized from "../../custom-hooks/useOnInitialized";
+import TimesUnavailable from './times-unavailable';
+
 import IAppointmentPicker from "../../interfaces/IAppointmentPicker";
-import FailureSvg from '../shared/svgs/failure-svg';
+import useOnInitialized from "../../custom-hooks/useOnInitialized";
 import { addAppointment } from "../../services/appointmentService";
 
 import "./appointment-picker.css";
@@ -122,21 +123,7 @@ export default function AppointmentPicker({
       ? format(date, dateFormat)
       : `${format(date, dateFormat)} - ${availableTimes.find(t => t.id === selectedTime)?.appointmentTime(" to ")}`;
   return !availableTimes.length ?
-    (
-      <>
-        <div className="appointment-unavailable w-100 text-center">
-          <header className="booker-header title">
-            <p className="mb-2">{titleMessage}</p>
-            <p className="">Sorry, no times available. Please select another day.</p>
-          </header>
-          <FailureSvg     />
-          <div className="appointment-unavailable-btns mb-3">
-            <button className="btn" onClick={closeModal}>Back to calendar</button>
-          </div>
-          <p className="title mt-2">Problems? <a href="/contact">Contact us</a></p>
-        </div>
-      </>
-    ) :
+    <TimesUnavailable titleMessage={titleMessage} closeModal={closeModal}  /> :
     (
       <>
         <div className="w-100">
