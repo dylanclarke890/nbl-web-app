@@ -32,7 +32,7 @@ export default function AppointmentPicker({
     );
   }
 
-  const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
+  const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
   const groups = [];
   for (let i = 0; i < times.length; i += 3) {
     const slice = times.slice(i, i + 3);
@@ -74,15 +74,15 @@ export default function AppointmentPicker({
     }
   }
 
-  const [timeErrorShowing, setTimeErrorShowing] = useState(false);
-  const checkSelectedTime = () => {
-    setTimeErrorShowing(selectedTime === "");
+  const [showTimeError, setShowTimeError] = useState(false);
+  const checkTimeIsSelected = () => {
+    setShowTimeError(selectedTime === "");
   }
 
   const submit = async () => {
     checkForEmptyInputs();
-    checkSelectedTime();
-    if (inputValidation.error || timeErrorShowing) {
+    checkTimeIsSelected();
+    if (inputValidation.error || showTimeError) {
       return;
     }
 
@@ -90,7 +90,7 @@ export default function AppointmentPicker({
     if (!time) {
       onError();
     }
-    await addAppointment(time!, {name, email, phone}, date, onSuccessfulSubmit, onError);
+    await addAppointment(time!, { name, email, phone }, date, onSuccessfulSubmit, onError);
   };
 
   useOnInitialized(() => {
@@ -99,16 +99,16 @@ export default function AppointmentPicker({
 
   const updateSelectedGroup = (addition: Boolean) => {
     if (addition) {
-      if (selectedGroupIndex + 1 >= groups.length) {
-        setSelectedGroupIndex(0);
+      if (currentGroupIndex + 1 >= groups.length) {
+        setCurrentGroupIndex(0);
       } else {
-        setSelectedGroupIndex(curr => curr + 1);
+        setCurrentGroupIndex(curr => curr + 1);
       }
     } else {
-      if (selectedGroupIndex - 1 < 0) {
-        setSelectedGroupIndex(groups.length - 1);
+      if (currentGroupIndex - 1 < 0) {
+        setCurrentGroupIndex(groups.length - 1);
       } else {
-        setSelectedGroupIndex(curr => curr - 1);
+        setCurrentGroupIndex(curr => curr - 1);
       }
     }
   }
@@ -118,41 +118,62 @@ export default function AppointmentPicker({
     selectedTime === ""
       ? format(date, dateFormat)
       : `${format(date, dateFormat)} - ${availableTimes.find(t => t.id === selectedTime)?.appointmentTime(" to ")}`;
-  return (
-    <>
-      <div className="w-100">
-        <header className="booker-header">
-          <p className="text-center title">{titleMessage}</p>
-          <p className={`text-left pad-left-18 title ${timeErrorShowing ? "text-error" : null}`}>Select a time:</p>
-        </header>
-        <div className="appointment-booker">
-          <div>
-            <div className="available-times">{groups[selectedGroupIndex]}</div>
-            <div className="times-action-buttons">
-              <button className="btn" onClick={() => updateSelectedGroup(false)}>Prev</button>
-              <button className="btn" onClick={() => updateSelectedGroup(true)}>Next</button>
+  return !availableTimes.length ?
+    (
+      <>
+        <div className="appointment-unavailable w-100 text-center">
+          <header className="booker-header title">
+            <p className="mb-2">{titleMessage}</p>
+            <p className="">Sorry, no times available. Please select another day.</p>
+          </header>
+          <div className="failure-wrapper mt-2 mb-2">
+            <svg className="failure" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+              <circle className="failure__circle" cx="26" cy="26" r="25" fill="none" />
+              <path className="failure__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
+            </svg>
+          </div>
+          <div className="appointment-unavailable-btns mb-3">
+            <button className="btn" onClick={closeModal}>Back to calendar</button>
+          </div>
+          <p className="title mt-2">Problems? <a href="/contact">Contact us</a></p>
+        </div>
+      </>
+    ) :
+    (
+      <>
+        <div className="w-100">
+          <header className="booker-header">
+            <p className="text-center title">{titleMessage}</p>
+            <p className={`text-left pad-left-18 title ${showTimeError ? "text-error" : null}`}>Select a time:</p>
+          </header>
+          <div className="appointment-booker">
+            <div>
+              <div className="available-times">{groups[currentGroupIndex]}</div>
+              <div className="times-action-buttons">
+                <button className="btn" onClick={() => updateSelectedGroup(false)}>Prev</button>
+                <button className="btn" onClick={() => updateSelectedGroup(true)}>Next</button>
+              </div>
+            </div>
+            <div className="appointment-form">
+              <ContactForm
+                inputValidation={inputValidation}
+                setInputValidation={setInputValidation}
+                name={name}
+                setName={setName}
+                email={email}
+                setEmail={setEmail}
+                phone={phone}
+                setPhone={setPhone}
+              />
+              <button className="btn cancel-btn" onClick={() => closeModal()}>
+                Cancel
+              </button>
+              <button className="btn float-right" onClick={() => submit()}>
+                Confirm
+              </button>
             </div>
           </div>
-          <div className="appointment-form">
-            <ContactForm
-              inputValidation={inputValidation}
-              setInputValidation={setInputValidation}
-              name={name}
-              setName={setName}
-              email={email}
-              setEmail={setEmail}
-              phone={phone}
-              setPhone={setPhone}
-            />
-            <button className="btn cancel-btn" onClick={() => closeModal()}>
-              Cancel
-            </button>
-            <button className="btn float-right" onClick={() => submit()}>
-              Confirm
-            </button>
-          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
 }
