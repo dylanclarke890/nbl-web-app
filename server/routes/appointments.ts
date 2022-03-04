@@ -1,28 +1,40 @@
 import express from "express";
-import { addAppointment, getDailyAppointments, getMonthOverview } from "../services/appointmentService";
+import IAppointment from "../interfaces/IAppointment";
+import ITimeSlot from "../interfaces/ITimeSlot";
+import {
+  addAppointment,
+  getDailyAppointments,
+  getMonthOverview,
+} from "../services/appointmentService";
 
 const appointmentRouter = express.Router();
 
-appointmentRouter.get("/overview/:year/:month", async (req, res,) => {
-  const result = await getMonthOverview(req);
-  if (!result) {
+appointmentRouter.get("/overview/:year/:month", async (req, res) => {
+  let result: number[];
+  try {
+    result = await getMonthOverview(req);
+  } catch {
     return res.status(500).send(`Internal error`);
   }
   return res.json(result);
 });
 
-appointmentRouter.get("/:day/:month/:year", async (req, res,) => {
-  const result = await getDailyAppointments(req);
-  if (!result) {
-    return res.status(500).send(`Internal error`);
+appointmentRouter.get("/:day/:month/:year", async (req, res) => {
+  let result: { times: ITimeSlot[]; };
+  try {
+    result = await getDailyAppointments(req);
   }
+  catch {
+    return res.status(500).send(`Internal error`);
+  } 
   return res.json(result);
 });
-
 
 appointmentRouter.post("/new", async (req, res) => {
-  const result = await addAppointment(req);
-  if (!result.appointment?._id) {
+  let result: { message: string; appointment?: undefined; } | { appointment: IAppointment; message?: undefined; }; 
+  try {
+    result = await addAppointment(req);
+  } catch {
     return res.status(500).send(`Internal error: ${result.message}`);
   }
   return res.json(result.appointment);

@@ -68,7 +68,7 @@ async function getSchedule(date: Date): Promise<ISchedule> {
   return defaultSchedule;
 }
 
-let _loadedSchedule: any = null;
+let _loadedSchedule: ISchedule = null;
 export async function getScheduleInUse(date: Date): Promise<ISchedule> {
   if (
     _loadedSchedule &&
