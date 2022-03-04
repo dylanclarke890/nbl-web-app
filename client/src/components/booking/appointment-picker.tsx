@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 
 import { format } from "date-fns";
-import "./appointment-picker.css";
+
 import ContactForm from "../shared/input/contact-form";
 import useOnInitialized from "../../custom-hooks/useOnInitialized";
 import IAppointmentPicker from "../../interfaces/IAppointmentPicker";
+import FailureSvg from '../shared/svgs/failure-svg';
 import { addAppointment } from "../../services/appointmentService";
+
+import "./appointment-picker.css";
 
 export default function AppointmentPicker({
   closeModal,
@@ -126,12 +129,7 @@ export default function AppointmentPicker({
             <p className="mb-2">{titleMessage}</p>
             <p className="">Sorry, no times available. Please select another day.</p>
           </header>
-          <div className="failure-wrapper mt-2 mb-2">
-            <svg className="failure" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-              <circle className="failure__circle" cx="26" cy="26" r="25" fill="none" />
-              <path className="failure__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
-            </svg>
-          </div>
+          <FailureSvg     />
           <div className="appointment-unavailable-btns mb-3">
             <button className="btn" onClick={closeModal}>Back to calendar</button>
           </div>
