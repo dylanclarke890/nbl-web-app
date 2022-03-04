@@ -68,3 +68,7 @@ header p {
   justify-content: space-evenly;
   margin-top: 30px;
 }
+
+.appointment-form {
+  width: 250px;
+}
