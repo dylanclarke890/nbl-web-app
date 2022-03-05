@@ -12,10 +12,18 @@ import createToast from "../shared/toast/toast-helper";
 import Toast from "../shared/toast/toast";
 
 export default function Booking() {
+  const [stageSlide, setStageSlide] = useState(0);
+  const [appointmentType, setAppointmentType] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
   const [selectedDate, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
+
+  const selectAppointmentType = (type:string) => {
+    setAppointmentType(type);
+    setStageSlide(1);
+  }
+
 
   const openModal = () => setShowModal(true);
 
@@ -46,27 +54,38 @@ export default function Booking() {
   }
 
   useEffect(() => {
+    if (stageSlide === 0) return;
     const fetchData = async () => {
       const data = await getAppointmentsByDay(selectedDate, createErrorToast);
       setAvailableTimes(data);
     }
     fetchData().catch(console.error);
-  }, [selectedDate]);
+  }, [selectedDate, stageSlide]);
 
-  const [currSlide, setCurrSlide] = useState(0);
+  const [modalSlide, setModalSlide] = useState(0);
   const [successInfo, setSuccessInfo] = useState({ message: "", reference: "", time: "" });
   const changeSlide = (res: any) => {
     setSuccessInfo(res);
-    setCurrSlide(1);
+    setModalSlide(1);
   }
 
-  return (
+  return stageSlide === 0 ? 
+  (<>
+  <div className="appointment-type-selector title text-center ">
+    <div className="mt-1 mb-1 fade-in">Please select the type of appointment you would like:</div>
+    <div className="appointment-type-options mt-1">
+      <button className="btn fade-in delay-200" onClick={() => selectAppointmentType("Nails")}>Nails</button>
+      <button className="btn fade-in delay-400" onClick={() => selectAppointmentType("Brows")}>Brows</button>
+      <button className="btn fade-in delay-600" onClick={() => selectAppointmentType("Lashes")}>Lashes</button>
+    </div>
+  </div>
+  </>) : (
     <>
       <div className="booking-content">
         <div>
           {showModal ? (
             <Modal setShowModal={setModal}>
-              {currSlide === 0 ? (
+              {modalSlide === 0 ? (
                 <AppointmentPicker
                   closeModal={closeModal}
                   date={selectedDate}
@@ -84,6 +103,7 @@ export default function Booking() {
           ) : null}
         </div>
         <div className="calendar-wrapper">
+          <p className="text-center mt-1 fade-in">Showing availability for: {appointmentType}</p>
           <Calendar handleSelectedDate={updateDate} />
         </div>
       </div>

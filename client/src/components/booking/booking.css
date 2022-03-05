@@ -2,3 +2,14 @@
   margin: 20px 10% 0 10%;
   border: 1px solid rgba(183, 110, 121, 1);
 }
+
+.appointment-type-options {
+  display:flex;
+  justify-content: center;
+}
+
+.appointment-type-options button {
+  opacity: 0;
+  margin: 0 1em 0 1em;
+  animation-fill-mode: forwards;
+}
