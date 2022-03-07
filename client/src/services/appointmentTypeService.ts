@@ -9,19 +9,14 @@ export async function getAll(onSuccess: (data: AppointmentType[]) => void, onErr
     res = await axios.get(`${APIENDPOINT}all`);
   } catch (err) {
     onError(err);
-    return [];
   }
 
   let appointmentTypes: AppointmentType[] = []; 
 
   res.data.types.forEach((el: {_id: string; appointmentType: string; duration: number; price: number; isActive: boolean;}) => {
-    const newType = new AppointmentType(el._id, el.appointmentType, el.duration, el.price, el.isActive);
-    console.log(newType);
-    appointmentTypes.push(newType);
+    appointmentTypes.push(new AppointmentType(el._id, el.appointmentType, el.duration, el.price, el.isActive));
   });
   onSuccess(appointmentTypes);
-  
-  return res.data.types;
 }
 
 export async function addAppointmentType(
