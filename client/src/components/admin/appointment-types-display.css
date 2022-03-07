@@ -1,0 +1,38 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+tr td:last-child {
+  display: flex;
+  justify-content: center;
+}
+
+td .btn {
+  padding: 5px 10px;
+}
+
+td .btn:not(:first-child) {
+  margin: 0 5px;
+}
+
+.table-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.new-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
