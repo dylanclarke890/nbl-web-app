@@ -1,4 +1,4 @@
-let mongoose = require("mongoose");
+import * as mongoose from "mongoose";
 
 const availabilitySchema = new mongoose.Schema({
   day: {

@@ -1,4 +1,4 @@
-let mongoose = require("mongoose");
+import * as mongoose from "mongoose";
 
 let appointmentTypeSchema = new mongoose.Schema({
   appointmentType: {

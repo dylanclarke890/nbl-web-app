@@ -30,11 +30,11 @@ export async function getAppointmentTypes(): Promise<IAppointmentType[]> {
   ];
 }
 
-export async function addAppointmentType(item: IAppointmentType) : Promise<IAppointmentType> {
-  let result!: IAppointmentType;
+export async function addAppointmentType(req: any) : Promise<IAppointmentType> {
+  let result = new AppointmentTypeModel({ ...req.body });
 
   try {
-    result = new AppointmentTypeModel({ ...item }).save();
+    await result.save();
   } catch (e) {
     console.error(e);
   }
