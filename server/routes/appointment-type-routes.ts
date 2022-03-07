@@ -1,11 +1,14 @@
 import express from "express";
 import IAppointmentType from "../interfaces/IAppointmentType";
-import { addAppointmentType, getAppointmentTypes } from "../services/appointment-type-service";
+import {
+  addAppointmentType,
+  getAppointmentTypes,
+} from "../services/appointment-type-service";
 
 const appointmentTypeRouter = express.Router();
 
 appointmentTypeRouter.get("/all", async (req, res) => {
-  let result: IAppointmentType[] = [];
+  let result: { types: IAppointmentType[] } = { types: [] };
   try {
     result = await getAppointmentTypes();
   } catch {
