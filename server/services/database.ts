@@ -12,7 +12,7 @@ class Database {
 _connect() {
      connect(connectionString!)
        .then(() => {
-         console.log('Database connection successful')
+         console.info('Database connection successful')
        })
        .catch(err => {
          console.error(`Database connection error: ${err}`)

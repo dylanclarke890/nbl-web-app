@@ -18,7 +18,7 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
   const [overview, setOverview] = useState<number[]>([])
   useEffect(() => {
     const fetchData = async () => {
-      let data = await getMonthOverview(currentMonth, console.log);
+      let data = await getMonthOverview(currentMonth, console.error);
       setOverview(data);
     }
     fetchData();

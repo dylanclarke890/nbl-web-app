@@ -9,14 +9,10 @@ export default function AppointmentTypesDisplay(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getAll(setAppointmentTypes, console.log);
+      await getAll(setAppointmentTypes, console.error);
     }
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log(appointmentTypes);
-  }, [appointmentTypes])
 
   const newType = () => {
     window.location.href = "/admin/appointment-types/new";
