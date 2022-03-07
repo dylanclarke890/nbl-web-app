@@ -40,7 +40,7 @@ async function getAvailabilityByDate(date: Date): Promise<IAvailability> {
   const schedule = await getScheduleInUse(date);
   const scheduleForToday = schedule.availability.find(
     (a): boolean => a.day === format(date, "EEEE").toLowerCase()
-  );
+  )!;
 
   return scheduleForToday;
 }

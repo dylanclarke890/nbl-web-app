@@ -31,7 +31,7 @@ export async function getAppointmentTypes(): Promise<IAppointmentType[]> {
 }
 
 export async function addAppointmentType(item: IAppointmentType) : Promise<IAppointmentType> {
-  let result: IAppointmentType;
+  let result!: IAppointmentType;
 
   try {
     result = new AppointmentTypeModel({ ...item }).save();

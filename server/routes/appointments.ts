@@ -31,7 +31,7 @@ appointmentRouter.get("/:day/:month/:year", async (req, res) => {
 });
 
 appointmentRouter.post("/new", async (req, res) => {
-  let result: { message: string; appointment?: undefined; } | { appointment: IAppointment; message?: undefined; }; 
+  let result!: { message: string; appointment?: undefined; } | { appointment: IAppointment; message?: undefined; }; 
   try {
     result = await addAppointment(req);
   } catch {
