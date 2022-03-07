@@ -5,7 +5,7 @@ import {
   addAppointment,
   getDailyAppointments,
   getMonthOverview,
-} from "../services/appointmentService";
+} from "../services/appointment-service";
 
 const appointmentRouter = express.Router();
 

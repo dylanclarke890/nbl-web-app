@@ -3,8 +3,8 @@ let AppointmentModel = require("../models/appointment");
 import { format, getDaysInMonth } from "date-fns";
 import ITimeSlot from "../interfaces/ITimeSlot";
 import IAppointment from "../interfaces/IAppointment";
-import { getScheduleInUse } from "./scheduleService";
-import { getAvailableTimeSlots } from "./timeService";
+import { getScheduleInUse } from "./schedule-service";
+import { getAvailableTimeSlots } from "./time-service";
 import IAvailability from "../interfaces/IAvailability";
 
 export async function addAppointment(
