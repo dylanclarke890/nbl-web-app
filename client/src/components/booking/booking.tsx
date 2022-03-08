@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { getAppointmentsByDay } from "../../services/appointmentService";
 import Calendar from "./calendar";
-import Modal from "../shared/modal";
+import Modal from "../shared/modal/modal";
 import AppointmentPicker from "./appointment-picker";
 import "./booking.css";
 import Appointment from "../../models/appointment";

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import ReactDom from "react-dom";
-import IModal from "../../interfaces/IModal";
+import IModal from "../../../interfaces/IModal";
 import './modal.css'
 
 export default function Modal({ setShowModal, children } : IModal) {
