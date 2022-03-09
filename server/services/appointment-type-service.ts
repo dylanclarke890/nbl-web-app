@@ -3,24 +3,23 @@ import IAppointmentType from "../interfaces/IAppointmentType";
 import * as mongoose from "mongoose";
 let AppointmentTypeModel = require("../models/appointment-type");
 
-// export async function getAppointmentTypes(){
-//   return await AppointmentTypeModel.where('isActive').equals(true);
-// }
-
-export async function getAppointmentTypes(): Promise<{
-  types: IAppointmentType[];
-}> {
-  return types;
+export async function getAllAppointmentTypes(
+  includeInActive = false
+): Promise<IAppointmentType[]> {
+  return includeInActive
+    ? await AppointmentTypeModel.find()
+    : await AppointmentTypeModel.where("isActive").equals(true);
 }
 
 export async function getAppointmentType(
   _id: string
 ): Promise<IAppointmentType> {
-  return types.types.find((el) => el._id == _id)!;
+  return AppointmentTypeModel.find({ _id: _id })!;
 }
 
 export async function addAppointmentType(req: any): Promise<IAppointmentType> {
-  let result = new AppointmentTypeModel({ ...req.body });
+  const data = req.body.data;
+  let result = new AppointmentTypeModel({ ...data });
 
   try {
     await result.save();

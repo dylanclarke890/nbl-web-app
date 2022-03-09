@@ -8,7 +8,6 @@ export default function EditAppointmentType() {
   const { id } = useParams();
 
   const handleSubmit = (appointment: AppointmentType) => {
-    console.log(JSON.stringify(appointment));
   }
 
   return (

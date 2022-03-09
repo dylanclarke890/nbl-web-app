@@ -9,14 +9,14 @@ export async function getAllAppointmentTypes(
 ) {
   let res: any = {};
   try {
-    res = await axios.get(`${APIENDPOINT}all`);
+    res = await axios.get(`${APIENDPOINT}all/true`);
   } catch (err) {
     onError(err);
   }
 
   let appointmentTypes: AppointmentType[] = [];
 
-  res.data.types.forEach(
+  res.data.forEach(
     (el: {
       _id: string;
       appointmentType: string;
@@ -45,7 +45,8 @@ export async function getAppointmentType(
   let res: any = {};
 
   try {
-    res = await axios.get(`${APIENDPOINT}/${id}`);
+    res = await axios.get(`${APIENDPOINT}${id}`);
+    console.log(res);
   } catch (err) {
     onError(err);
   }
@@ -54,20 +55,16 @@ export async function getAppointmentType(
 }
 
 export async function addAppointmentType(
-  name: string,
-  duration: number,
-  price: number,
-  isActive: boolean,
+  appointmentType: AppointmentType,
   onError: (arg0: any) => void
 ) {
+  console.log(appointmentType);
   let res: any = {};
   try {
-    res = await axios.post(`${APIENDPOINT}new`, {
-      name,
-      duration,
-      price,
-      isActive,
-    });
+    res = await axios.post(
+      `${APIENDPOINT}new`,
+      {data: appointmentType}
+    );
   } catch (err) {
     onError(err);
   }

@@ -3,12 +3,13 @@ import ICustomTextArea from "../../../interfaces/ICustomTextArea";
 
 import './custom-textarea.css';
 
-export default function CustomTextArea({ inputId, error, active, onChange }: ICustomTextArea) {
+export default function CustomTextArea({ inputId, value, error, active, onChange }: ICustomTextArea) {
   return (
     <div className="custom-field">
       <textarea
         id={inputId}
         placeholder="&nbsp;"
+        value={value}
         onChange={e => onChange(e.currentTarget.value)}
       />
       <label
