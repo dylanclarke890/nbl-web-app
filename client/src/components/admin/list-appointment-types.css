@@ -23,7 +23,7 @@ td .custom-link {
 }
 
 td .custom-link:not(:first-child) {
-  margin: 0 5px;
+  margin: 0 0 0 5px;
 }
 
 .table-wrapper {
