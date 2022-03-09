@@ -1,28 +1,23 @@
-.custom-link {
+.btn, .custom-link {
   background-color: rgba(183, 110, 121, 1);
   border: none;
   color: white;
-  padding: 5px 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
   cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  bottom: 0px;
+}
+
+.custom-link {
+  padding: 5px 8px;
   border-radius: 6px;
 }
 
 .btn {
-  background-color: rgba(183, 110, 121, 1);
-  border: none;
-  color: white;
   padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  position: relative;
-  bottom: 0px;
   border-radius: 5px;
 }
 
@@ -32,7 +27,7 @@
   margin-top: 10px;
 }
 
-.btn:hover {
+.btn:hover, .custom-link:hover {
   bottom: 5px;
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }

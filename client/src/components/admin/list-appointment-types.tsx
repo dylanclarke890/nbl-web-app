@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppointmentType from '../../models/appointment-type';
 import { getAllAppointmentTypes } from '../../services/appointmentTypeService';
 import Header from '../shared/header/header';
@@ -15,21 +16,7 @@ export default function ListAppointmentTypes(): JSX.Element {
     fetchData();
   }, []);
 
-  const newType = () => {
-    window.location.href = "/admin/appointment-types/new";
-  }
-
-  const viewType = (id: string) => {
-    window.location.href = `/admin/appointment-types/view/${id}`;
-  }
-
-  const editType = (id: string) => {
-    window.location.href = `/admin/appointment-types/edit/${id}`;
-  }
-
-  const deleteType = (id: string) => {
-    window.location.href = `/admin/appointment-types/delete/${id}`;
-  }
+  const URLPREFIX = '/admin/appointment-types/'
 
   let displayTypes: JSX.Element[] = [];
   appointmentTypes.forEach(el => {
@@ -39,9 +26,9 @@ export default function ListAppointmentTypes(): JSX.Element {
       <td>{el.price}</td>
       <td>{el.isActive.toString()}</td>
       <td>
-        <button className='btn' onClick={() => viewType(el._id)}>View</button>
-        <button className='btn' onClick={() => editType(el._id)}>Edit</button>
-        <button className='btn' onClick={() => deleteType(el._id)}>Delete</button>
+      <Link className="custom-link" to={`${URLPREFIX}view/${el._id}`}>View</Link>
+      <Link className="custom-link" to={`${URLPREFIX}edit/${el._id}`}>Edit</Link>
+      <Link className="custom-link" to={`${URLPREFIX}delete/${el._id}`}>Delete</Link>
       </td>
     </tr>)
   })
@@ -66,7 +53,7 @@ export default function ListAppointmentTypes(): JSX.Element {
         </table>
       </div>
       <div className='new-btn'>
-        <button className='btn' onClick={() => newType()}>New</button>
+        <Link className="custom-link" to={`${URLPREFIX}new`}>New</Link>
       </div>
     </>
   );

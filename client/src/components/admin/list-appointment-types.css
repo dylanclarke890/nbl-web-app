@@ -18,11 +18,11 @@ tr td:last-child {
   justify-content: center;
 }
 
-td .btn {
+td .custom-link {
   padding: 5px 10px;
 }
 
-td .btn:not(:first-child) {
+td .custom-link:not(:first-child) {
   margin: 0 5px;
 }
 
