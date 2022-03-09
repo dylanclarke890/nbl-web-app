@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import AppointmentType from '../../models/appointment-type';
 import { getAllAppointmentTypes } from '../../services/appointmentTypeService';
 
-import './appointment-types-display.css'
+import './list-appointment-types.css'
 
-export default function AppointmentTypesDisplay(): JSX.Element {
+export default function ListAppointmentTypes(): JSX.Element {
   const [appointmentTypes, setAppointmentTypes] = useState<AppointmentType[]>([]);
 
   useEffect(() => {
@@ -45,14 +45,18 @@ export default function AppointmentTypesDisplay(): JSX.Element {
       <h3 className='text-center'>Appointment Types</h3>
       <div className="table-wrapper">
         <table>
-          <tr>
-            <th>Type</th>
-            <th>Duration (mins)</th>
-            <th>Price (GBP)</th>
-            <th>Active</th>
-            <th></th>
-          </tr>
-          {displayTypes}
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Duration (mins)</th>
+              <th>Price (GBP)</th>
+              <th>Active</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayTypes}
+          </tbody>
         </table>
       </div>
       <div className='new-btn'>
