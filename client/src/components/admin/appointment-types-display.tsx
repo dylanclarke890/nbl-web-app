@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppointmentType from '../../models/appointment-type';
-import { getAll } from '../../services/appointmentTypeService';
+import { getAllAppointmentTypes } from '../../services/appointmentTypeService';
 
 import './appointment-types-display.css'
 
@@ -9,7 +9,7 @@ export default function AppointmentTypesDisplay(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getAll(setAppointmentTypes, console.error);
+      await getAllAppointmentTypes(setAppointmentTypes, console.error);
     }
     fetchData();
   }, []);
