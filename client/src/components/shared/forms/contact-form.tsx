@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import * as Validation from '../../../helpers/validation'
 import IContactForm from '../../../interfaces/IContactForm';
 import IInputValidation from '../../../interfaces/IInputValidation';
-import CustomInput from "./custom-input";
+import CustomInput from "../input/custom-input";
 
 export default function ContactForm({ inputValidation, setInputValidation, name, setName, email, setEmail, phone, setPhone }: IContactForm) {
   const emptyKeyBoardEventHandler = (e: KeyboardEvent) => { };

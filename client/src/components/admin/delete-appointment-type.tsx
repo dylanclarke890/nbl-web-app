@@ -7,7 +7,7 @@ export default function DeleteAppointmentType() {
   return (
     <>
       <div className="text-center">
-        <p>Hello {id}</p>
+        <h3 className="title">Delete {id}</h3>
       </div>
     </>
   )
