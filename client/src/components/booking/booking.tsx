@@ -19,7 +19,7 @@ export default function Booking() {
   const [selectedDate, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
 
-  const selectAppointmentType = (type:string) => {
+  const selectAppointmentType = (type: string) => {
     setAppointmentType(type);
     setStageSlide(1);
   }
@@ -69,45 +69,45 @@ export default function Booking() {
     setModalSlide(1);
   }
 
-  return stageSlide === 0 ? 
-  (<>
-  <div className="appointment-type-selector title text-center ">
-    <div className="mt-1 mb-1 fade-in">Please select the type of appointment you would like:</div>
-    <div className="appointment-type-options mt-1">
-      <button className="btn fade-in delay-200" onClick={() => selectAppointmentType("Nails")}>Nails</button>
-      <button className="btn fade-in delay-400" onClick={() => selectAppointmentType("Brows")}>Brows</button>
-      <button className="btn fade-in delay-600" onClick={() => selectAppointmentType("Lashes")}>Lashes</button>
-    </div>
-  </div>
-  </>) : (
-    <>
-      <div className="booking-content">
-        <div>
-          {showModal ? (
-            <Modal setShowModal={setModal}>
-              {modalSlide === 0 ? (
-                <AppointmentPicker
-                  closeModal={closeModal}
-                  date={selectedDate}
-                  availableTimes={availableTimes}
-                  setSelectedTime={updateTime}
-                  selectedTime={selectedTime}
-                  onError={createErrorToast}
-                  onSuccessfulSubmit={changeSlide}
-                />
-              ) : (
-                <AppointmentConfirmation reference={successInfo.reference}
-                  date={selectedDate} time={successInfo.time} />
-              )}
-            </Modal>
-          ) : null}
-        </div>
-        <div className="calendar-wrapper">
-          <p className="text-center mt-1 fade-in">Showing availability for: {appointmentType}</p>
-          <Calendar handleSelectedDate={updateDate} />
+  return stageSlide === 0 ?
+    (<>
+      <div className="appointment-type-selector title text-center ">
+        <div className="mt-1 mb-1 fade-in">Please select the type of appointment you would like:</div>
+        <div className="appointment-type-options mt-1">
+          <div className="fade-in delay-200"><button className="btn" onClick={() => selectAppointmentType("Nails")}>Nails</button></div>
+          <div className="fade-in delay-400"><button className="btn" onClick={() => selectAppointmentType("Brows")}>Brows</button></div>
+          <div className="fade-in delay-600"><button className="btn" onClick={() => selectAppointmentType("Lashes")}>Lashes</button></div>
         </div>
       </div>
-      <Toast autoDelete={true} autoDeleteTime={2000} toastList={toastList} setToastList={setToastList} position={'top-right'} />
-    </>
-  );
+    </>) : (
+      <>
+        <div className="booking-content">
+          <div>
+            {showModal ? (
+              <Modal setShowModal={setModal}>
+                {modalSlide === 0 ? (
+                  <AppointmentPicker
+                    closeModal={closeModal}
+                    date={selectedDate}
+                    availableTimes={availableTimes}
+                    setSelectedTime={updateTime}
+                    selectedTime={selectedTime}
+                    onError={createErrorToast}
+                    onSuccessfulSubmit={changeSlide}
+                  />
+                ) : (
+                  <AppointmentConfirmation reference={successInfo.reference}
+                    date={selectedDate} time={successInfo.time} />
+                )}
+              </Modal>
+            ) : null}
+          </div>
+          <div className="calendar-wrapper">
+            <p className="text-center mt-1 fade-in">Showing availability for: {appointmentType}</p>
+            <Calendar handleSelectedDate={updateDate} />
+          </div>
+        </div>
+        <Toast autoDelete={true} autoDeleteTime={2000} toastList={toastList} setToastList={setToastList} position={'top-right'} />
+      </>
+    );
 }

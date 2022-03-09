@@ -58,7 +58,7 @@ export default function Contact() {
         <CustomTextArea inputId={'message'} active={message !== ""} error={inputValidation.message} onChange={setMessage} />
         <br />
         <div className="form-button">
-          <button onClick={submit} className="contact-btn" type="button">
+          <button onClick={submit} className="btn" type="button">
             Send
           </button>
         </div>

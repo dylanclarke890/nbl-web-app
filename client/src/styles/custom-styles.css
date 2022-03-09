@@ -1,4 +1,5 @@
-.btn, .custom-link {
+.btn,
+.custom-link {
   background-color: rgba(183, 110, 121, 1);
   border: none;
   color: white;
@@ -27,7 +28,8 @@
   margin-top: 10px;
 }
 
-.btn:hover, .custom-link:hover {
+.btn:hover,
+.custom-link:hover {
   bottom: 5px;
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
