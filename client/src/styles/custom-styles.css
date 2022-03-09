@@ -1,0 +1,12 @@
+.custom-link {
+  background-color: rgba(183, 110, 121, 1);
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}

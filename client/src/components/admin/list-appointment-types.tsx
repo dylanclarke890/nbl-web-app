@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AppointmentType from '../../models/appointment-type';
 import { getAllAppointmentTypes } from '../../services/appointmentTypeService';
+import Header from '../shared/header/header';
 
 import './list-appointment-types.css'
 
@@ -42,7 +43,7 @@ export default function ListAppointmentTypes(): JSX.Element {
 
   return (
     <>
-      <h3 className='text-center'>Appointment Types</h3>
+      <Header headerTitle='Appointment Types' />
       <div className="table-wrapper">
         <table>
           <thead>
@@ -50,7 +51,7 @@ export default function ListAppointmentTypes(): JSX.Element {
               <th>Type</th>
               <th>Duration (mins)</th>
               <th>Price (GBP)</th>
-              <th>Active</th>
+              <th>Visible</th>
               <th></th>
             </tr>
           </thead>

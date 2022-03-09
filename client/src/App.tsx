@@ -7,6 +7,7 @@ import Footer from "./components/shared/footer/footer";
 
 import "./styles/App.css";
 import "./styles/site.css";
+import "./styles/custom-styles.css";
 
 export default class App extends React.Component {
   render() {
