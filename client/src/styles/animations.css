@@ -1,3 +1,4 @@
+/* SPINNER GROW */
 .spinner-grow-sm {
   width: 1rem;
   height: 1rem;
@@ -14,7 +15,9 @@
   -webkit-animation: 0.75s linear infinite spinner-grow;
   animation: 0.75s linear infinite spinner-grow;
 }
+/* END OF SPINNER GROW */
 
+/* FADE IN */
 .fade-in {
   animation-name: fadeIn;
   animation-duration: 500ms;
@@ -76,6 +79,9 @@
     opacity: 1;
   }
 }
+/* END OF FADE IN */
+
+/* DELAY UTILTIES */
 .delay-200 {
   animation-delay: 200ms;
 }
@@ -92,3 +98,4 @@
 .delay-1000 {
   animation-delay: 1000ms;
 }
+/* END OF DELAY */

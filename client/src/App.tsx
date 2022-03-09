@@ -5,7 +5,6 @@ import Navbar from "./components/shared/navbar/navbar";
 import MainContent from "./components/routing/main-content";
 import Footer from "./components/shared/footer/footer";
 
-import "./styles/App.css";
 import "./styles/reset.css";
 import "./styles/animations.css";
 import "./styles/custom-styles.css";
