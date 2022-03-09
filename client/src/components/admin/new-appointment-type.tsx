@@ -1,11 +1,12 @@
 import React from "react";
+import AppointmentType from "../../models/appointment-type";
 
 import AppointmentTypeForm from "../shared/forms/appointment-type-form";
 import Header from "../shared/header/header";
 
 export default function NewAppointmentType() {
-  const handleSubmit = () => {
-
+  const handleSubmit = (appointment: AppointmentType) => {
+    console.log(JSON.stringify(appointment));
   }
 
   return (

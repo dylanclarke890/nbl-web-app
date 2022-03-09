@@ -19,6 +19,10 @@ export default function ListAppointmentTypes(): JSX.Element {
     window.location.href = "/admin/appointment-types/new";
   }
 
+  const viewType = (id: string) => {
+    window.location.href = `/admin/appointment-types/view/${id}`;
+  }
+
   const editType = (id: string) => {
     window.location.href = `/admin/appointment-types/edit/${id}`;
   }
@@ -33,8 +37,9 @@ export default function ListAppointmentTypes(): JSX.Element {
       <td>{el.appointmentType}</td>
       <td>{el.duration}</td>
       <td>{el.price}</td>
-      <td>{String(el.isActive)}</td>
+      <td>{el.isActive.toString()}</td>
       <td>
+        <button className='btn' onClick={() => viewType(el._id)}>View</button>
         <button className='btn' onClick={() => editType(el._id)}>Edit</button>
         <button className='btn' onClick={() => deleteType(el._id)}>Delete</button>
       </td>

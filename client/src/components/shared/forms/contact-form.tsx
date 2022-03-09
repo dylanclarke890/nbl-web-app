@@ -7,8 +7,6 @@ import IInputValidation from '../../../interfaces/IInputValidation';
 import CustomInput from "../input/custom-input";
 
 export default function ContactForm({ inputValidation, setInputValidation, name, setName, email, setEmail, phone, setPhone }: IContactForm) {
-  const emptyKeyBoardEventHandler = (e: KeyboardEvent) => { };
-
   const validateName = useCallback((): void => {
     if (!name) {
       setInputValidation((inputValidation: IInputValidation) => ({
@@ -93,7 +91,6 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
         active={name !== ""}
         error={inputValidation.name}
         onChange={setName}
-        onKeyPress={emptyKeyBoardEventHandler}
       />
       <CustomInput inputId={"phone"}
         active={phone !== ""}
@@ -105,7 +102,6 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
         active={email !== ""}
         error={inputValidation.email}
         onChange={setEmail}
-        onKeyPress={emptyKeyBoardEventHandler}
       />
     </>
   )
