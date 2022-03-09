@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Header from "../shared/header/header";
+import Header from "../../shared/header/header";
 
 export default function DeleteAppointmentType() {
   const { id } = useParams();

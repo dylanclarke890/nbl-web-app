@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import DeleteAppointmentType from '../../admin/delete-appointment-type';
-import EditAppointmentType from '../../admin/edit-appointment-type';
-import ListAppointmentTypes from '../../admin/list-appointment-types';
-import NewAppointmentType from '../../admin/new-appointment-type';
-import ViewAppointmentType from '../../admin/view-appointment-type';
+import DeleteAppointmentType from '../../admin/appointment-type/delete-appointment-type';
+import EditAppointmentType from '../../admin/appointment-type/edit-appointment-type';
+import ListAppointmentTypes from '../../admin/appointment-type/list-appointment-types';
+import NewAppointmentType from '../../admin/appointment-type/new-appointment-type';
+import ViewAppointmentType from '../../admin/appointment-type/view-appointment-type';
 
 
 const adminRouter = [

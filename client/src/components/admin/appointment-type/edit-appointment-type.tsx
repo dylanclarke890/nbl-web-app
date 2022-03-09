@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import AppointmentType from "../../models/appointment-type";
-import AppointmentTypeForm from "../shared/forms/appointment-type-form";
-import Header from "../shared/header/header";
+import AppointmentType from "../../../models/appointment-type";
+import AppointmentTypeForm from "../../shared/forms/appointment-type-form";
+import Header from "../../shared/header/header";
 
 export default function EditAppointmentType() {
   const { id } = useParams();

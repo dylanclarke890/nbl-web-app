@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import AppointmentType from '../../models/appointment-type';
-import { getAllAppointmentTypes } from '../../services/appointmentTypeService';
-import Header from '../shared/header/header';
+import AppointmentType from '../../../models/appointment-type';
+import { getAllAppointmentTypes } from '../../../services/appointmentTypeService';
+import Header from '../../shared/header/header';
 
 import './list-appointment-types.css'
 
