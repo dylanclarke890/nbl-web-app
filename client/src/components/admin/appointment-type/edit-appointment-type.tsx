@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AppointmentType from "../../../models/appointment-type";
+
 import { editAppointmentType } from "../../../services/appointmentTypeService";
+import AppointmentType from "../../../models/appointment-type";
+
 import AppointmentTypeForm from "../../shared/forms/appointment-type-form";
 import Header from "../../shared/header/header";
 
@@ -19,7 +21,6 @@ export default function EditAppointmentType() {
 
   useEffect(() => {
     if (!readyToSubmit) return;
-
     const sendData = async () => {
       const res = await editAppointmentType(appointmentType, console.error);
       if (res) {
@@ -30,6 +31,7 @@ export default function EditAppointmentType() {
     }
     sendData().catch(console.error);
   }, [appointmentType, readyToSubmit]);
+
   return currSlide === 0 ? (
     <>
       <Header headerTitle={`Edit`} returnLinkUrl={'../admin/appointment-types'} linkText={'Back to all'} />

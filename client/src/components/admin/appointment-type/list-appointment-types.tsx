@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import AppointmentType from '../../../models/appointment-type';
-import { getAllAppointmentTypes } from '../../../services/appointmentTypeService';
-import Header from '../../shared/header/header';
 
+import { getAllAppointmentTypes } from '../../../services/appointmentTypeService';
+import AppointmentType from '../../../models/appointment-type';
+
+import Header from '../../shared/header/header';
 import './list-appointment-types.css'
+
 
 export default function ListAppointmentTypes(): JSX.Element {
   const [appointmentTypes, setAppointmentTypes] = useState<AppointmentType[]>([]);
@@ -26,9 +28,9 @@ export default function ListAppointmentTypes(): JSX.Element {
       <td>{el.price}</td>
       <td>{el.isActive.toString()}</td>
       <td>
-      <Link className="custom-link" to={`${URLPREFIX}view/${el._id}`}>View</Link>
-      <Link className="custom-link" to={`${URLPREFIX}edit/${el._id}`}>Edit</Link>
-      <Link className="custom-link" to={`${URLPREFIX}delete/${el._id}`}>Delete</Link>
+        <Link className="custom-link" to={`${URLPREFIX}view/${el._id}`}>View</Link>
+        <Link className="custom-link" to={`${URLPREFIX}edit/${el._id}`}>Edit</Link>
+        <Link className="custom-link" to={`${URLPREFIX}delete/${el._id}`}>Delete</Link>
       </td>
     </tr>)
   })

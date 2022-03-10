@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { deleteAppointmentType } from "../../../services/appointmentTypeService";
+
 import AppointmentTypeForm from "../../shared/forms/appointment-type-form";
 import Header from "../../shared/header/header";
 
@@ -9,14 +11,12 @@ export default function DeleteAppointmentType() {
   const [currSlide, setCurrSlide] = useState(0);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
-
   const handleConfirm = () => {
     setDeleteConfirmed(true);
   }
 
   useEffect(() => {
     if (!deleteConfirmed) return;
-
     const sendData = async () => {
       const res = await deleteAppointmentType(id!, console.error);
       if (res) {

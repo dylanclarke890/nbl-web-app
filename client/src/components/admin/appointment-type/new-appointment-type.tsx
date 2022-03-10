@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import AppointmentType from "../../../models/appointment-type";
+
 import { addAppointmentType } from "../../../services/appointmentTypeService";
+import AppointmentType from "../../../models/appointment-type";
 
 import AppointmentTypeForm from "../../shared/forms/appointment-type-form";
 import Header from "../../shared/header/header";
