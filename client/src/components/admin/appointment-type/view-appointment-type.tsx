@@ -8,7 +8,7 @@ export default function ViewAppointmentType() {
 
   return (
     <>
-      <Header headerTitle={`View ${id}`} returnLinkUrl={'../admin/appointment-types'} linkText={'Back to all'} />
+      <Header headerTitle={`View`} returnLinkUrl={'../admin/appointment-types'} linkText={'Back to all'} />
       <AppointmentTypeForm id={id} readOnly />
     </>
   )

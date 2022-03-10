@@ -43,7 +43,7 @@ appointmentTypeRouter.post("/new", async (req, res) => {
 appointmentTypeRouter.put("/edit/:id", async (req, res) => {
   let result: boolean = false;
   try {
-    result = await editAppointmentType(req.body);
+    result = await editAppointmentType(req.params.id, req.body);
   } catch {
     return res.status(500).send(`Internal error.`);
   }
@@ -57,7 +57,7 @@ appointmentTypeRouter.delete("/delete/:id", async (req, res) => {
   } catch {
     return res.status(500).send(`Internal error.`);
   }
-  return res.json(result!);
+  return res.json(result);
 });
 
 export default appointmentTypeRouter;

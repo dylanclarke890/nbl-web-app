@@ -46,7 +46,6 @@ export async function getAppointmentType(
 
   try {
     res = await axios.get(`${APIENDPOINT}${id}`);
-    console.log(res);
   } catch (err) {
     onError(err);
   }
@@ -58,7 +57,6 @@ export async function addAppointmentType(
   appointmentType: AppointmentType,
   onError: (arg0: any) => void
 ) {
-  console.log(appointmentType);
   let res: any = {};
   try {
     res = await axios.post(
@@ -76,7 +74,7 @@ export async function editAppointmentType(
   appointmentType: AppointmentType,
   onError: (arg0: any) => void
 ) {
-  let res: any = {};
+  let res: boolean = false;
 
   try {
     res = await axios.put(`${APIENDPOINT}edit/${appointmentType._id}`, {
@@ -93,12 +91,12 @@ export async function deleteAppointmentType(
   id: string,
   onError: (arg0: any) => void
 ) {
-  let res: any = {};
+  let res: boolean = false;
   try {
     res = await axios.delete(`${APIENDPOINT}delete/${id}`);
   } catch (err) {
     onError(err);
   }
 
-  return res.data;
+  return res;
 }

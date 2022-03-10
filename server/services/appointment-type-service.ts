@@ -1,7 +1,7 @@
-import IAppointmentType from "../interfaces/IAppointmentType";
-
 import * as mongoose from "mongoose";
+
 let AppointmentTypeModel = require("../models/appointment-type");
+import IAppointmentType from "../interfaces/IAppointmentType";
 
 export async function getAllAppointmentTypes(
   includeInActive = false
@@ -14,13 +14,11 @@ export async function getAllAppointmentTypes(
 export async function getAppointmentType(
   _id: string
 ): Promise<IAppointmentType> {
-  return AppointmentTypeModel.find({ _id: _id })!;
+  return await AppointmentTypeModel.findById(_id).exec();
 }
 
 export async function addAppointmentType(req: any): Promise<IAppointmentType> {
-  const data = req.body.data;
-  let result = new AppointmentTypeModel({ ...data });
-
+  let result = new AppointmentTypeModel({ ...req.body.data });
   try {
     await result.save();
   } catch (e) {
@@ -30,16 +28,16 @@ export async function addAppointmentType(req: any): Promise<IAppointmentType> {
   return result;
 }
 
-export async function editAppointmentType(appointmentType: IAppointmentType) {
+export async function editAppointmentType(id: string, item: any) {
   let success = false;
-
-  const filter = { _id: appointmentType._id };
-  const update = appointmentType;
-
+  const update = item.appointmentType;
   try {
-    const oldDoc = await AppointmentTypeModel.updateOne(filter, update);
-    console.log(oldDoc.n);
-    console.log(oldDoc.nModified);
+    const doc = await AppointmentTypeModel.findById(id).exec();
+    doc.appointmentType = update.appointmentType;
+    doc.duration = update.duration;
+    doc.price = update.price;
+    doc.isActive = update.isActive;
+    await doc.save();
     success = true;
   } catch (e) {
     console.error(e);
@@ -52,51 +50,11 @@ export async function deleteAppointmentType(id: string) {
   let success = false;
 
   try {
-    await AppointmentTypeModel.deleteOne(
-      { _id: id },
-      function (
-        err: any,
-        res: { n: number; ok: number; deletedCount: number }
-      ) {
-        if (err) {
-          success = false;
-        } else {
-          console.log(res.n);
-          console.log(res.ok);
-          console.log(res.deletedCount);
-          success = true;
-        }
-      }
-    );
+    const res = await AppointmentTypeModel.deleteOne({ _id: id });
+    success = res.deletedCount > 0;
   } catch (e) {
     console.error(e);
   }
 
   return success;
 }
-
-let types = {
-  types: [
-    {
-      _id: "1",
-      appointmentType: "Nails",
-      duration: 60,
-      price: 4.99,
-      isActive: true,
-    },
-    {
-      _id: "2",
-      appointmentType: "Brows",
-      duration: 45,
-      price: 9.99,
-      isActive: true,
-    },
-    {
-      _id: "3",
-      appointmentType: "Lashes",
-      duration: 75,
-      price: 14.99,
-      isActive: true,
-    },
-  ],
-};
