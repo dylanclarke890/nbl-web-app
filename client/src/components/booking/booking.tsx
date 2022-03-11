@@ -40,9 +40,7 @@ export default function Booking() {
     for (let i = 0; i < appointmentTypes.length; i++) {
       const el = appointmentTypes[i];
       appointmentTypeBtns.push((
-        <>
           <div key={el._id} className={`fade-in delay-${i * 2}00`}><button className="btn" onClick={() => selectAppointmentType(el)}>{el.appointmentType}</button></div>
-        </>
       ));
     }
     setAppointmentTypeButtons([...appointmentTypeBtns]);
@@ -78,13 +76,13 @@ export default function Booking() {
   }, [appointmentType, updateAppointmentTypeSelection]);
 
   useEffect(() => {
-    if (stageSlide === 0) return;
+    if (stageSlide === 0 || appointmentType?._id === "") return;
     const fetchData = async () => {
-      const data = await getAppointmentsByDay(selectedDate, createErrorToast);
+      const data = await getAppointmentsByDay(selectedDate, appointmentType._id, createErrorToast);
       setAvailableTimes(data);
     }
     fetchData().catch(console.error);
-  }, [selectedDate, stageSlide]);
+  }, [selectedDate, stageSlide, appointmentType?._id]);
 
   const [modalSlide, setModalSlide] = useState(0);
   const [successInfo, setSuccessInfo] = useState({ message: "", reference: "", time: "" });

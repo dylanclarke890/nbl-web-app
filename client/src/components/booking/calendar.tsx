@@ -4,7 +4,7 @@ import './calendar.css'
 import ICalendar from '../../interfaces/ICalendar';
 import { getMonthOverview } from '../../services/appointmentService';
 
-export default function Calendar({ handleSelectedDate }: ICalendar) {
+export default function Calendar({ handleSelectedDate}: ICalendar) {
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());
 

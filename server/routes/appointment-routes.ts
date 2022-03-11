@@ -19,7 +19,7 @@ appointmentRouter.get("/overview/:year/:month", async (req, res) => {
   return res.json(result);
 });
 
-appointmentRouter.get("/:day/:month/:year", async (req, res) => {
+appointmentRouter.get("/:day/:month/:year/:appointmentTypeId", async (req, res) => {
   let result: { times: ITimeSlot[]; };
   try {
     result = await getDailyAppointments(req);

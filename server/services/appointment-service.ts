@@ -6,6 +6,7 @@ import IAppointment from "../interfaces/IAppointment";
 import { getScheduleInUse } from "./schedule-service";
 import { getAvailableTimeSlots } from "./time-service";
 import IAvailability from "../interfaces/IAvailability";
+import { getAppointmentType } from "./appointment-type-service";
 
 export async function addAppointment(
   req: any
@@ -54,11 +55,16 @@ export async function getDailyAppointments(
     parseInt(params.month),
     parseInt(params.day)
   );
+
+  const appointmentType = await getAppointmentType(params.appointmentTypeId);
+  if (appointmentType.appointmentType === "") throw new Error("Should've had a value for appointment type.");
+
   const existingAppointments = await getExistingAppointments(day);
+
   const scheduleForToday = await getAvailabilityByDate(day);
   const availableTimeSlots = getAvailableTimeSlots(
     scheduleForToday!.times,
-    30,
+    appointmentType.duration,
     existingAppointments
   );
 

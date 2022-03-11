@@ -38,6 +38,7 @@ export async function addAppointment(
 
 export async function getAppointmentsByDay(
   day: Date,
+  appointmentTypeId: string,
   onError: () => any
 ): Promise<Appointment[]> {
   if (!day) return [];
@@ -45,7 +46,7 @@ export async function getAppointmentsByDay(
   let res: any;
   try {
     res = await axios.get(
-      `${APIENDPOINT}${day.getDate()}/${day.getMonth()}/${day.getFullYear()}`
+      `${APIENDPOINT}${day.getDate()}/${day.getMonth()}/${day.getFullYear()}/${appointmentTypeId}`
     );
   } catch (e) {
     onError();
