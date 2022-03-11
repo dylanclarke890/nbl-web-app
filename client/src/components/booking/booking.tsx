@@ -1,36 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
+import { getAllAppointmentTypes } from "../../services/appointmentTypeService";
 import { getAppointmentsByDay } from "../../services/appointmentService";
+import AppointmentType from "../../models/appointment-type";
+import Appointment from "../../models/appointment";
+import IToast from "../../interfaces/IToast";
+
+import Toast from "../shared/toast/toast";
+import createToast from "../shared/toast/toast-helper";
 import Calendar from "./calendar";
 import Modal from "../shared/modal/modal";
 import AppointmentPicker from "./appointment-picker";
-import "./booking.css";
-import Appointment from "../../models/appointment";
 import AppointmentConfirmation from "./appointment-confirmation";
-import IToast from "../../interfaces/IToast";
-import createToast from "../shared/toast/toast-helper";
-import Toast from "../shared/toast/toast";
+
+import "./booking.css";
 
 export default function Booking() {
   const [stageSlide, setStageSlide] = useState(0);
-  const [appointmentType, setAppointmentType] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [appointmentType, setAppointmentType] = useState(new AppointmentType("", "", 0, 0, false));
+  const [appointmentTypeButtons, setAppointmentTypeButtons] = useState<JSX.Element[]>([]);
   const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
+  const [showModal, setShowModal] = useState(false);
   const [selectedDate, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
 
-  const selectAppointmentType = (type: string) => {
+  const selectAppointmentType = (type: AppointmentType) => {
     setAppointmentType(type);
     setStageSlide(1);
   }
-
-
   const openModal = () => setShowModal(true);
 
   const updateDate = (date: Date) => {
     openModal();
     setDate(date);
   };
+
+  const updateAppointmentTypeSelection = useCallback((appointmentTypes: AppointmentType[]) => {
+    const appointmentTypeBtns: JSX.Element[] = [];
+    for (let i = 0; i < appointmentTypes.length; i++) {
+      const el = appointmentTypes[i];
+      appointmentTypeBtns.push((
+        <>
+          <div key={el._id} className={`fade-in delay-${i * 2}00`}><button className="btn" onClick={() => selectAppointmentType(el)}>{el.appointmentType}</button></div>
+        </>
+      ));
+    }
+    setAppointmentTypeButtons([...appointmentTypeBtns]);
+  }, [])
 
   const updateTime = (time: string) => {
     setSelectedTime(time);
@@ -54,6 +70,14 @@ export default function Booking() {
   }
 
   useEffect(() => {
+    if (appointmentType?._id !== "") return;
+    const fetchData = async () => {
+      await getAllAppointmentTypes(updateAppointmentTypeSelection, createErrorToast);
+    }
+    fetchData().catch(console.error);
+  }, [appointmentType, updateAppointmentTypeSelection]);
+
+  useEffect(() => {
     if (stageSlide === 0) return;
     const fetchData = async () => {
       const data = await getAppointmentsByDay(selectedDate, createErrorToast);
@@ -74,9 +98,7 @@ export default function Booking() {
       <div className="appointment-type-selector title text-center ">
         <div className="mt-1 mb-1 fade-in">Please select the type of appointment you would like:</div>
         <div className="appointment-type-options mt-1">
-          <div className="fade-in delay-200"><button className="btn" onClick={() => selectAppointmentType("Nails")}>Nails</button></div>
-          <div className="fade-in delay-400"><button className="btn" onClick={() => selectAppointmentType("Brows")}>Brows</button></div>
-          <div className="fade-in delay-600"><button className="btn" onClick={() => selectAppointmentType("Lashes")}>Lashes</button></div>
+          {appointmentTypeButtons}
         </div>
       </div>
     </>) : (
@@ -103,7 +125,7 @@ export default function Booking() {
             ) : null}
           </div>
           <div className="calendar-wrapper">
-            <p className="text-center mt-1 fade-in">Showing availability for: {appointmentType}</p>
+            <p className="text-center mt-1 fade-in">Showing availability for: {appointmentType.appointmentType}</p>
             <Calendar handleSelectedDate={updateDate} />
           </div>
         </div>
