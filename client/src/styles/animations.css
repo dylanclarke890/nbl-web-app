@@ -19,9 +19,11 @@
 
 /* FADE IN */
 .fade-in {
+  opacity: 0;
   animation-name: fadeIn;
   animation-duration: 500ms;
   transition-timing-function: ease-in;
+  animation-fill-mode: forwards;
   position: relative;
 }
 

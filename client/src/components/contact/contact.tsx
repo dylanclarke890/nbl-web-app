@@ -52,12 +52,12 @@ export default function Contact() {
 
   return (
     <div className="contact-content">
-      <p className="text-center contact-title">Contact Us</p>
-      <div className="contact-form">
+      <p className="text-center contact-title fade-in">Contact Us</p>
+      <div className="contact-form fade-in">
         <ContactForm inputValidation={inputValidation} setInputValidation={setInputValidation} name={name} setName={setName} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} />
         <CustomTextArea inputId={'message'} active={message !== ""} error={inputValidation.message} onChange={setMessage} />
         <br />
-        <div className="form-button">
+        <div className="form-button fade-in">
           <button onClick={submit} className="btn" type="button">
             Send
           </button>

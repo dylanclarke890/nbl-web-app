@@ -9,7 +9,5 @@
 }
 
 .appointment-type-options div {
-  opacity: 0;
   margin: 0 1em 0 1em;
-  animation-fill-mode: forwards;
 }
