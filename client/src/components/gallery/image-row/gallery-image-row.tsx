@@ -1,12 +1,12 @@
 import React from "react";
 
 import GalleryItem from "./gallery-item";
-import './gallery.css';
-const samplework1 = require("../../images/portfolio/samplework1.jpg");
-const samplework2 = require("../../images/portfolio/samplework2.jpg");
-const samplework3 = require("../../images/portfolio/samplework3.jpg");
-const samplework4 = require("../../images/portfolio/samplework4.jpg");
-const samplework5 = require("../../images/portfolio/samplework5.jpg");
+import './../gallery.css';
+const samplework1 = require("../../../images/portfolio/samplework1.jpg");
+const samplework2 = require("../../../images/portfolio/samplework2.jpg");
+const samplework3 = require("../../../images/portfolio/samplework3.jpg");
+const samplework4 = require("../../../images/portfolio/samplework4.jpg");
+const samplework5 = require("../../../images/portfolio/samplework5.jpg");
 
 export default function GalleryImageRow(){
   return (

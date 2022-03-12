@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as dateFns from "date-fns";
 import './calendar.css'
-import ICalendar from '../../interfaces/ICalendar';
-import { getMonthOverview } from '../../services/appointmentService';
+import ICalendar from '../../../interfaces/ICalendar';
+import { getMonthOverview } from '../../../services/appointmentService';
 
 export default function Calendar({ handleSelectedDate}: ICalendar) {
   const [selectedDate, setDate] = useState(new Date());

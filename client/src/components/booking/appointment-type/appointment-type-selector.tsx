@@ -1,6 +1,6 @@
 import React from "react";
 
-import IAppointmentTypeSelector from "../../interfaces/IAppointmentTypeSelector";
+import IAppointmentTypeSelector from "../../../interfaces/IAppointmentTypeSelector";
 
 export function AppointmentTypeSelector({
   appointmentTypeButtons

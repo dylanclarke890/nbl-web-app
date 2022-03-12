@@ -1,6 +1,6 @@
 import React from "react";
-import IAppointmentConfirmation from "../../interfaces/IAppointmentConfirmation";
-import CheckmarkSvg from "../shared/svgs/checkmark-svg";
+import IAppointmentConfirmation from "../../../interfaces/IAppointmentConfirmation";
+import CheckmarkSvg from "../../shared/svgs/checkmark-svg";
 
 import './appointment-confirmation.css';
 

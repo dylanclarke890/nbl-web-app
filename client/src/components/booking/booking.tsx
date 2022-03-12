@@ -1,4 +1,4 @@
-import { AppointmentTypeSelector } from './appointment-type-selector';
+import { AppointmentTypeSelector } from './appointment-type/appointment-type-selector';
 import React, { useState, useEffect, useCallback } from "react";
 
 import { getAllAppointmentTypes } from "../../services/appointmentTypeService";
@@ -9,10 +9,10 @@ import IToast from "../../interfaces/IToast";
 
 import Toast from "../shared/toast/toast";
 import createToast from "../shared/toast/toast-helper";
-import Calendar from "./calendar";
+import Calendar from "./calendar/calendar";
 import Modal from "../shared/modal/modal";
-import AppointmentPicker from "./appointment-picker";
-import AppointmentConfirmation from "./appointment-confirmation";
+import AppointmentPicker from "./appointment/appointment-picker";
+import AppointmentConfirmation from "./appointment/appointment-confirmation";
 
 import "./booking.css";
 

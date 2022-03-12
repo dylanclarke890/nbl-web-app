@@ -1,5 +1,5 @@
 import React from "react";
-import IGalleryItem from "../../interfaces/IGalleryItem";
+import IGalleryItem from "../../../interfaces/IGalleryItem";
 
 import "./gallery-item.css";
 

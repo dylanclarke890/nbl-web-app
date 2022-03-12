@@ -1,6 +1,6 @@
 import React from "react";
 
-import GalleryImageRow from "./gallery-image-row";
+import GalleryImageRow from "./image-row/gallery-image-row";
 import "./gallery.css";
 
 export default function Gallery() {

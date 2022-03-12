@@ -1,5 +1,5 @@
 import React from "react";
-import FailureSvg from "../shared/svgs/failure-svg";
+import FailureSvg from "../../shared/svgs/failure-svg";
 
 import './times-unavailable.css';
 

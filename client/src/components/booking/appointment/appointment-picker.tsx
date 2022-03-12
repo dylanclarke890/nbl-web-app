@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import { format } from "date-fns";
 
-import ContactForm from "../shared/forms/contact-form";
+import ContactForm from "../../shared/forms/contact-form";
 import TimesUnavailable from './times-unavailable';
 
-import IAppointmentPicker from "../../interfaces/IAppointmentPicker";
-import useOnInitialized from "../../custom-hooks/useOnInitialized";
-import { addAppointment } from "../../services/appointmentService";
+import IAppointmentPicker from "../../../interfaces/IAppointmentPicker";
+import useOnInitialized from "../../../custom-hooks/useOnInitialized";
+import { addAppointment } from "../../../services/appointmentService";
 
 import "./appointment-picker.css";
 
