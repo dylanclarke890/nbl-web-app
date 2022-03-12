@@ -1,3 +1,4 @@
+import { AppointmentTypeSelector } from './appointment-type-selector';
 import React, { useState, useEffect, useCallback } from "react";
 
 import { getAllAppointmentTypes } from "../../services/appointmentTypeService";
@@ -92,14 +93,7 @@ export default function Booking() {
   }
 
   return stageSlide === 0 ?
-    (<>
-      <div className="appointment-type-selector title text-center ">
-        <div className="mt-1 mb-1 fade-in">Please select the type of appointment you would like:</div>
-        <div className="appointment-type-options mt-1">
-          {appointmentTypeButtons}
-        </div>
-      </div>
-    </>) : (
+    <AppointmentTypeSelector appointmentTypeButtons={appointmentTypeButtons} /> : (
       <>
         <div className="booking-content">
           <div>
