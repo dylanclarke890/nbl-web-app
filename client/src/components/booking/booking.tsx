@@ -1,4 +1,3 @@
-import { AppointmentTypeSelector } from './appointment-type/appointment-type-selector';
 import React, { useState, useEffect, useCallback } from "react";
 
 import { getAllAppointmentTypes } from "../../services/appointmentTypeService";
@@ -13,13 +12,15 @@ import Calendar from "./calendar/calendar";
 import Modal from "../shared/modal/modal";
 import AppointmentPicker from "./appointment/appointment-picker";
 import AppointmentConfirmation from "./appointment/appointment-confirmation";
+import { AppointmentTypeItem } from './appointment-type/appointment-type-item';
+import { AppointmentTypeSelector } from './appointment-type/appointment-type-selector';
 
 import "./booking.css";
 
 export default function Booking() {
   const [stageSlide, setStageSlide] = useState(0);
   const [appointmentType, setAppointmentType] = useState(new AppointmentType("", "", 0, 0, false));
-  const [appointmentTypeButtons, setAppointmentTypeButtons] = useState<JSX.Element[]>([]);
+  const [appointmentTypeItems, setAppointmentTypeItems] = useState<JSX.Element[]>([]);
   const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setDate] = useState(new Date());
@@ -37,14 +38,14 @@ export default function Booking() {
   };
 
   const updateAppointmentTypeSelection = useCallback((appointmentTypes: AppointmentType[]) => {
-    const appointmentTypeBtns: JSX.Element[] = [];
+    const appointmentTypeItems: JSX.Element[] = [];
     for (let i = 0; i < appointmentTypes.length; i++) {
       const el = appointmentTypes[i];
-      appointmentTypeBtns.push((
-          <div key={el._id} className={`fade-in delay-${i * 2}00`}><button className="btn" onClick={() => selectAppointmentType(el)}>{el.appointmentType}</button></div>
+      appointmentTypeItems.push((
+        <AppointmentTypeItem key={el._id} delay={i * 200} selectAppointmentType={selectAppointmentType} item={el} />
       ));
     }
-    setAppointmentTypeButtons([...appointmentTypeBtns]);
+    setAppointmentTypeItems([...appointmentTypeItems]);
   }, [])
 
   const updateTime = (time: string) => {
@@ -93,7 +94,7 @@ export default function Booking() {
   }
 
   return stageSlide === 0 ?
-    <AppointmentTypeSelector appointmentTypeButtons={appointmentTypeButtons} /> : (
+    <AppointmentTypeSelector appointmentTypeButtons={appointmentTypeItems} /> : (
       <>
         <div className="booking-content">
           <div>
