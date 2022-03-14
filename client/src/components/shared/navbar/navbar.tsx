@@ -23,7 +23,7 @@ export default function Navbar() {
       </NavLink>
       <NavLink
         className="navbar-item"
-        to="/book-appointment"
+        to="/booking-options"
       >
         Book Appointment
       </NavLink>

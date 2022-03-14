@@ -24,7 +24,7 @@ export default function Footer() {
           <NavLink className="footer-item" to="/treatments">
             Treatments
           </NavLink>
-          <NavLink className="footer-item" to="/book-appointment">
+          <NavLink className="footer-item" to="/booking-options">
             Book Appointment
           </NavLink>
           <NavLink className="footer-item" to="/gallery">
