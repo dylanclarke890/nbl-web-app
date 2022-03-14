@@ -12,8 +12,8 @@ import Calendar from "./calendar/calendar";
 import Modal from "../shared/modal/modal";
 import AppointmentPicker from "./appointment/appointment-picker";
 import AppointmentConfirmation from "./appointment/appointment-confirmation";
-import { AppointmentTypeItem } from './appointment-type/appointment-type-item';
-import { AppointmentTypeSelector } from './appointment-type/appointment-type-selector';
+import AppointmentTypeItem from './appointment-type/appointment-type-item';
+import AppointmentTypeSelector from './appointment-type/appointment-type-selector';
 
 import "./booking.css";
 

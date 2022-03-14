@@ -1,7 +1,7 @@
 import React from "react";
 
 import IAppointmentTypeItem from "../../../interfaces/IAppointmentTypeItem";
-export function AppointmentTypeItem({
+export default function AppointmentTypeItem({
   delay,
   selectAppointmentType,
   item
