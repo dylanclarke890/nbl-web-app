@@ -46,6 +46,10 @@ async function getAvailabilityByDate(date: Date): Promise<IAvailability> {
   return scheduleForToday;
 }
 
+export async function getAppointment(id: string): Promise<IAppointment> {
+  return await AppointmentModel.findById(id).exec();
+}
+
 export async function getDailyAppointments(
   req: any
 ): Promise<{ times: ITimeSlot[] }> {
@@ -110,4 +114,17 @@ async function hasExistingAppointment(
     .where("time.from")
     .equals(from);
   return res.length !== 0;
+}
+
+export async function deleteAppointment(id: string) : Promise<boolean> {
+  let success: boolean = false;
+
+  try {
+    const res = await AppointmentModel.deleteOne({ _id: id });
+    success = res.deletedCount > 0;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return success;
 }

@@ -5,6 +5,29 @@ import Appointment from "../models/appointment";
 
 const APIENDPOINT = "/api/appointments/";
 
+export async function getAppointment(
+  id: string,
+  onError: (err: any) => void
+): Promise<Appointment> {
+  let res: any;
+
+  try {
+    res = await axios.get(`${APIENDPOINT}/${id}`);
+  } catch (err) {
+    onError(err);
+  }
+
+  const data = res.data;
+
+  return new Appointment(
+    data?._id,
+    data?.time.from,
+    data?.time.to,
+    { name: data?.person?.name },
+    new Date(data?.date)
+  );
+}
+
 export async function addAppointment(
   appointment: Appointment,
   person: IPerson,
@@ -74,4 +97,19 @@ export async function getMonthOverview(
     return [];
   }
   return res.data;
+}
+
+export async function cancelAppointment(
+  id: string,
+  onError: (err: any) => void
+): Promise<boolean> {
+  let res: boolean = false;
+
+  try {
+    res = await axios.delete(`${APIENDPOINT}cancel/${id}`);
+  } catch (err) {
+    onError(err);
+  }
+
+  return res;
 }

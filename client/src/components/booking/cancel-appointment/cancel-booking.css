@@ -1,0 +1,17 @@
+.cancel-booking-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-items: center;
+  text-align: center;
+}
+
+#reference {
+  max-width: 39em;
+  min-width: 30em;
+}
+
+.modal-content-btns {
+  display: flex;
+  justify-content: space-evenly;
+}

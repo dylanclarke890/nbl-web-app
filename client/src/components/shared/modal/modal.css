@@ -13,11 +13,12 @@
 .container .modal {
   z-index: 1;
   width: 700px;
-  height: 440px;
+  height: fit-content;
   background: white;
   border-radius: 5px;
   position: relative;
   animation: animate 0.5s;
+  padding-bottom: 1em;
 }
 .modal-button {
   position: absolute;

@@ -20,7 +20,7 @@ export default function CallToAction() {
           <p className="text-white">
             High quality treatments available at low prices.
           </p>
-          <Link className="btn" to={"/book-appointment"}>Book Now!</Link>
+          <Link className="btn" to={"/booking-options"}>Book Now!</Link>
         </div>
         <div className="right-side">
           <div className="image-box">

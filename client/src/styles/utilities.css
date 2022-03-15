@@ -72,6 +72,14 @@
 .inline-block {
   display: inline-block;
 }
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
 /* END OF DISPLAY */
 
 /* PADDING UTILITIES */
