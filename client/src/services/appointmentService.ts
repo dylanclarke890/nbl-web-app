@@ -28,6 +28,40 @@ export async function getAppointment(
   );
 }
 
+export async function getAllAppointments(
+  onSuccess: (data: Appointment[]) => void,
+  onError: (arg0: any) => void
+) {
+  let res: any = {};
+  try {
+    res = await axios.get(`${APIENDPOINT}all/true`);
+  } catch (err) {
+    onError(err);
+  }
+
+  let appointments: Appointment[] = [];
+
+  res.data.forEach(
+    (el: {
+      _id: string;
+      time: { from: string; to: string };
+      person: { name: any };
+      date: string | number | Date;
+    }) => {
+      appointments.push(
+        new Appointment(
+          el?._id,
+          el?.time.from,
+          el?.time.to,
+          { name: el?.person?.name },
+          new Date(el?.date)
+        )
+      );
+    }
+  );
+  onSuccess(appointments);
+}
+
 export async function addAppointment(
   appointment: Appointment,
   person: IPerson,
@@ -97,6 +131,23 @@ export async function getMonthOverview(
     return [];
   }
   return res.data;
+}
+
+export async function editAppointment(
+  appointment: Appointment,
+  onError: (arg0: any) => void
+) {
+  let res: boolean = false;
+
+  try {
+    res = await axios.put(`${APIENDPOINT}edit/${appointment.id}`, {
+      appointment: appointment,
+    });
+  } catch (err) {
+    onError(err);
+  }
+
+  return res;
 }
 
 export async function cancelAppointment(
