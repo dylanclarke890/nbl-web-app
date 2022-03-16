@@ -3,5 +3,5 @@ export default interface ICustomCheckbox {
   labelText: string;
   isChecked: boolean;
   onChange: any;
-  disabled?: boolean;
+  readOnly?: boolean;
 }

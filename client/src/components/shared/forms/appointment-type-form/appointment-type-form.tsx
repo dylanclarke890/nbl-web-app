@@ -77,7 +77,7 @@ export default function AppointmentTypeForm({ id, onSubmit, readOnly }: IAppoint
             labelText="Show option to customers?"
             isChecked={isActive}
             onChange={handleisActiveChange}
-            disabled={readOnly} />
+            readOnly={readOnly} />
           {submitButton}
         </div>
       </div>

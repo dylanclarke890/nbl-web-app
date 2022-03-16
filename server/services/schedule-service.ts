@@ -66,7 +66,7 @@ export async function deleteSchedule(id: string){
 }
 
 const schedules = [{
-  _id: "assdag423r2ihr893h",
+  _id: "622947628600793f62ba5550",
   name: "DefaultSchedule",
   starts: new Date(),
   ends: add(new Date(), { months: 2 }),

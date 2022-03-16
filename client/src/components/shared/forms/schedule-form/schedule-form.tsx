@@ -69,6 +69,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
           labelText="Add expiry date?"
           isChecked={showEndDateInput}
           onChange={handleShowEndDateChange}
+          readOnly={readOnly}
         />
         {submitButton}
       </div>
