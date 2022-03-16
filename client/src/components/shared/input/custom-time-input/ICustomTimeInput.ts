@@ -1,3 +1,6 @@
 export default interface ICustomTimeInput {
-  readOnly?: boolean;
+  inputId: string;
+  labelText: string;
+  onChange: any;
+  readOnly: boolean;
 }
