@@ -1,11 +1,13 @@
 let mongoose = require("mongoose");
-let AppointmentModel = require("../models/appointment");
 import { format, getDaysInMonth } from "date-fns";
+
 import ITimeSlot from "../interfaces/ITimeSlot";
 import IAppointment from "../interfaces/IAppointment";
-import { getScheduleInUse } from "./schedule-service";
-import { getAvailableTimeSlots } from "./time-service";
 import IAvailability from "../interfaces/IAvailability";
+let AppointmentModel = require("../models/appointment");
+
+import { getAvailableTimeSlots } from "./time-service";
+import { getScheduleInUse } from "./schedule-service";
 import { getAppointmentType } from "./appointment-type-service";
 
 export async function addAppointment(
@@ -37,15 +39,6 @@ export async function addAppointment(
   return { appointment };
 }
 
-async function getAvailabilityByDate(date: Date): Promise<IAvailability> {
-  const schedule = await getScheduleInUse(date);
-  const scheduleForToday = schedule.availability.find(
-    (a): boolean => a.day === format(date, "EEEE").toLowerCase()
-  )!;
-
-  return scheduleForToday;
-}
-
 export async function getAppointment(id: string): Promise<IAppointment> {
   return await AppointmentModel.findById(id).exec();
 }
@@ -65,7 +58,8 @@ export async function getDailyAppointments(
   );
 
   const appointmentType = await getAppointmentType(params.appointmentTypeId);
-  if (appointmentType.appointmentType === "") throw new Error("Should've had a value for appointment type.");
+  if (appointmentType.appointmentType === "")
+    throw new Error("Should've had a value for appointment type.");
 
   const existingAppointments = await getExistingAppointments(day);
 
@@ -99,6 +93,46 @@ export async function getMonthOverview(req: any): Promise<number[]> {
   return overview;
 }
 
+export async function editAppointment(id: string, item: any) {
+  let success = false;
+  const update = item.appointment;
+  try {
+    const doc = await AppointmentModel.findById(id).exec();
+    doc.person = update.person;
+    doc.date = update.date;
+    doc.appointmentType = update.appointmentType;
+    doc.time = { from: update.from, to: update.to };
+    await doc.save();
+    success = true;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return success;
+}
+
+export async function deleteAppointment(id: string): Promise<boolean> {
+  let success: boolean = false;
+
+  try {
+    const res = await AppointmentModel.deleteOne({ _id: id });
+    success = res.deletedCount > 0;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return success;
+}
+
+async function getAvailabilityByDate(date: Date): Promise<IAvailability> {
+  const schedule = await getScheduleInUse(date);
+  const scheduleForToday = schedule.availability.find(
+    (a): boolean => a.day === format(date, "EEEE").toLowerCase()
+  )!;
+
+  return scheduleForToday;
+}
+
 async function getExistingAppointments(date: Date): Promise<ITimeSlot[]> {
   let existing = await AppointmentModel.where("date").equals(date);
   let existingTimes: ITimeSlot[] = [];
@@ -118,38 +152,4 @@ async function hasExistingAppointment(
     .where("time.from")
     .equals(from);
   return res.length !== 0;
-}
-
-export async function editAppointment(id: string, item: any) {
-  let success = false;
-  const update = item.appointmentType;
-  try {
-    const doc = await AppointmentModel.findById(id).exec();
-    console.log(doc);
-    doc.person.name = update.person.name;
-    doc.date = update.date;
-    doc.appointmentType = update.appointmentType;
-    doc.time.from = update.time.from;
-    doc.time.to = update.time.to;
-    await doc.save();
-    console.log(doc);
-    success = true;
-  } catch (e) {
-    console.error(e);
-  }
-
-  return success;
-}
-
-export async function deleteAppointment(id: string) : Promise<boolean> {
-  let success: boolean = false;
-
-  try {
-    const res = await AppointmentModel.deleteOne({ _id: id });
-    success = res.deletedCount > 0;
-  } catch (e) {
-    console.error(e);
-  }
-
-  return success;
 }
