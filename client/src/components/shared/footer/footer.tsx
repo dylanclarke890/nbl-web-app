@@ -1,9 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import "./footer.css";
-import SocialIcon from "./social-icon";
+import SocialIcon from "./social-icon/social-icon";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+
+import "./footer.css";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,8 +14,8 @@ export default function Footer() {
   return (
     <div className="footer">
       <div className="social-icons">
-        <SocialIcon link={facebookLink}><FaFacebook/></SocialIcon>
-        <SocialIcon link={instaLink}><FaInstagram/></SocialIcon>
+        <SocialIcon link={facebookLink}><FaFacebook /></SocialIcon>
+        <SocialIcon link={instaLink}><FaInstagram /></SocialIcon>
       </div>
       <nav className="footer-nav">
         <div className="footer-items-wrapper">

@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import AppointmentForm from "../../shared/forms/appointment-form";
+import AppointmentForm from "../../shared/forms/appointment-form/appointment-form";
 import Header from "../../shared/header/header";
 
 export default function ViewAppointment() {

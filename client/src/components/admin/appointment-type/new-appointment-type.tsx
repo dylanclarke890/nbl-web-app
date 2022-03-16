@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { addAppointmentType } from "../../../services/appointmentTypeService";
 import AppointmentType from "../../../models/appointment-type";
 
-import AppointmentTypeForm from "../../shared/forms/appointment-type-form";
+import AppointmentTypeForm from "../../shared/forms/appointment-type-form/appointment-type-form";
 import Header from "../../shared/header/header";
 
 export default function NewAppointmentType() {

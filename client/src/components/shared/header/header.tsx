@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import IHeader from "../../../interfaces/IHeader";
+import IHeader from "./IHeader";
 
 import './header.css';
 
@@ -10,7 +10,6 @@ export default function Header({ headerTitle, returnLinkUrl, linkText }: IHeader
   const returnLink = linkText && returnLinkUrl ?
     <Link className="custom-link" to={returnLinkUrl}>{linkText}</Link> :
     null;
-
 
   return (
     <>

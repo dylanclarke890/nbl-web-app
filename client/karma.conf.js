@@ -1,23 +1,20 @@
-var webpackConfig = require('./webpack.config');
-module.exports = function(config) {
+var webpackConfig = require("./webpack.config");
+module.exports = function (config) {
   config.set({
-    basePath: '',
+    basePath: "",
     frameworks: ["jasmine"],
-    files: [
-      { pattern: "tests/*.spec.*" }
-    ],
-    exclude: [
-    ],
+    files: [{ pattern: "tests/*.spec.*" }],
+    exclude: [],
     preprocessors: {
-      'tests/*.spec.*': ['webpack'],
+      "tests/*.spec.*": ["webpack"],
     },
     webpack: webpackConfig,
     reporters: ["progress"],
     colors: true,
     logLevel: config.LOG_INFO,
-    browsers: ['Chrome'],
+    browsers: ["Chrome"],
     mime: {
-      'text/x-typescript': ['ts','tsx']
-    }
-  })
-}
+      "text/x-typescript": ["ts", "tsx"],
+    },
+  });
+};

@@ -38,13 +38,14 @@ const scheduleSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  availability: { type: [availabilitySchema],
-    validate: [hasSevenItems, 'Needs 7 days of availability.']
+  availability: {
+    type: [availabilitySchema],
+    validate: [hasSevenItems, "Needs 7 days of availability."],
   },
 });
 
 function hasSevenItems(val: any[]) {
-  return val.length === 7
+  return val.length === 7;
 }
 
 module.exports = {

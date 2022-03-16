@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import { getAppointmentsByDay } from "../../services/appointmentService";
 import Appointment from "../../models/appointment";
-import IToast from "../../interfaces/IToast";
+import IToast from "../shared/toast/IToast";
 
-import Toast from "../shared/toast/toast";
 import createToast from "../shared/toast/toast-helper";
+import Toast from "../shared/toast/toast";
 import Calendar from "./calendar/calendar";
 import Modal from "../shared/modal/modal";
-import AppointmentPicker from "./appointment/appointment-picker";
-import AppointmentConfirmation from "./appointment/appointment-confirmation";
+import AppointmentPicker from "./appointment/appointment-picker/appointment-picker";
+import AppointmentConfirmation from "./appointment/appointment-confirmation/appointment-confirmation";
 
 import "./booking.css";
 import { useParams } from "react-router-dom";

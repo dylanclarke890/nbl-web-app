@@ -50,7 +50,7 @@ export async function getAllAppointments(
     (el: {
       _id: string;
       time: { from: string; to: string };
-      person: { name: string; phone: string; email: string; };
+      person: { name: string; phone: string; email: string };
       appointmentType: string;
       date: string | number | Date;
     }) => {
@@ -59,9 +59,11 @@ export async function getAllAppointments(
           el?._id,
           el?.time.from,
           el?.time.to,
-          {       name: el?.person?.name,
+          {
+            name: el?.person?.name,
             phone: el?.person?.phone,
-            email: el?.person?.email, },
+            email: el?.person?.email,
+          },
           el?.appointmentType,
           new Date(el?.date)
         )

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { cancelAppointment } from "../../../services/appointmentService";
 
-import AppointmentForm from "../../shared/forms/appointment-form";
+import AppointmentForm from "../../shared/forms/appointment-form/appointment-form";
 import Header from "../../shared/header/header";
 
 export default function DeleteAppointment() {

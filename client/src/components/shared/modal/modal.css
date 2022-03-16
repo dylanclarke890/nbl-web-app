@@ -10,6 +10,7 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.7);
 }
+
 .container .modal {
   z-index: 1;
   width: 700px;
@@ -20,6 +21,7 @@
   animation: animate 0.5s;
   padding-bottom: 1em;
 }
+
 .modal-button {
   position: absolute;
   top: 7px;
@@ -33,6 +35,7 @@
   border-radius: 2px;
   cursor: pointer;
 }
+
 @keyframes animate {
   from {
     opacity: 0;

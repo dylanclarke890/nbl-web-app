@@ -1,4 +1,4 @@
 export default interface ITimeSlot {
-  from: string,
-  to: string
+  from: string;
+  to: string;
 }

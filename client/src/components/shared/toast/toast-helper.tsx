@@ -1,4 +1,4 @@
-import IToast from "../../../interfaces/IToast";
+import IToast from "./IToast";
 import checkIcon from '../../../images/assets/check.svg';
 import errorIcon from '../../../images/assets/error.svg';
 import infoIcon from '../../../images/assets/info.svg';

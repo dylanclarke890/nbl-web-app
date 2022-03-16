@@ -49,13 +49,13 @@ export function isNumber(n: string): Boolean {
   return nums.includes(parseInt(n));
 }
 
-export function handleNumberKeyPress(e : KeyboardEvent) {
+export function handleNumberKeyPress(e: KeyboardEvent) {
   if (e.key !== "+" && !isNumber(e.key)) {
     e.preventDefault();
   }
-};
+}
 
-export function emptyKeyBoardEventHandler(e: KeyboardEvent){ };
+export function emptyKeyBoardEventHandler(e: KeyboardEvent) {}
 
 const isAllDigits = (value: string): Boolean => /^\d+$/.test(value);
 const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

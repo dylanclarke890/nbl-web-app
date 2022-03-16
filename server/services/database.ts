@@ -1,23 +1,23 @@
-import { connect } from 'mongoose';
+import { connect } from "mongoose";
 
-require('dotenv').config();
+require("dotenv").config();
 
 const connectionString = process.env.connectionString;
 
 class Database {
   constructor() {
-    this._connect()
+    this._connect();
   }
-  
-_connect() {
-     connect(connectionString!)
-       .then(() => {
-         console.info('Database connection successful')
-       })
-       .catch(err => {
-         console.error(`Database connection error: ${err}`)
-       })
+
+  _connect() {
+    connect(connectionString!)
+      .then(() => {
+        console.info("Database connection successful");
+      })
+      .catch((err) => {
+        console.error(`Database connection error: ${err}`);
+      });
   }
 }
 
-export default new Database()
+export default new Database();

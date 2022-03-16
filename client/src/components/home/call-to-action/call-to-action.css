@@ -1,0 +1,87 @@
+.hero-bg {
+  position: absolute;
+  top: 10em;
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.hero-img img {
+  width: 100%;
+}
+
+.hero-work-one {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../images/nbl-logo.jpg");
+}
+.hero-work-two {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../images/portfolio/samplework2.jpg");
+}
+.hero-work-three {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../images/portfolio/samplework1.jpg");
+}
+
+.hero-img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: calc(100% / 3);
+  position: relative;
+}
+
+.hero-box {
+  display: flex;
+  padding-top: 7em;
+  justify-content: center;
+  width: 100%;
+  z-index: 10;
+}
+
+.hero-box * {
+  z-index: 10;
+}
+
+.hero-title {
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  text-indent: 0.3em;
+}
+
+.hero-box .left-side {
+  width: 40%;
+  padding: 20px;
+}
+
+.hero-box .left-side p {
+  line-height: 2;
+}
+
+.hero-box .left-side h4 {
+  line-height: 2;
+}
+
+.hero-box .left-side p :last-child {
+  margin-bottom: 30px;
+  line-height: initial;
+}
+
+.hero-box .right-side .image-box {
+  width: 350px;
+  height: 350px;
+  border: 5px solid rgba(183, 110, 121, 1);
+  margin: auto;
+  border-bottom-right-radius: 20px;
+  position: relative;
+}
+
+.hero-box .right-side .image-box .hero-image {
+  background-image: url("../../../images/nbl-logo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  border-bottom-right-radius: 16px;
+}

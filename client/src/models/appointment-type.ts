@@ -4,7 +4,7 @@ export default class AppointmentType {
   duration: number;
   price: number;
   isActive: boolean;
-  
+
   public constructor(
     _id: string,
     appointmentType: string,
@@ -21,5 +21,5 @@ export default class AppointmentType {
 
   display = (): string => {
     return `${this.appointmentType} - ${this.duration} - ${this.price} - ${this.isActive}`;
-  }
+  };
 }

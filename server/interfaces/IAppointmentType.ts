@@ -1,5 +1,5 @@
 export default interface IAppointmentType {
-  _id: string,
+  _id: string;
   appointmentType: string;
   duration: number;
   price: number;

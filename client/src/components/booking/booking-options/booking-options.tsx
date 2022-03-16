@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { getAllAppointmentTypes } from "../../../services/appointmentTypeService";
 
-import IToast from "../../../interfaces/IToast";
+import IToast from "../../shared/toast/IToast";
 import Toast from "../../shared/toast/toast";
 import createToast from "../../shared/toast/toast-helper";
-import AppointmentTypeItem from "../appointment-type/appointment-type-item";
-import AppointmentTypeSelector from "../appointment-type/appointment-type-selector";
+import AppointmentTypeItem from "../appointment-type/appointment-type-item/appointment-type-item";
+import AppointmentTypeSelector from "../appointment-type/appointment-type-selector/appointment-type-selector";
 import AppointmentType from "../../../models/appointment-type";
 import CancellationOption from "../cancel-appointment/cancellation-option";
 

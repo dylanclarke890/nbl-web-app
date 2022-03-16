@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import IToast from "../../../interfaces/IToast";
+import IToast from "../../shared/toast/IToast";
 
 import Appointment from "../../../models/appointment";
 import { cancelAppointment, getAppointment } from "../../../services/appointmentService";
 
-import CustomInput from "../../shared/input/custom-input";
+import CustomInput from "../../shared/input/custom-input/custom-input";
 import Modal from "../../shared/modal/modal";
 import CheckmarkSvg from "../../shared/svgs/checkmark-svg";
 import Toast from "../../shared/toast/toast";
@@ -30,13 +30,13 @@ export default function CancelBooking() {
 
   const fetchAppointment = async (id: string) => {
     const data = await getAppointment(id, createErrorToast);
-    
+
     if (data?.person?.name == null) {
       createErrorToast();
       setError("Need a valid reference.")
       return;
     }
-    
+
     setError("");
     setShowModal(true);
     setAppointment(data);

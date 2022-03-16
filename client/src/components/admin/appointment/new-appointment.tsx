@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { addAppointment } from "../../../services/appointmentService";
 import Appointment from "../../../models/appointment";
 
-import AppointmentForm from "../../shared/forms/appointment-form";
+import AppointmentForm from "../../shared/forms/appointment-form/appointment-form";
 import Header from "../../shared/header/header";
 
 export default function NewAppointment() {

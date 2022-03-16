@@ -59,10 +59,7 @@ export async function addAppointmentType(
 ) {
   let res: any = {};
   try {
-    res = await axios.post(
-      `${APIENDPOINT}new`,
-      {data: appointmentType}
-    );
+    res = await axios.post(`${APIENDPOINT}new`, { data: appointmentType });
   } catch (err) {
     onError(err);
   }
