@@ -22,22 +22,19 @@ export async function getAllSchedules(
     (el: {
       _id: string;
       name: string;
-      starts: Date;
+      starts: any;
       availability: Availability[];
-      ends: Date | undefined;
+      ends: any;
     }) => {
       schedules.push(
-        new Schedule(el._id, el.name, el.starts, el.availability, el.ends)
+        new Schedule(el._id, el.name, new Date(el.starts), el.availability, new Date(el.ends))
       );
     }
   );
   onSuccess(schedules);
 }
 
-export async function getSchedule(
-  id: string,
-  onError: (arg0: any) => void
-) {
+export async function getSchedule(id: string, onError: (arg0: any) => void) {
   let res: any = {};
 
   try {
@@ -45,8 +42,14 @@ export async function getSchedule(
   } catch (err) {
     onError(err);
   }
-
-  return res.data;
+  let data = res.data;
+  return new Schedule(
+    data?.id,
+    data?.name,
+    new Date(data?.starts),
+    data?.availability,
+    new Date(data?.ends)
+  );
 }
 
 export async function addSchedule(
@@ -80,10 +83,7 @@ export async function editSchedule(
   return res;
 }
 
-export async function deleteSchedule(
-  id: string,
-  onError: (arg0: any) => void
-) {
+export async function deleteSchedule(id: string, onError: (arg0: any) => void) {
   let res: boolean = false;
   try {
     res = await axios.delete(`${APIENDPOINT}delete/${id}`);

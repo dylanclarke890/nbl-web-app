@@ -36,7 +36,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       setName(result.name);
       setStartDate(result.starts);
       setAvailability(result.availability);
-      setEndDate(result.ends);
+      setEndDate(result.ends == null ? new Date() : result.ends!);
     }
     fetchData().catch(console.error);
 

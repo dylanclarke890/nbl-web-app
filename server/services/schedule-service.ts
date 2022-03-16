@@ -19,7 +19,8 @@ export async function getScheduleInUse(date: Date): Promise<ISchedule> {
 }
 
 export async function getSchedule(id: string): Promise<ISchedule> {
-  return await timetableModels.scheduleModel.find({_id: id});
+  return schedules[0];
+  // return await timetableModels.scheduleModel.find({_id: id});
 }
 
 export async function getAllSchedules(includeExpired: boolean) : Promise<ISchedule[]> {
@@ -65,6 +66,7 @@ export async function deleteSchedule(id: string){
 }
 
 const schedules = [{
+  _id: "assdag423r2ihr893h",
   name: "DefaultSchedule",
   starts: new Date(),
   ends: add(new Date(), { months: 2 }),
