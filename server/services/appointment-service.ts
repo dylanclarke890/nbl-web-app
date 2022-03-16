@@ -50,6 +50,10 @@ export async function getAppointment(id: string): Promise<IAppointment> {
   return await AppointmentModel.findById(id).exec();
 }
 
+export async function getAllAppointments() {
+  return await AppointmentModel.find();
+}
+
 export async function getDailyAppointments(
   req: any
 ): Promise<{ times: ITimeSlot[] }> {
@@ -114,6 +118,27 @@ async function hasExistingAppointment(
     .where("time.from")
     .equals(from);
   return res.length !== 0;
+}
+
+export async function editAppointment(id: string, item: any) {
+  let success = false;
+  const update = item.appointmentType;
+  try {
+    const doc = await AppointmentModel.findById(id).exec();
+    console.log(doc);
+    doc.person.name = update.person.name;
+    doc.date = update.date;
+    doc.appointmentType = update.appointmentType;
+    doc.time.from = update.time.from;
+    doc.time.to = update.time.to;
+    await doc.save();
+    console.log(doc);
+    success = true;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return success;
 }
 
 export async function deleteAppointment(id: string) : Promise<boolean> {

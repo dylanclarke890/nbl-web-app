@@ -23,7 +23,12 @@ export async function getAppointment(
     data?._id,
     data?.time.from,
     data?.time.to,
-    { name: data?.person?.name },
+    {
+      name: data?.person?.name,
+      phone: data?.person?.phone,
+      email: data?.person?.email,
+    },
+    data?.appointmentType,
     new Date(data?.date)
   );
 }
@@ -34,7 +39,7 @@ export async function getAllAppointments(
 ) {
   let res: any = {};
   try {
-    res = await axios.get(`${APIENDPOINT}all/true`);
+    res = await axios.get(`${APIENDPOINT}all`);
   } catch (err) {
     onError(err);
   }
@@ -45,7 +50,8 @@ export async function getAllAppointments(
     (el: {
       _id: string;
       time: { from: string; to: string };
-      person: { name: any };
+      person: { name: string; phone: string; email: string; };
+      appointmentType: string;
       date: string | number | Date;
     }) => {
       appointments.push(
@@ -53,7 +59,10 @@ export async function getAllAppointments(
           el?._id,
           el?.time.from,
           el?.time.to,
-          { name: el?.person?.name },
+          {       name: el?.person?.name,
+            phone: el?.person?.phone,
+            email: el?.person?.email, },
+          el?.appointmentType,
           new Date(el?.date)
         )
       );

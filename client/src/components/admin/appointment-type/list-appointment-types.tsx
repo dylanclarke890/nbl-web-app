@@ -5,7 +5,7 @@ import { getAllAppointmentTypes } from '../../../services/appointmentTypeService
 import AppointmentType from '../../../models/appointment-type';
 
 import Header from '../../shared/header/header';
-import './list-appointment-types.css'
+import '../styles/admin.css'
 
 
 export default function ListAppointmentTypes(): JSX.Element {

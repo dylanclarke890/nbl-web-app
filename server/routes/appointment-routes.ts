@@ -4,6 +4,8 @@ import ITimeSlot from "../interfaces/ITimeSlot";
 import {
   addAppointment,
   deleteAppointment,
+  editAppointment,
+  getAllAppointments,
   getAppointment,
   getDailyAppointments,
   getMonthOverview,
@@ -38,6 +40,18 @@ appointmentRouter.get(
   }
 );
 
+appointmentRouter.get("/all", async (req, res) => {
+  let result: IAppointment[];
+
+  try {
+    result = await getAllAppointments();
+  } catch {
+    return res.status(500).send(`Internal error`);
+  }
+
+  return res.json(result);
+});
+
 appointmentRouter.get("/:id", async (req, res) => {
   let result: IAppointment;
 
@@ -62,6 +76,16 @@ appointmentRouter.post("/new", async (req, res) => {
   }
 
   return res.json(result.appointment);
+});
+
+appointmentRouter.put("/edit/:id", async (req, res) => {
+  let result: boolean = false;
+  try {
+    result = await editAppointment(req.params.id, req.body);
+  } catch {
+    return res.status(500).send(`Internal error.`);
+  }
+  return res.json(result);
 });
 
 appointmentRouter.delete("/cancel/:id", async (req, res) => {
