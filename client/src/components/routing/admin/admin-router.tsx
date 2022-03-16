@@ -13,6 +13,12 @@ import ListAppointments from '../../admin/appointment/list-appointment';
 import NewAppointment from '../../admin/appointment/new-appointment';
 import ViewAppointment from '../../admin/appointment/view-appointment';
 
+import DeleteSchedule from '../../admin/schedule/delete-schedule';
+import EditSchedule from '../../admin/schedule/edit-schedule';
+import ListSchedules from '../../admin/schedule/list-schedules';
+import NewSchedule from '../../admin/schedule/new-schedule';
+import ViewSchedule from '../../admin/schedule/view-schedule';
+
 
 const adminRouter = [
   <Route key={0} path="admin/appointment-types" element={<ListAppointmentTypes />} />,
@@ -25,6 +31,11 @@ const adminRouter = [
   <Route key={7} path="admin/appointments/edit/:id" element={<EditAppointment />} />,
   <Route key={8} path="admin/appointments/delete/:id" element={<DeleteAppointment />} />,
   <Route key={9} path="admin/appointments/view/:id" element={<ViewAppointment />} />,
+  <Route key={10} path="admin/schedules" element={<ListSchedules />} />,
+  <Route key={11} path="admin/schedules/new" element={<NewSchedule />} />,
+  <Route key={12} path="admin/schedules/edit/:id" element={<EditSchedule />} />,
+  <Route key={13} path="admin/schedules/delete/:id" element={<DeleteSchedule />} />,
+  <Route key={14} path="admin/schedules/view/:id" element={<ViewSchedule />} />,
 ];
 
 export default adminRouter;
