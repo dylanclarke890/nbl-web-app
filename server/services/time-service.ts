@@ -1,6 +1,7 @@
 import { differenceInMinutes, format } from "date-fns";
 import parse from "date-fns/parse";
 import add from "date-fns/add";
+
 import ITimeSlot from "../interfaces/ITimeSlot";
 
 const TIMEFORMAT = "p";

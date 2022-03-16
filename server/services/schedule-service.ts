@@ -1,7 +1,22 @@
+import * as mongoose from "mongoose";
 import { add } from "date-fns";
-import ISchedule from "../interfaces/ISchedule";
 
+import ISchedule from "../interfaces/ISchedule";
 const timetableModels = require("../models/schedule");
+
+let _loadedSchedule: ISchedule | null = null;
+export async function getScheduleInUse(date: Date): Promise<ISchedule> {
+  if (
+    _loadedSchedule &&
+    _loadedSchedule.starts <= date &&
+    _loadedSchedule.ends >= date
+  ) {
+    return _loadedSchedule;
+  }
+
+  _loadedSchedule = await getSchedule(date);
+  return _loadedSchedule;
+}
 
 async function getSchedule(date: Date): Promise<ISchedule> {
   let defaultSchedule = new timetableModels.scheduleModel({
@@ -66,18 +81,4 @@ async function getSchedule(date: Date): Promise<ISchedule> {
   });
 
   return defaultSchedule;
-}
-
-let _loadedSchedule: ISchedule | null = null;
-export async function getScheduleInUse(date: Date): Promise<ISchedule> {
-  if (
-    _loadedSchedule &&
-    _loadedSchedule.starts <= date &&
-    _loadedSchedule.ends >= date
-  ) {
-    return _loadedSchedule;
-  }
-
-  _loadedSchedule = await getSchedule(date);
-  return _loadedSchedule;
 }
