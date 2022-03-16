@@ -15,8 +15,8 @@ export default function EditAppointmentType() {
   const [currSlide, setCurrSlide] = useState(0);
 
   const handleSubmit = (appointmentType: AppointmentType) => {
-    setReadyToSubmit(true);
     setAppointmentType({ ...appointmentType, _id: id! });
+    setReadyToSubmit(true);
   }
 
   useEffect(() => {

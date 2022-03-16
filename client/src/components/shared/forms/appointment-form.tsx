@@ -40,6 +40,15 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       setPhone(result.person?.phone!);
     };
     fetchData().catch(console.error);
+    setModelValidation({
+      from: "",
+      to: "",
+      date: "",
+      appointmentType: "",
+      name: "",
+      phone: "",
+      email: "",
+    })
   }, [id]);
 
   const forwardClick = () => {
@@ -82,6 +91,13 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
           onChange={setPhone}
           readonly={readOnly}
         />
+        <CustomInput inputId={"date"}
+          value={date.toDateString()}
+          active={date.toDateString() !== ""}
+          error={modelValidation.date}
+          onChange={setDate}
+          readonly={readOnly}
+        />
         <CustomInput inputId={"from"}
           value={from}
           active={from !== ""}
@@ -94,13 +110,6 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
           active={to !== ""}
           error={modelValidation.to}
           onChange={setTo}
-          readonly={readOnly}
-        />
-        <CustomInput inputId={"date"}
-          value={date.toDateString()}
-          active={date.toDateString() !== ""}
-          error={modelValidation.date}
-          onChange={setDate}
           readonly={readOnly}
         />
         {submitButton}

@@ -7,7 +7,11 @@ import ListAppointmentTypes from '../../admin/appointment-type/list-appointment-
 import NewAppointmentType from '../../admin/appointment-type/new-appointment-type';
 import ViewAppointmentType from '../../admin/appointment-type/view-appointment-type';
 
+import DeleteAppointment from '../../admin/appointment/delete-appointment';
+import EditAppointment from '../../admin/appointment/edit-appointment';
 import ListAppointments from '../../admin/appointment/list-appointment';
+import NewAppointment from '../../admin/appointment/new-appointment';
+import ViewAppointment from '../../admin/appointment/view-appointment';
 
 
 const adminRouter = [
@@ -17,6 +21,10 @@ const adminRouter = [
   <Route key={3} path="admin/appointment-types/delete/:id" element={<DeleteAppointmentType />} />,
   <Route key={4} path="admin/appointment-types/view/:id" element={<ViewAppointmentType />} />,
   <Route key={5} path="admin/appointments" element={<ListAppointments />} />,
+  <Route key={6} path="admin/appointments/new" element={<NewAppointment />} />,
+  <Route key={7} path="admin/appointments/edit/:id" element={<EditAppointment />} />,
+  <Route key={8} path="admin/appointments/delete/:id" element={<DeleteAppointment />} />,
+  <Route key={9} path="admin/appointments/view/:id" element={<ViewAppointment />} />,
 ];
 
 export default adminRouter;
