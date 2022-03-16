@@ -70,7 +70,7 @@ export async function editSchedule(
   let res: boolean = false;
 
   try {
-    res = await axios.put(`${APIENDPOINT}edit/${schedule.id}`, {
+    res = await axios.put(`${APIENDPOINT}edit/${schedule._id}`, {
       schedule: schedule,
     });
   } catch (err) {

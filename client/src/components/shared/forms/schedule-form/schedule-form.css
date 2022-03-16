@@ -1,0 +1,15 @@
+.schedule-form {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-content > *:not(:first-child) {
+  margin-top: 1em;
+}
