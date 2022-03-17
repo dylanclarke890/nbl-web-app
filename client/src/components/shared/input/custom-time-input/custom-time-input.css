@@ -1,0 +1,19 @@
+input[type="time"] {
+  font-size: 1.5rem;
+}
+
+.custom-time-label {
+  margin-right: 1em;
+  position: relative;
+  bottom: -0.3em;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 12px;
+  background: #d30909;
+  color: #fff;
+  height: 24px;
+}

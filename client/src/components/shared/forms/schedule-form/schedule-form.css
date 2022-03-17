@@ -1,6 +1,12 @@
-.schedule-form {
+.schedule-form,
+.availability-form {
   width: 40%;
   margin: 0 auto;
+}
+
+.date-inputs,
+.time-inputs {
+  justify-content: space-between;
 }
 
 .center-content {

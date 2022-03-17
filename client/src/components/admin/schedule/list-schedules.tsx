@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getAllSchedules} from '../../../services/scheduleService';
+import { getAllSchedules } from '../../../services/scheduleService';
 import Schedule from '../../../models/schedule';
 
 import Header from '../../shared/header/header';
 import '../styles/admin.css'
+import { differenceInCalendarDays } from 'date-fns';
 
 
 export default function ListSchedules(): JSX.Element {
@@ -22,11 +23,15 @@ export default function ListSchedules(): JSX.Element {
 
   let displayTypes: JSX.Element[] = [];
   schedules.forEach(el => {
+    const diffInDaysVal = (ends: Date | undefined) => {
+      const diff = differenceInCalendarDays(el.ends!, el.starts)
+      return ends !== undefined ? diff > 0 ? diff : "Expired" : "Indefinite";
+    }
     displayTypes.push(<tr key={el._id}>
       <td>{el.name}</td>
       <td>{el.starts.toDateString()}</td>
       <td>{el.ends != null ? el.ends.toDateString() : "N/A"}</td>
-      <td>{el.availability.length}</td>
+      <td>{diffInDaysVal(el.ends)}</td>
       <td>
         <Link className="custom-link" to={`${URLPREFIX}view/${el._id}`}>View</Link>
         <Link className="custom-link" to={`${URLPREFIX}edit/${el._id}`}>Edit</Link>
@@ -45,7 +50,7 @@ export default function ListSchedules(): JSX.Element {
               <th>Name</th>
               <th>Active From</th>
               <th>Expires</th>
-              <th>Days Specified</th>
+              <th>Active Days Left</th>
               <th></th>
             </tr>
           </thead>
