@@ -19,12 +19,11 @@ export async function getScheduleInUse(date: Date): Promise<ISchedule> {
 }
 
 export async function getSchedule(id: string): Promise<ISchedule> {
-  return schedules[0];
-  // return await timetableModels.scheduleModel.find({_id: id});
+  return await timetableModels.scheduleModel.findById(id).exec();
 }
 
 export async function getAllSchedules(includeExpired: boolean) : Promise<ISchedule[]> {
-  return schedules;
+  return await timetableModels.scheduleModel.find().exec();
 }
 
 export async function addSchedule(req: any){

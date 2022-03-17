@@ -159,7 +159,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   const submitButton = onSubmit ? <button className="btn" onClick={forwardClick}>Save</button> : null;
   const endDateInput = showEndDateInput ? (
     <CustomDateInput inputId="end-date"
-      value={startDate}
+      value={endDate}
       error={firSlideErrs.ends}
       labelText="Ends"
       onChange={(date: string) => setEndDate(new Date(date))}
