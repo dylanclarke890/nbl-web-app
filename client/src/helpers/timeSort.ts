@@ -1,4 +1,5 @@
 import Appointment from "../models/appointment";
+import Availability from "../models/availability";
 
 const getDate = (hour: number, minutes: number) =>
   new Date(2000, 1, 1, hour, minutes);
@@ -32,4 +33,32 @@ export function sortByTimeStamp(times: Appointment[]) {
   });
 
   return times;
+}
+
+export function sortByWeekdayScore(availabilities: Availability[]) {
+  availabilities.sort((a, b) => {
+    return getWeekdayScore(a.day) - getWeekdayScore(b.day);
+  });
+  return availabilities;
+}
+
+  function getWeekdayScore(day: string) {
+    switch (day) {
+      case "monday":
+        return 0;
+      case "tuesday":
+        return 1;
+      case "wednesday":
+        return 2;
+      case "thursday":
+        return 3;
+      case "friday":
+        return 4;
+      case "saturday":
+        return 5;
+      case "sunday":
+        return 6;
+      default:
+        throw new Error("Couldn't determine day.");
+    }
 }

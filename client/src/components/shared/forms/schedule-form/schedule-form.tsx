@@ -14,6 +14,7 @@ import { WeekdayCheckboxList } from "../weekday-checkbox-list/weekday-checkbox-l
 
 import './schedule-form.css';
 import ITimeSlot from "../../../../interfaces/ITimeSlot";
+import { sortByWeekdayScore } from "../../../../helpers/timeSort";
 
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
   const [currSlide, setCurrSlide] = useState(0);
@@ -264,7 +265,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
               </tr>
             </thead>
             <tbody>
-              {availabilities.length > 0 ? availabilities.map(m => (
+              {availabilities.length > 0 ? sortByWeekdayScore(availabilities).map(m => (
                 <tr key={availabilities.indexOf(m)}>
                   <td>{m.day}</td>
                   <td>{m.times.map(t => `${t.from} - ${t.to}`).join(", ")}</td>
