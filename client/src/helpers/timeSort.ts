@@ -1,3 +1,4 @@
+import ITimeSlot from "../interfaces/ITimeSlot";
 import Appointment from "../models/appointment";
 import Availability from "../models/availability";
 
@@ -25,6 +26,17 @@ const getTimeStampAsDate = (time: string) => {
 };
 
 export function sortByTimeStamp(times: Appointment[]) {
+  times.sort((a, b) => {
+    return (
+      getTimeStampAsDate(a.from).valueOf() -
+      getTimeStampAsDate(b.from).valueOf()
+    );
+  });
+
+  return times;
+}
+
+export function sortByTimeSlot(times: ITimeSlot[]) {
   times.sort((a, b) => {
     return (
       getTimeStampAsDate(a.from).valueOf() -

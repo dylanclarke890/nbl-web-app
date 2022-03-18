@@ -29,6 +29,30 @@
   margin-top: 3em;
 }
 
+.mr-1 {
+  margin-right: 1em;
+}
+
+.mr-2 {
+  margin-right: 2em;
+}
+
+.mr-3 {
+  margin-right: 3em;
+}
+
+.ml-1 {
+  margin-left: 1em;
+}
+
+.ml-2 {
+  margin-left: 2em;
+}
+
+.ml-3 {
+  margin-left: 3em;
+}
+
 .mb-1 {
   margin-bottom: 1em;
 }
@@ -79,6 +103,30 @@
 
 .flex-column-reverse {
   flex-direction: column-reverse;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 /* END OF DISPLAY */
 

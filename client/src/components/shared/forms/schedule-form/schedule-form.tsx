@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { getSchedule } from "../../../../services/scheduleService";
 import IScheduleForm from "./IScheduleForm";
@@ -14,7 +14,7 @@ import { WeekdayCheckboxList } from "../weekday-checkbox-list/weekday-checkbox-l
 
 import './schedule-form.css';
 import ITimeSlot from "../../../../interfaces/ITimeSlot";
-import { sortByWeekdayScore } from "../../../../helpers/timeSort";
+import { sortByTimeSlot, sortByWeekdayScore } from "../../../../helpers/timeSort";
 
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
   const [currSlide, setCurrSlide] = useState(0);
@@ -25,7 +25,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   const [showEndDateInput, setShowEndDateInput] = useState(false);
 
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);
-  const needsAvailability = (weekday: string) => availabilities.find(a => a.day === weekday) === undefined;
+  const needsAvailability = useCallback((weekday: string) => availabilities.find(a => a.day === weekday) === undefined, [availabilities]);
 
   const [mon, setMon] = useState(needsAvailability("monday"));
   const [tue, setTue] = useState(needsAvailability("tuesday"));
@@ -60,7 +60,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       applicable += "Sun, "
     }
 
-    return applicable !== "" ? applicable.substring(0, applicable.lastIndexOf(",")).trim() : "";
+    return applicable !== "" ? applicable.substring(0, applicable.lastIndexOf(",")).trim() : "None Selected";
   }
 
   const [times, setTimes] = useState<ITimeSlot[]>([]);
@@ -89,8 +89,8 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     setTimes(newTimes);
   };
 
-  const getDay = (day: string) => availabilities.find(a => a.day === day);
-  const updateDayAvailability = (day: string) => {
+  const getDay = useCallback((day: string) => availabilities.find(a => a.day === day), [availabilities]);
+  const updateAvailabilities = (day: string) => {
     const d = getDay(day);
     if (d === undefined) {
       setAvailabilities(curr => [...curr, new Availability(day, times)])
@@ -102,16 +102,85 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       setAvailabilities(curr => [...curr, new Availability(d.day, [...set.values()])]);
     }
   }
+  const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    if (editing) return;
+    setMon(needsAvailability('monday'));
+    setTue(needsAvailability('tuesday'));
+    setWed(needsAvailability('wednesday'));
+    setThu(needsAvailability('thursday'));
+    setFri(needsAvailability('friday'));
+    setSat(needsAvailability('saturday'));
+    setSun(needsAvailability('sunday'));
+  }, [availabilities, getDay, editing, needsAvailability])
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchData = async () => {
+      const result = await getSchedule(id, console.error);
+      setName(result.name);
+      setStartDate(result.starts);
+      setAvailabilities(result.availability);
+      setEndDate(result.ends == null ? new Date() : result.ends!);
+      setCurrSlide(onSubmit ? 0 : 1);
+    }
+    fetchData().catch(console.error);
+
+  }, [id, onSubmit]);
+
+  const setDayBeingEdited = (day: string) => {
+    setEditing(true);
+    setMon(false);
+    setTue(false);
+    setWed(false);
+    setThu(false);
+    setFri(false);
+    setSat(false);
+    setSun(false);
+    switch (day) {
+      case "monday":
+        setMon(true);
+        return;
+      case "tuesday":
+        setTue(true);
+        return;
+      case "wednesday":
+        setWed(true);
+        return;
+      case "thursday":
+        setThu(true);
+        return;
+      case "friday":
+        setFri(true);
+        return;
+      case "saturday":
+        setSat(true);
+        return;
+      case "sunday":
+        setSun(true);
+        return;
+      default:
+        return;
+    }
+  }
+
+  const editDayAvailability = (a: Availability) => {
+    setDayBeingEdited(a.day);
+    setAvailabilities(availabilities.filter(av => av !== a));
+    setTimes(a.times);
+  }
 
   const saveTimes = () => {
-    if (mon) updateDayAvailability("monday");
-    if (tue) updateDayAvailability("tuesday");
-    if (wed) updateDayAvailability("wednesday");
-    if (thu) updateDayAvailability("thursday");
-    if (fri) updateDayAvailability("friday");
-    if (sat) updateDayAvailability("saturday");
-    if (sun) updateDayAvailability("sunday");
-
+    if (mon) updateAvailabilities("monday");
+    if (tue) updateAvailabilities("tuesday");
+    if (wed) updateAvailabilities("wednesday");
+    if (thu) updateAvailabilities("thursday");
+    if (fri) updateAvailabilities("friday");
+    if (sat) updateAvailabilities("saturday");
+    if (sun) updateAvailabilities("sunday");
+    setEditing(false);
     setTimes([]);
   }
 
@@ -131,20 +200,6 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     availabilities: ""
   });
 
-  useEffect(() => {
-    if (!id) return;
-
-    const fetchData = async () => {
-      const result = await getSchedule(id, console.error);
-      setName(result.name);
-      setStartDate(result.starts);
-      setAvailabilities(result.availability);
-      setEndDate(result.ends == null ? new Date() : result.ends!);
-    }
-    fetchData().catch(console.error);
-
-  }, [id]);
-
   const handleShowEndDateChange = () => {
     setShowEndDateInput(!showEndDateInput);
   };
@@ -156,7 +211,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     onSubmit!(model);
   }
 
-  const submitButton = onSubmit ? <button className="btn" onClick={forwardClick}>Save</button> : null;
+  const inputButton = (onClick: any, name: string, extraClasses: string) => onSubmit ? <button className={`btn ${extraClasses}`} onClick={onClick}>{name}</button> : null;
   const endDateInput = showEndDateInput ? (
     <CustomDateInput inputId="end-date"
       value={endDate}
@@ -168,7 +223,8 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
 
   return currSlide === 0 ? (
     <>
-      <div className="schedule-form mt-1 text-center semi-bold">
+      <div className="mb-1"></div>
+      <div className="schedule-form text-center semi-bold">
         <CustomInput inputId={"name"}
           value={name}
           active={name !== ""}
@@ -200,78 +256,88 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   ) : (
     <>
       <div className="availability-form semi-bold">
-        <div className="availability-table">
-          <h1 className="sub-title text-center">Availability for: {getCurrApplicableDays()}</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Time Slot</th>
-              </tr>
-            </thead>
-            <tbody>
-              {times.length > 0 ? times.map(m => {
-                const index = times.indexOf(m);
-                return (
-                  <tr key={index}>
-                    <td>{m.from} - {m.to}</td>
-                    <td><button className="btn btn-sm" onClick={() => editSlot(index)}>Edit Slot</button><button className="btn btn-sm" onClick={() => deleteSlot(index)}>Delete Slot</button></td>
-                  </tr>
-                )
-              }) : (
+        {onSubmit ? <>
+          <div className="availability-table">
+            <h1 className="sub-title text-center">Adding availability for: {getCurrApplicableDays()}</h1>
+            <table>
+              <thead>
                 <tr>
-                  <td>No entries yet.</td>
-                  <td>No entries yet.</td>
+                  <th>Time Slot (From - To)</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        <div className="time-inputs flex mt-2 mb-2">
-          <CustomTimeInput inputId="from"
-            value={from}
-            error={secSlideErrs.from}
-            labelText="Available From"
-            onChange={setFrom}
-            readOnly={readOnly}
-          />
-          <CustomTimeInput inputId="to"
-            value={to}
-            error={secSlideErrs.to}
-            labelText="Available Till"
-            onChange={setTo}
-            readOnly={readOnly}
-          />
-        </div>
-        <div className="flex justify-center mb-2">
-          <button className="btn btn-sm" onClick={addSlot}>Add Time Slot</button>
-        </div>
-        <h2 className="sub-title text-center semi-bold">Add availability for:</h2>
-        <div className="weekday-inputs flex justify-evenly mt-1 mb-1">
-          <WeekdayCheckboxList readOnly={readOnly} mon={mon} setMon={setMon}
-            tue={tue} setTue={setTue} wed={wed} setWed={setWed} thu={thu} setThu={setThu}
-            fri={fri} setFri={setFri} sat={sat} setSat={setSat} sun={sun} setSun={setSun}
-          />
-        </div>
+              </thead>
+              <tbody>
+                {times.length > 0 ? sortByTimeSlot(times).map(m => {
+                  const index = times.indexOf(m);
+                  return (
+                    <tr key={index}>
+                      <td>{m.from} - {m.to}</td>
+                      <td>
+                        {inputButton(() => editSlot(index), "Edit Slot", " btn-sm mr-1")}
+                        {inputButton(() => deleteSlot(index), "Delete Slot", " btn-sm")}
+                      </td>
+                    </tr>
+                  )
+                }) : (
+                  <tr>
+                    <td>No entries yet.</td>
+                    <td>No entries yet.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div className="time-inputs flex mt-2 mb-2">
+            <CustomTimeInput inputId="from"
+              value={from}
+              error={secSlideErrs.from}
+              labelText="Available From"
+              onChange={setFrom}
+              readOnly={readOnly}
+            />
+            <CustomTimeInput inputId="to"
+              value={to}
+              error={secSlideErrs.to}
+              labelText="Available Till"
+              onChange={setTo}
+              readOnly={readOnly}
+            />
+          </div>
+          <div className="flex justify-center mb-2">
+            {inputButton(addSlot, "Add Time Slot", " btn-sm")}
+          </div>
+          <h2 className="sub-title text-center semi-bold">Add availability for:</h2>
+          <div className="weekday-inputs flex justify-evenly mt-1 mb-1">
+            <WeekdayCheckboxList readOnly={readOnly} mon={mon} setMon={setMon}
+              tue={tue} setTue={setTue} wed={wed} setWed={setWed} thu={thu} setThu={setThu}
+              fri={fri} setFri={setFri} sat={sat} setSat={setSat} sun={sun} setSun={setSun}
+            />
+          </div></> : null}
         <div className="flex justify-center mb-1">
-          <button className="btn btn-sm" onClick={saveTimes}>Save and Add Other Day(s)</button>
+          {inputButton(saveTimes, "Save and Add Other Day(s)", " btn-sm")}
         </div>
         <div className="mb-2">
-          <h1 className="title text-center">{name ? name : "No Name Set"}</h1>
+          <h1 className="title text-center semi-bold">Schedule Summary</h1>
+          <h1 className="title text-center">Schedule Name: {name ? name : "No Name Set"}</h1>
+          <h1 className="title text-center">Starts: {startDate.toDateString()}</h1>
+          <h1 className="title text-center">Runs Till: {showEndDateInput ? endDate.toDateString() : "Indefinitely"}</h1>
           <table>
             <thead>
               <tr>
                 <th>Day</th>
                 <th>Availability</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {availabilities.length > 0 ? sortByWeekdayScore(availabilities).map(m => (
                 <tr key={availabilities.indexOf(m)}>
                   <td>{m.day}</td>
-                  <td>{m.times.map(t => `${t.from} - ${t.to}`).join(", ")}</td>
+                  <td className="overflow-x-auto">{sortByTimeSlot(m.times).map(t => `${t.from} - ${t.to}`).join(", ")}</td>
+                  <td>{inputButton(() => editDayAvailability(m), "Edit", " btn-sm")}</td>
                 </tr>
               )) : (
                 <tr>
+                  <td>No entries yet.</td>
                   <td>No entries yet.</td>
                   <td>No entries yet.</td>
                 </tr>
@@ -280,8 +346,8 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
           </table>
         </div>
         <div className="flex justify-evenly">
-          <button className="btn" onClick={() => setCurrSlide(0)}>Back</button>
-          {submitButton}
+          {inputButton(() => setCurrSlide(0), "Back", "")}
+          {inputButton(forwardClick, "Save Schedule", "")}
         </div>
       </div>
     </>
