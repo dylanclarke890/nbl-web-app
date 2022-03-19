@@ -25,6 +25,23 @@ const getTimeStampAsDate = (time: string) => {
   return getDate(hour, minutes);
 };
 
+export function toMeridian(time: string) {
+  const splitAtColon = time.split(":");
+  let hour = parseInt(splitAtColon[0]);
+  const min = splitAtColon[1];
+  let meridian = hour > 11 ? "PM" : "AM";
+  
+  if (hour > 11) {
+    hour -= 12;
+  }
+  
+  if (hour === 0) {
+    hour = 12;
+  }
+
+  return `${hour}:${min} ${meridian}`;
+}
+
 export function sortByTimeStamp(times: Appointment[]) {
   times.sort((a, b) => {
     return (
