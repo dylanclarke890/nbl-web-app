@@ -50,7 +50,6 @@ export default function Booking() {
   }
 
   useEffect(() => {
-    console.log(appointmentTypeId);
     if (appointmentTypeId === "") return;
     const fetchData = async () => {
       const data = await getAppointmentsByDay(selectedDate, appointmentTypeId!, createErrorToast);

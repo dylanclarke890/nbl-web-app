@@ -76,15 +76,22 @@ export async function getDailyAppointments(
 export async function getMonthOverview(req: any): Promise<number[]> {
   const params = req.params;
   const month = new Date(parseInt(params.year), parseInt(params.month), 1);
-
+  const monthToCheck = month.getMonth();
   const daysInMonth = getDaysInMonth(month);
+
   let overview: number[] = [];
+  const currentMonth = new Date().getMonth();
+  const currentDay = new Date().getDate();
   for (let num = 1; num <= daysInMonth; num++) {
-    let currDate = month;
-    currDate.setDate(num);
+    if (monthToCheck <= currentMonth && num < currentDay) {
+      overview.push(num);
+      continue;
+    }
 
-    const scheduleForToday = await getAvailabilityByDate(currDate);
+    let dayToCheck = month;
+    dayToCheck.setDate(num);
 
+    const scheduleForToday = await getAvailabilityByDate(dayToCheck);
     if (!scheduleForToday!.times.length) {
       overview.push(num);
     }

@@ -18,10 +18,10 @@ import { sortByTimeSlot, sortByWeekdayScore } from "../../../../helpers/timeSort
 
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
   const [currSlide, setCurrSlide] = useState(0);
-
   const [name, setName] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const dateWithoutTime = (d: Date) => new Date(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate());
+  const [startDate, setStartDate] = useState(dateWithoutTime(new Date()));
+  const [endDate, setEndDate] = useState(dateWithoutTime(new Date()));
   const [runsIndefinitely, setRunsIndefinitely] = useState(true);
 
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);

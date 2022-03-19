@@ -24,7 +24,7 @@ export async function getScheduleInUse(date: Date): Promise<ISchedule> {
 
   const loaded: any[] = await timetableModels.scheduleModel
     .where("starts")
-    .gt(date)
+    .lte(date)
     .exec();
 
   switch (loaded.length) {
