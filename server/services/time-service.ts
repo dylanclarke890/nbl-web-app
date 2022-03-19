@@ -19,6 +19,7 @@ export function getAvailableTimeSlots(
 
     let fd = parse(ele.from, TIMEFORMAT, DATEREF);
     let td = parse(ele.to, TIMEFORMAT, DATEREF);
+
     const duration = differenceInMinutes(td, fd, {
       roundingMethod: "ceil",
     });
@@ -28,6 +29,7 @@ export function getAvailableTimeSlots(
       appointmentLength,
       existingAppointments
     );
+
     availableTimes = availableTimes.concat(slots);
   }
 
@@ -38,7 +40,8 @@ function getSlots(
   startDate: Date,
   minutesAvailable: number,
   appointmentLength: number,
-  existingAppointments: ITimeSlot[]
+  existingAppointments: ITimeSlot[],
+  interval = 5 // Used to specify the gap between available slots
 ): ITimeSlot[] {
   let slots: ITimeSlot[] = [];
   let currTime = startDate;
@@ -58,8 +61,9 @@ function getSlots(
       continue;
     }
     slots.push(formatAppointment(currTime, appointmentLength));
-    currTime = appointmentEnd;
-    minutesAvailable -= appointmentLength;
+    
+    currTime = add(currTime, { minutes: interval });
+    minutesAvailable -= interval;
   }
 
   return slots;
