@@ -10,11 +10,11 @@ export function toMeridian(time: string) {
   let hour = parseInt(splitAtColon[0]);
   const min = splitAtColon[1];
   let meridian = hour > 11 ? "PM" : "AM";
-  
+
   if (hour > 11) {
     hour -= 12;
   }
-  
+
   if (hour === 0) {
     hour = 12;
   }
@@ -34,7 +34,7 @@ export function to24hr(time: string) {
   return `${strHour}:${min}`;
 }
 
-function parseMeridianTime(time: string) : [hour: number, minutes: number] {
+function parseMeridianTime(time: string): [hour: number, minutes: number] {
   const splitAtColon = time.split(":");
   let hour = parseInt(splitAtColon[0]);
 
@@ -83,23 +83,23 @@ export function sortByWeekdayScore(availabilities: Availability[]) {
   return availabilities;
 }
 
-  function getWeekdayScore(day: string) {
-    switch (day) {
-      case "monday":
-        return 0;
-      case "tuesday":
-        return 1;
-      case "wednesday":
-        return 2;
-      case "thursday":
-        return 3;
-      case "friday":
-        return 4;
-      case "saturday":
-        return 5;
-      case "sunday":
-        return 6;
-      default:
-        throw new Error("Couldn't determine day.");
-    }
+function getWeekdayScore(day: string) {
+  switch (day) {
+    case "monday":
+      return 0;
+    case "tuesday":
+      return 1;
+    case "wednesday":
+      return 2;
+    case "thursday":
+      return 3;
+    case "friday":
+      return 4;
+    case "saturday":
+      return 5;
+    case "sunday":
+      return 6;
+    default:
+      throw new Error("Couldn't determine day.");
+  }
 }

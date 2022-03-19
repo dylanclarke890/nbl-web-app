@@ -19,7 +19,7 @@ import { sortByTimeSlot, sortByWeekdayScore, to24hr, toMeridian } from "../../..
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
   const [currSlide, setCurrSlide] = useState(0);
   const [name, setName] = useState("");
-  const dateWithoutTime = (d: Date) => new Date(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate());
+  const dateWithoutTime = (d: Date) => new Date(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate());
   const [startDate, setStartDate] = useState(dateWithoutTime(new Date()));
   const [endDate, setEndDate] = useState(dateWithoutTime(new Date()));
   const [runsIndefinitely, setRunsIndefinitely] = useState(true);

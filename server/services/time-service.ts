@@ -61,7 +61,7 @@ function getSlots(
       continue;
     }
     slots.push(formatAppointment(currTime, appointmentLength));
-    
+
     currTime = add(currTime, { minutes: interval });
     minutesAvailable -= interval;
   }

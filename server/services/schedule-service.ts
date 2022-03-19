@@ -33,12 +33,15 @@ export async function getScheduleInUse(date: Date): Promise<ISchedule> {
     case 1:
       _loadedSchedule = loaded[0];
       break;
-    default: { // more than possible schedule
-      const scheduleWithEnd = loaded.find(s => !s.runsIndefinitely);
-      // if no match found then just return the first result from the list
-      _loadedSchedule = scheduleWithEnd === undefined ? loaded[0] : scheduleWithEnd;
-    }
-    break;
+    default:
+      {
+        // more than possible schedule
+        const scheduleWithEnd = loaded.find((s) => !s.runsIndefinitely);
+        // if no match found then just return the first result from the list
+        _loadedSchedule =
+          scheduleWithEnd === undefined ? loaded[0] : scheduleWithEnd;
+      }
+      break;
   }
 
   return _loadedSchedule;
