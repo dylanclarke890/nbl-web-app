@@ -47,8 +47,6 @@ function getSlots(
   let currTime = startDate;
   const endTime = add(startDate, {minutes: minutesAvailable});
   
-  console.log("endTime");
-  console.log(endTime);
   while (minutesAvailable - appointmentLength >= 0) {
     const appointmentEnd = add(currTime, { minutes: appointmentLength });
     if (appointmentEnd.valueOf() > endTime.valueOf()) break;
