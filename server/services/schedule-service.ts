@@ -18,7 +18,6 @@ export async function getScheduleInUse(date: Date): Promise<ISchedule> {
     (_loadedSchedule.runsIndefinitely ||
       (_loadedSchedule.ends !== undefined && _loadedSchedule.ends! > date))
   ) {
-    console.log("Returning previously loaded.");
     return _loadedSchedule;
   }
 
@@ -29,17 +28,13 @@ export async function getScheduleInUse(date: Date): Promise<ISchedule> {
 
   switch (loaded.length) {
     case 0:
-      console.log("No schedule found.");
       _loadedSchedule = anEmptySchedule;
       break;
     case 1:
-      console.log("One result found.");
       _loadedSchedule = loaded[0];
       break;
     default: { // more than possible schedule
-      console.log("Multiple results found.")
       const scheduleWithEnd = loaded.find(s => !s.runsIndefinitely);
-      console.log(scheduleWithEnd ? "Found schedule with expiry." : "Returning first result.");
       // if no match found then just return the first result from the list
       _loadedSchedule = scheduleWithEnd === undefined ? loaded[0] : scheduleWithEnd;
     }
