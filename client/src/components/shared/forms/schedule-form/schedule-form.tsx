@@ -176,6 +176,10 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     setTimes(a.times);
   }
 
+  const deleteDayAvailability = (a: Availability) => {
+    setAvailabilities(availabilities.filter(av => av !== a));
+  }
+
   const saveTimes = () => {
     if (mon) updateAvailabilities("monday");
     if (tue) updateAvailabilities("tuesday");
@@ -336,7 +340,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
                 <tr key={availabilities.indexOf(m)}>
                   <td>{m.day}</td>
                   <td className="overflow-x-auto">{sortByTimeSlot(m.times).map(t => `${t.from} - ${t.to}`).join(", ")}</td>
-                  <td>{inputButton(() => editDayAvailability(m), "Edit", " btn-sm")}</td>
+                  <td>{inputButton(() => editDayAvailability(m), "Edit", " btn-sm mr-1")} {inputButton(() => deleteDayAvailability(m), "Delete", " btn-sm")}</td>
                 </tr>
               )) : (
                 <tr>
