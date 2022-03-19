@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import Availability from "../models/availability";
 import Schedule from "../models/schedule";
 
 const APIENDPOINT = "/api/schedules/";

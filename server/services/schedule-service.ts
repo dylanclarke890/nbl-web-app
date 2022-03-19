@@ -2,6 +2,7 @@ import * as mongoose from "mongoose";
 import { add } from "date-fns";
 
 import ISchedule from "../interfaces/ISchedule";
+import IAvailability from "../interfaces/IAvailability";
 const timetableModels = require("../models/schedule");
 
 let _loadedSchedule: ISchedule = {
@@ -17,10 +18,34 @@ export async function getScheduleInUse(date: Date): Promise<ISchedule> {
     (_loadedSchedule.runsIndefinitely ||
       (_loadedSchedule.ends !== undefined && _loadedSchedule.ends! > date))
   ) {
+    console.log("Returning previously loaded.");
     return _loadedSchedule;
   }
 
-  _loadedSchedule = schedules[0];
+  const loaded: any[] = await timetableModels.scheduleModel
+    .where("starts")
+    .gt(date)
+    .exec();
+
+  switch (loaded.length) {
+    case 0:
+      console.log("No schedule found.");
+      _loadedSchedule = anEmptySchedule;
+      break;
+    case 1:
+      console.log("One result found.");
+      _loadedSchedule = loaded[0];
+      break;
+    default: { // more than possible schedule
+      console.log("Multiple results found.")
+      const scheduleWithEnd = loaded.find(s => !s.runsIndefinitely);
+      console.log(scheduleWithEnd ? "Found schedule with expiry." : "Returning first result.");
+      // if no match found then just return the first result from the list
+      _loadedSchedule = scheduleWithEnd === undefined ? loaded[0] : scheduleWithEnd;
+    }
+    break;
+  }
+
   return _loadedSchedule;
 }
 
@@ -35,7 +60,9 @@ export async function getAllSchedules(
 }
 
 export async function addSchedule(req: any) {
-  let result = new timetableModels.scheduleModel({ ...req.body.data });
+  let item: ISchedule = req.body.data;
+  item.availability = addMissingDays(item.availability);
+  let result = new timetableModels.scheduleModel({ ...item });
   try {
     await result.save();
   } catch (e) {
@@ -47,10 +74,18 @@ export async function addSchedule(req: any) {
 
 export async function editSchedule(id: string, item: any) {
   let success = false;
-  const update = item.schedule;
-  console.log(item);
+  const update: ISchedule = item.schedule;
+  update.availability = addMissingDays(update.availability);
   try {
     const doc = await timetableModels.scheduleModel.findById(id).exec();
+
+    doc.name = update.name;
+    doc.starts = update.starts;
+    doc.availability = update.availability;
+    doc.runsIndefinitely = update.runsIndefinitely;
+    doc.ends = update.ends;
+
+    doc.save();
     success = true;
   } catch (e) {
     console.error(e);
@@ -72,67 +107,39 @@ export async function deleteSchedule(id: string) {
   return success;
 }
 
-const schedules = [
-  {
-    _id: "622947628600793f62ba5550",
-    name: "DefaultSchedule",
-    starts: new Date(),
-    ends: undefined,
-    runsIndefinitely: true,
-    availability: [
-      new timetableModels.availabilityModel({
-        day: "Sunday",
-        times: [
-          { from: "9:00 AM", to: "5:00 PM" },
-          { from: "5:30 PM", to: "8:00 PM" },
-          { from: "8:30 PM", to: "10:00 PM" },
-          { from: "10:30 PM", to: "11:30 PM" },
-        ],
-      }),
-      new timetableModels.availabilityModel({
-        day: "Monday",
-        times: [
-          { from: "6:30 AM", to: "12:00 PM" },
-          { from: "8:30 PM", to: "11:30 PM" },
-          { from: "12:30 PM", to: "8:00 PM" },
-        ],
-      }),
-      new timetableModels.availabilityModel({
-        day: "Tuesday",
-        times: [
-          { from: "6:30 AM", to: "12:00 PM" },
-          { from: "8:30 PM", to: "11:30 PM" },
-          { from: "12:30 PM", to: "8:00 PM" },
-        ],
-      }),
-      new timetableModels.availabilityModel({
-        day: "Wednesday",
-        times: [
-          { from: "6:30 AM", to: "12:00 PM" },
-          { from: "8:30 PM", to: "11:30 PM" },
-          { from: "12:30 PM", to: "8:00 PM" },
-        ],
-      }),
-      new timetableModels.availabilityModel({
-        day: "Thursday",
-        times: [],
-      }),
-      new timetableModels.availabilityModel({
-        day: "Friday",
-        times: [
-          { from: "6:30 AM", to: "12:00 PM" },
-          { from: "8:30 PM", to: "11:30 PM" },
-          { from: "12:30 PM", to: "8:00 PM" },
-        ],
-      }),
-      new timetableModels.availabilityModel({
-        day: "Saturday",
-        times: [
-          { from: "6:30 AM", to: "12:00 PM" },
-          { from: "8:30 PM", to: "11:30 PM" },
-          { from: "12:30 PM", to: "8:00 PM" },
-        ],
-      }),
-    ],
-  },
-];
+function addMissingDays(availability: IAvailability[]) {
+  const days = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+  ];
+
+  days.forEach((d) => {
+    if (availability.find((a) => a.day === d) === undefined) {
+      availability.push({ day: d, times: [] });
+    }
+  });
+
+  return availability;
+}
+
+const anEmptySchedule = {
+  _id: "",
+  name: "",
+  starts: new Date(),
+  ends: undefined,
+  runsIndefinitely: true,
+  availability: [
+    { day: "sunday", times: [] },
+    { day: "monday", times: [] },
+    { day: "tuesday", times: [] },
+    { day: "wednesday", times: [] },
+    { day: "thursday", times: [] },
+    { day: "friday", times: [] },
+    { day: "saturday", times: [] },
+  ],
+};

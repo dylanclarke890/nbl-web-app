@@ -25,15 +25,18 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   const [runsIndefinitely, setRunsIndefinitely] = useState(true);
 
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);
-  const needsAvailability = useCallback((weekday: string) => availabilities.find(a => a.day === weekday) === undefined, [availabilities]);
+  const hasNoAvailabilityFor = useCallback((weekday: string) => {
+    const day = availabilities.find(a => a.day === weekday);
+    return day === undefined || day.times.length === 0;
+  }, [availabilities]);
 
-  const [mon, setMon] = useState(needsAvailability("monday"));
-  const [tue, setTue] = useState(needsAvailability("tuesday"));
-  const [wed, setWed] = useState(needsAvailability("wednesday"));
-  const [thu, setThu] = useState(needsAvailability("thursday"));
-  const [fri, setFri] = useState(needsAvailability("friday"));
-  const [sat, setSat] = useState(needsAvailability("saturday"));
-  const [sun, setSun] = useState(needsAvailability("sunday"));
+  const [mon, setMon] = useState(hasNoAvailabilityFor("monday"));
+  const [tue, setTue] = useState(hasNoAvailabilityFor("tuesday"));
+  const [wed, setWed] = useState(hasNoAvailabilityFor("wednesday"));
+  const [thu, setThu] = useState(hasNoAvailabilityFor("thursday"));
+  const [fri, setFri] = useState(hasNoAvailabilityFor("friday"));
+  const [sat, setSat] = useState(hasNoAvailabilityFor("saturday"));
+  const [sun, setSun] = useState(hasNoAvailabilityFor("sunday"));
 
   const getCurrApplicableDays = () => {
     let applicable = "";
@@ -106,14 +109,14 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
 
   useEffect(() => {
     if (editing) return;
-    setMon(needsAvailability('monday'));
-    setTue(needsAvailability('tuesday'));
-    setWed(needsAvailability('wednesday'));
-    setThu(needsAvailability('thursday'));
-    setFri(needsAvailability('friday'));
-    setSat(needsAvailability('saturday'));
-    setSun(needsAvailability('sunday'));
-  }, [availabilities, getDay, editing, needsAvailability])
+    setMon(hasNoAvailabilityFor('monday'));
+    setTue(hasNoAvailabilityFor('tuesday'));
+    setWed(hasNoAvailabilityFor('wednesday'));
+    setThu(hasNoAvailabilityFor('thursday'));
+    setFri(hasNoAvailabilityFor('friday'));
+    setSat(hasNoAvailabilityFor('saturday'));
+    setSun(hasNoAvailabilityFor('sunday'));
+  }, [availabilities, getDay, editing, hasNoAvailabilityFor])
 
   useEffect(() => {
     if (!id) return;
@@ -201,13 +204,12 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     availabilities: ""
   });
 
-  const handleShowEndDateChange = () => {
+  const updateRunsIndefinitely = () => {
     setRunsIndefinitely(!runsIndefinitely);
   };
 
   const forwardClick = () => {
     if (!onSubmit) return;
-
     const model = new Schedule(id!, name, startDate, availabilities, runsIndefinitely, runsIndefinitely ? undefined : endDate);
     onSubmit!(model);
   }
@@ -247,7 +249,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
           <CustomCheckbox inputId="runs-indefinitely"
             labelText="Runs Indefinitely?"
             isChecked={runsIndefinitely}
-            onChange={handleShowEndDateChange}
+            onChange={updateRunsIndefinitely}
             readOnly={readOnly}
           />
         </div>
