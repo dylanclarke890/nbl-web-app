@@ -36,11 +36,13 @@ const scheduleSchema = new mongoose.Schema({
   },
   ends: {
     type: Date,
-    required: true,
+  },
+  runsIndefinitely: {
+    type: Boolean,
   },
   availability: {
     type: [availabilitySchema],
-    validate: [hasSevenItems, "Needs 7 days of availability."],
+    validate: [hasSevenItems, "Needs full week of availability."],
   },
 });
 

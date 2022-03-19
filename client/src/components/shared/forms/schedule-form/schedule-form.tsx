@@ -22,7 +22,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [showEndDateInput, setShowEndDateInput] = useState(false);
+  const [runsIndefinitely, setRunsIndefinitely] = useState(true);
 
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);
   const needsAvailability = useCallback((weekday: string) => availabilities.find(a => a.day === weekday) === undefined, [availabilities]);
@@ -123,6 +123,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       setName(result.name);
       setStartDate(result.starts);
       setAvailabilities(result.availability);
+      setRunsIndefinitely(result.runsIndefinitely);
       setEndDate(result.ends == null ? new Date() : result.ends!);
       setCurrSlide(onSubmit ? 0 : 1);
     }
@@ -201,18 +202,18 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   });
 
   const handleShowEndDateChange = () => {
-    setShowEndDateInput(!showEndDateInput);
+    setRunsIndefinitely(!runsIndefinitely);
   };
 
   const forwardClick = () => {
     if (!onSubmit) return;
 
-    const model = new Schedule(id!, name, startDate, availabilities, endDate);
+    const model = new Schedule(id!, name, startDate, availabilities, runsIndefinitely, runsIndefinitely ? undefined : endDate);
     onSubmit!(model);
   }
 
   const inputButton = (onClick: any, name: string, extraClasses: string) => onSubmit ? <button className={`btn ${extraClasses}`} onClick={onClick}>{name}</button> : null;
-  const endDateInput = showEndDateInput ? (
+  const endDateInput = !runsIndefinitely ? (
     <CustomDateInput inputId="end-date"
       value={endDate}
       error={firSlideErrs.ends}
@@ -243,9 +244,9 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
           {endDateInput}
         </div>
         <div className="center-content mb-2">
-          <CustomCheckbox inputId="show-end-date"
-            labelText="Add expiry date?"
-            isChecked={showEndDateInput}
+          <CustomCheckbox inputId="runs-indefinitely"
+            labelText="Runs Indefinitely?"
+            isChecked={runsIndefinitely}
             onChange={handleShowEndDateChange}
             readOnly={readOnly}
           />
@@ -319,7 +320,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
           <h1 className="title text-center semi-bold">Schedule Summary</h1>
           <h1 className="title text-center">Schedule Name: {name ? name : "No Name Set"}</h1>
           <h1 className="title text-center">Starts: {startDate.toDateString()}</h1>
-          <h1 className="title text-center">Runs Till: {showEndDateInput ? endDate.toDateString() : "Indefinitely"}</h1>
+          <h1 className="title text-center">Runs Till: {runsIndefinitely ? "Indefinitely" : endDate.toDateString()}</h1>
           <table>
             <thead>
               <tr>

@@ -7,7 +7,7 @@ import ScheduleForm from "../../shared/forms/schedule-form/schedule-form";
 import Header from "../../shared/header/header";
 
 export default function NewSchedule() {
-  const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), []));
+  const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), [], false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [currSlide, setCurrSlide] = useState(0);
 

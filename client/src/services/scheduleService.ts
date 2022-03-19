@@ -19,15 +19,9 @@ export async function getAllSchedules(
   let schedules: Schedule[] = [];
 
   res.data.forEach(
-    (el: {
-      _id: string;
-      name: string;
-      starts: any;
-      availability: Availability[];
-      ends: any;
-    }) => {
+    (el: Schedule) => {
       schedules.push(
-        new Schedule(el._id, el.name, new Date(el.starts), el.availability, new Date(el.ends))
+        new Schedule(el._id, el.name, new Date(el.starts), el.availability, el.runsIndefinitely, el.ends !== undefined ? new Date(el.ends) : undefined)
       );
     }
   );
@@ -48,6 +42,7 @@ export async function getSchedule(id: string, onError: (arg0: any) => void) {
     data?.name,
     new Date(data?.starts),
     data?.availability,
+    data?.runsIndefinitely,
     new Date(data?.ends)
   );
 }

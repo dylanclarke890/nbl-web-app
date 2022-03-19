@@ -10,7 +10,7 @@ import Header from "../../shared/header/header";
 export default function EditSchedule() {
   const { id } = useParams();
 
-  const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), []));
+  const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), [], false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [currSlide, setCurrSlide] = useState(0);
 
