@@ -41,7 +41,7 @@ function getSlots(
   minutesAvailable: number,
   appointmentLength: number,
   existingAppointments: ITimeSlot[],
-  interval = 5 // Used to specify the gap between available slots
+  interval = 15 // Used to specify the gap between available slots
 ): ITimeSlot[] {
   let slots: ITimeSlot[] = [];
   let currTime = startDate;
