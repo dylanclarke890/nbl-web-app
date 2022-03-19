@@ -45,8 +45,14 @@ function getSlots(
 ): ITimeSlot[] {
   let slots: ITimeSlot[] = [];
   let currTime = startDate;
+  const endTime = add(startDate, {minutes: minutesAvailable});
+  
+  console.log("endTime");
+  console.log(endTime);
   while (minutesAvailable - appointmentLength >= 0) {
     const appointmentEnd = add(currTime, { minutes: appointmentLength });
+    if (appointmentEnd.valueOf() > endTime.valueOf()) break;
+
     if (
       existingAppointments.some((app) => {
         const from = parse(app.from, TIMEFORMAT, DATEREF);
