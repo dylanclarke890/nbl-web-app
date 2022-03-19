@@ -14,7 +14,7 @@ import { WeekdayCheckboxList } from "../weekday-checkbox-list/weekday-checkbox-l
 
 import './schedule-form.css';
 import ITimeSlot from "../../../../interfaces/ITimeSlot";
-import { sortByTimeSlot, sortByWeekdayScore, toMeridian } from "../../../../helpers/timeSort";
+import { sortByTimeSlot, sortByWeekdayScore, to24hr, toMeridian } from "../../../../helpers/timeSort";
 
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
   const [currSlide, setCurrSlide] = useState(0);
@@ -77,8 +77,8 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   const editSlot = (i: number) => {
     const item = times[i];
     removeItem(item);
-    setFrom(item.from);
-    setTo(item.to);
+    setFrom(to24hr(item.from));
+    setTo(to24hr(item.to));
   }
 
   const deleteSlot = (i: number) => {

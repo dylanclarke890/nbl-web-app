@@ -5,26 +5,6 @@ import Availability from "../models/availability";
 const getDate = (hour: number, minutes: number) =>
   new Date(2000, 1, 1, hour, minutes);
 
-const getTimeStampAsDate = (time: string) => {
-  const splitAtColon = time.split(":");
-  let hour = parseInt(splitAtColon[0]);
-
-  const splitAtWhiteSpace = splitAtColon[1].split(" ");
-  const minutes = parseInt(splitAtWhiteSpace[0]);
-
-  const meridian = splitAtWhiteSpace[1];
-
-  if (meridian === "AM" && hour === 12) {
-    hour = 0;
-  }
-
-  if (meridian === "PM" && hour !== 12) {
-    hour += 12;
-  }
-
-  return getDate(hour, minutes);
-};
-
 export function toMeridian(time: string) {
   const splitAtColon = time.split(":");
   let hour = parseInt(splitAtColon[0]);
@@ -40,6 +20,38 @@ export function toMeridian(time: string) {
   }
 
   return `${hour}:${min} ${meridian}`;
+}
+
+const getTimeStampAsDate = (time: string) => {
+  const [hour, min] = parseMeridianTime(time);
+  return getDate(hour, min);
+};
+
+export function to24hr(time: string) {
+  const [hour, min] = parseMeridianTime(time);
+  let strHour = hour.toString();
+  if (strHour.length === 1) strHour = `0${strHour}`;
+  return `${strHour}:${min}`;
+}
+
+function parseMeridianTime(time: string) : [hour: number, minutes: number] {
+  const splitAtColon = time.split(":");
+  let hour = parseInt(splitAtColon[0]);
+
+  const splitAtWhiteSpace = splitAtColon[1].split(" ");
+  const min = parseInt(splitAtWhiteSpace[0]);
+
+  const meridian = splitAtWhiteSpace[1];
+
+  if (meridian === "AM" && hour === 12) {
+    hour = 0;
+  }
+
+  if (meridian === "PM" && hour !== 12) {
+    hour += 12;
+  }
+
+  return [hour, min];
 }
 
 export function sortByTimeStamp(times: Appointment[]) {
