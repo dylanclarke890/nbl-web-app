@@ -2,10 +2,13 @@ import ITimeSlot from "../interfaces/ITimeSlot";
 import Appointment from "../models/appointment";
 import Availability from "../models/availability";
 
+const invalidTime = (time: string) => time === undefined || time === "";
+
 const getDate = (hour: number, minutes: number) =>
   new Date(2000, 1, 1, hour, minutes);
 
 export function toMeridian(time: string) {
+  if (invalidTime(time)) return time;
   const splitAtColon = time.split(":");
   let hour = parseInt(splitAtColon[0]);
   const min = splitAtColon[1];
@@ -23,11 +26,13 @@ export function toMeridian(time: string) {
 }
 
 export function getTimeStampAsDate(time: string) {
+  if (invalidTime(time)) return new Date();
   const [hour, min] = parseMeridianTime(time);
   return getDate(hour, min);
 }
 
 export function to24hr(time: string) {
+  if (time === undefined || time === "") return time;
   const [hour, min] = parseMeridianTime(time);
   let strHour = hour.toString();
   if (strHour.length === 1) strHour = `0${strHour}`;

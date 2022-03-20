@@ -87,7 +87,7 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
       }))
     }
     const firstPointIndex = p.indexOf(".");
-    if (firstPointIndex !== p.lastIndexOf(".") || firstPointIndex !== -1 && (p.length - 1) - firstPointIndex !== 2) {
+    if (firstPointIndex !== p.lastIndexOf(".") || (firstPointIndex !== -1 && (p.length - 1) - firstPointIndex !== 2)) {
       setModelValidation((curr) => ({
         ...curr,
         price: "Invalid price.",
