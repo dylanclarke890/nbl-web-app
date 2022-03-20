@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
 
-let appointmentTypeSchema = new mongoose.Schema({
-  appointmentType: {
+let treatmentSchema = new mongoose.Schema({
+  type: {
     type: String,
     required: true,
     lowercase: true,
@@ -18,4 +18,4 @@ let appointmentTypeSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("AppointmentType", appointmentTypeSchema);
+module.exports = mongoose.model("Treatment", treatmentSchema);

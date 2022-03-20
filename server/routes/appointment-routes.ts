@@ -26,7 +26,7 @@ appointmentRouter.get("/overview/:year/:month", async (req, res) => {
 });
 
 appointmentRouter.get(
-  "/:day/:month/:year/:appointmentTypeId",
+  "/:day/:month/:year/:treatmentId",
   async (req, res) => {
     let result: { times: ITimeSlot[] };
 

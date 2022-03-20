@@ -3,11 +3,11 @@
   border: 1px solid rgba(183, 110, 121, 1);
 }
 
-.appointment-type-options {
+.treatment-options {
   display: flex;
   justify-content: center;
 }
 
-.appointment-type-options div {
+.treatment-options div {
   margin: 0 1em 0 1em;
 }

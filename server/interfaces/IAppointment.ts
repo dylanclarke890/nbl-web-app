@@ -5,7 +5,7 @@ export default interface IAppointment {
   person: IPerson;
   date: Date;
   time: ITimeSlot;
-  appointmentType: string;
+  type: string;
 }
 
 export interface IPerson {

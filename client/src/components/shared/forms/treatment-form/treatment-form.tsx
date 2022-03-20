@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-import { getAppointmentType } from "../../../../services/appointmentTypeService";
-import IAppointmentTypeForm from "./IAppointmentTypeForm";
-import AppointmentType from "../../../../models/appointment-type";
+import { getTreatment } from "../../../../services/treatmentService";
+import ITreatmentForm from "./ITreatmentForm";
+import Treatment from "../../../../models/treatment";
 
 import CustomCheckbox from "../../input/custom-checkbox/custom-checkbox";
 import CustomInput from "../../input/custom-input/custom-input";
-import './appointment-type-form.css'
+import './treatment-form.css'
 
-export default function AppointmentTypeForm({ id, onSubmit, readOnly }: IAppointmentTypeForm) {
+export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm) {
 
-  const [appointmentType, setAppointmentType] = useState("");
+  const [type, setType] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [isActive, setIsActive] = useState(true);
   const [modelValidation, setModelValidation] = useState({
-    appointmentType: "",
+    type: "",
     duration: "",
     price: "",
   });
@@ -25,8 +25,8 @@ export default function AppointmentTypeForm({ id, onSubmit, readOnly }: IAppoint
     if (!id) return;
 
     const fetchData = async () => {
-      const result = await getAppointmentType(id, console.error);
-      setAppointmentType(result.appointmentType);
+      const result = await getTreatment(id, console.error);
+      setType(result.type);
       setDuration(result.duration);
       setPrice(result.price);
       setIsActive(result.isActive);
@@ -43,19 +43,19 @@ export default function AppointmentTypeForm({ id, onSubmit, readOnly }: IAppoint
   const forwardClick = () => {
     if (!onSubmit) return;
 
-    const model = new AppointmentType(id!, appointmentType, parseInt(duration), parseFloat(price), isActive);
+    const model = new Treatment(id!, type, parseInt(duration), parseFloat(price), isActive);
     onSubmit!(model);
   }
   const submitButton = onSubmit ? <button className="btn" onClick={forwardClick}>Save</button> : null;
 
   return (
     <>
-      <div className="appointment-type-form">
+      <div className="treatment-form">
         <CustomInput inputId={"name"}
-          value={appointmentType}
-          active={appointmentType !== ""}
-          error={modelValidation.appointmentType}
-          onChange={setAppointmentType}
+          value={type}
+          active={type !== ""}
+          error={modelValidation.type}
+          onChange={setType}
           readonly={readOnly}
         />
         <CustomInput inputId={"duration"}

@@ -44,7 +44,7 @@ let appointmentSchema = new mongoose.Schema({
       uppercase: true,
     },
   },
-  appointmentType: {
+  treatmentName: {
     type: String,
     required: true,
   },

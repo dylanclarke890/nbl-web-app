@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getAllAppointmentTypes } from '../../../services/appointmentTypeService';
-import AppointmentType from '../../../models/appointment-type';
+import { getAllTreatments } from '../../../services/treatmentService';
+import Treatment from '../../../models/treatment';
 
 import Header from '../../shared/header/header';
 import '../styles/admin.css'
 
 
-export default function ListAppointmentTypes(): JSX.Element {
-  const [appointmentTypes, setAppointmentTypes] = useState<AppointmentType[]>([]);
+export default function ListTreatments(): JSX.Element {
+  const [treatments, setTreatments] = useState<Treatment[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      await getAllAppointmentTypes(setAppointmentTypes, console.error);
+      await getAllTreatments(setTreatments, console.error);
     }
     fetchData();
   }, []);
 
-  const URLPREFIX = '/admin/appointment-types/'
+  const URLPREFIX = '/admin/treatments/'
 
   let displayTypes: JSX.Element[] = [];
-  appointmentTypes.forEach(el => {
+  treatments.forEach(el => {
     displayTypes.push(<tr key={el._id}>
-      <td>{el.appointmentType}</td>
+      <td>{el.type}</td>
       <td>{el.duration}</td>
       <td>{el.price}</td>
       <td>{el.isActive.toString()}</td>

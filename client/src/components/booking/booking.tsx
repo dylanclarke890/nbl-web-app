@@ -15,7 +15,7 @@ import "./booking.css";
 import { useParams } from "react-router-dom";
 
 export default function Booking() {
-  const { appointmentTypeId } = useParams()
+  const { treatmentId } = useParams()
   const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setDate] = useState(new Date());
@@ -50,13 +50,13 @@ export default function Booking() {
   }
 
   useEffect(() => {
-    if (appointmentTypeId === "") return;
+    if (treatmentId === "") return;
     const fetchData = async () => {
-      const data = await getAppointmentsByDay(selectedDate, appointmentTypeId!, createErrorToast);
+      const data = await getAppointmentsByDay(selectedDate, treatmentId!, createErrorToast);
       setAvailableTimes(data);
     }
     fetchData().catch(console.error);
-  }, [selectedDate, appointmentTypeId]);
+  }, [selectedDate, treatmentId]);
 
   const [modalSlide, setModalSlide] = useState(0);
   const [successInfo, setSuccessInfo] = useState({ message: "", reference: "", time: "" });

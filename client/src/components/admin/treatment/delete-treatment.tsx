@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { deleteAppointmentType } from "../../../services/appointmentTypeService";
+import { deleteTreatment } from "../../../services/treatmentService";
 
-import AppointmentTypeForm from "../../shared/forms/appointment-type-form/appointment-type-form";
+import TreatmentForm from "../../shared/forms/treatment-form/treatment-form";
 import Header from "../../shared/header/header";
 
-export default function DeleteAppointmentType() {
+export default function DeleteTreatment() {
   const { id } = useParams();
   const [currSlide, setCurrSlide] = useState(0);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
@@ -18,7 +18,7 @@ export default function DeleteAppointmentType() {
   useEffect(() => {
     if (!deleteConfirmed) return;
     const sendData = async () => {
-      const res = await deleteAppointmentType(id!, console.error);
+      const res = await deleteTreatment(id!, console.error);
       if (res) {
         setCurrSlide(1)
       } else {
@@ -30,8 +30,8 @@ export default function DeleteAppointmentType() {
 
   return currSlide === 0 ? (
     <>
-      <Header headerTitle={`Delete`} returnLinkUrl={'../admin/appointment-types'} linkText={'Back to all'} />
-      <AppointmentTypeForm id={id} readOnly />
+      <Header headerTitle={`Delete`} returnLinkUrl={'../admin/treatments'} linkText={'Back to all'} />
+      <TreatmentForm id={id} readOnly />
       <h2 className="title text-center">Are you sure you want to delete this?</h2>
       <div className="flex col-center">
         <button className="btn" onClick={handleConfirm}>Delete</button>
@@ -39,7 +39,7 @@ export default function DeleteAppointmentType() {
     </>
   ) : (
     <>
-      <Header headerTitle="Success!" returnLinkUrl={'../admin/appointment-types'} linkText={'Back to all'} />
+      <Header headerTitle="Success!" returnLinkUrl={'../admin/treatments'} linkText={'Back to all'} />
     </>
   )
 }

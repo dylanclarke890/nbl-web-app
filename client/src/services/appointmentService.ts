@@ -28,7 +28,7 @@ export async function getAppointment(
       phone: data?.person?.phone,
       email: data?.person?.email,
     },
-    data?.appointmentType,
+    data?.type,
     new Date(data?.date)
   );
 }
@@ -51,7 +51,7 @@ export async function getAllAppointments(
       _id: string;
       time: { from: string; to: string };
       person: { name: string; phone: string; email: string };
-      appointmentType: string;
+      type: string;
       date: string | number | Date;
     }) => {
       appointments.push(
@@ -64,7 +64,7 @@ export async function getAllAppointments(
             phone: el?.person?.phone,
             email: el?.person?.email,
           },
-          el?.appointmentType,
+          el?.type,
           new Date(el?.date)
         )
       );
@@ -106,7 +106,7 @@ export async function addAppointment(
 
 export async function getAppointmentsByDay(
   day: Date,
-  appointmentTypeId: string,
+  treatmentId: string,
   onError: () => any
 ): Promise<Appointment[]> {
   if (!day) return [];
@@ -114,7 +114,7 @@ export async function getAppointmentsByDay(
   let res: any;
   try {
     res = await axios.get(
-      `${APIENDPOINT}${day.getDate()}/${day.getMonth()}/${day.getFullYear()}/${appointmentTypeId}`
+      `${APIENDPOINT}${day.getDate()}/${day.getMonth()}/${day.getFullYear()}/${treatmentId}`
     );
   } catch (e) {
     onError();

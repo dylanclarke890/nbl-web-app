@@ -1,6 +1,6 @@
-export default interface IAppointmentType {
+export default interface ITreatment {
   _id: string;
-  appointmentType: string;
+  type: string;
   duration: number;
   price: number;
   isActive: boolean;

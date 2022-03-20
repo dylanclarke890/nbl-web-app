@@ -8,7 +8,7 @@ let AppointmentModel = require("../models/appointment");
 
 import { getAvailableTimeSlots } from "./time-service";
 import { getScheduleInUse } from "./schedule-service";
-import { getAppointmentType } from "./appointment-type-service";
+import { getTreatment } from "./treatment-service";
 
 export async function addAppointment(
   req: any
@@ -26,7 +26,7 @@ export async function addAppointment(
     person: { ...data.person },
     date: data.date,
     time: { ...data.time },
-    appointmentType: "nails",
+    treatmentName: data.treatmentName,
   });
 
   try {
@@ -57,8 +57,8 @@ export async function getDailyAppointments(
     parseInt(params.day)
   );
 
-  const appointmentType = await getAppointmentType(params.appointmentTypeId);
-  if (appointmentType.appointmentType === "")
+  const treatment = await getTreatment(params.treatmentId);
+  if (treatment.type === "")
     throw new Error("Should've had a value for appointment type.");
 
   const existingAppointments = await getExistingAppointments(day);
@@ -66,7 +66,7 @@ export async function getDailyAppointments(
   const scheduleForToday = await getAvailabilityByDate(day);
   const availableTimeSlots = getAvailableTimeSlots(
     scheduleForToday!.times,
-    appointmentType.duration,
+    treatment.duration,
     existingAppointments
   );
 
@@ -107,7 +107,7 @@ export async function editAppointment(id: string, item: any) {
     const doc = await AppointmentModel.findById(id).exec();
     doc.person = update.person;
     doc.date = update.date;
-    doc.appointmentType = update.appointmentType;
+    doc.treatmentName = update.treatmentName;
     doc.time = { from: update.from, to: update.to };
     await doc.save();
     success = true;

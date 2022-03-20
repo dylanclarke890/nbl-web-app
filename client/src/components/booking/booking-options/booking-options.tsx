@@ -1,35 +1,35 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { getAllAppointmentTypes } from "../../../services/appointmentTypeService";
+import { getAllTreatments } from "../../../services/treatmentService";
 
 import IToast from "../../shared/toast/IToast";
 import Toast from "../../shared/toast/toast";
 import createToast from "../../shared/toast/toast-helper";
-import AppointmentTypeItem from "../appointment-type/appointment-type-item/appointment-type-item";
-import AppointmentTypeSelector from "../appointment-type/appointment-type-selector/appointment-type-selector";
-import AppointmentType from "../../../models/appointment-type";
+import TreatmentOption from "../treatment/treatment-option/treatment-option";
+import TreatmentOptionSelector from "../treatment/treatment-option-selector/treatment-option-selector";
+import Treatment from "../../../models/treatment";
 import CancellationOption from "../cancel-appointment/cancellation-option";
 
 export default function BookingOptions() {
-  const [appointmentTypeItems, setAppointmentTypeItems] = useState<JSX.Element[]>([]);
+  const [treatmentOptions, setTreatmentOptions] = useState<JSX.Element[]>([]);
 
-  const updateAppointmentTypeSelection = useCallback((appointmentTypes: AppointmentType[]) => {
-    const appointmentTypeItems: JSX.Element[] = [];
-    for (let i = 0; i < appointmentTypes.length; i++) {
-      const el = appointmentTypes[i];
-      appointmentTypeItems.push((
-        <AppointmentTypeItem key={el._id} delay={i * 200} item={el} />
+  const updateTreatmentSelection = useCallback((treatments: Treatment[]) => {
+    const treatmentOptions: JSX.Element[] = [];
+    for (let i = 0; i < treatments.length; i++) {
+      const el = treatments[i];
+      treatmentOptions.push((
+        <TreatmentOption key={el._id} delay={i * 200} item={el} />
       ));
     }
-    setAppointmentTypeItems([...appointmentTypeItems]);
+    setTreatmentOptions([...treatmentOptions]);
   }, [])
 
   useEffect(() => {
     const fetchData = async () => {
-      await getAllAppointmentTypes(updateAppointmentTypeSelection, createErrorToast);
+      await getAllTreatments(updateTreatmentSelection, createErrorToast);
     }
     fetchData().catch(console.error);
-  }, [updateAppointmentTypeSelection]);
+  }, [updateTreatmentSelection]);
 
   const [toastList, setToastList] = useState(new Array<IToast>());
   const createErrorToast = () => {
@@ -38,7 +38,7 @@ export default function BookingOptions() {
 
   return (
     <>
-      <AppointmentTypeSelector appointmentTypeButtons={appointmentTypeItems} />
+      <TreatmentOptionSelector treatmentOptionButtons={treatmentOptions} />
       <p className="sub-title text-center mt-2">Or</p>
       <CancellationOption />
       <Toast autoDelete={true} autoDeleteTime={2000} toastList={toastList} setToastList={setToastList} position={'top-right'} />

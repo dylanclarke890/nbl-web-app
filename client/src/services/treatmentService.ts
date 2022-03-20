@@ -1,10 +1,10 @@
 import axios from "axios";
-import AppointmentType from "../models/appointment-type";
+import Treatment from "../models/treatment";
 
-const APIENDPOINT = "/api/appointment-types/";
+const APIENDPOINT = "/api/treatments/";
 
-export async function getAllAppointmentTypes(
-  onSuccess: (data: AppointmentType[]) => void,
+export async function getAllTreatments(
+  onSuccess: (data: Treatment[]) => void,
   onError: (arg0: any) => void
 ) {
   let res: any = {};
@@ -14,20 +14,20 @@ export async function getAllAppointmentTypes(
     onError(err);
   }
 
-  let appointmentTypes: AppointmentType[] = [];
+  let treatments: Treatment[] = [];
 
   res.data.forEach(
     (el: {
       _id: string;
-      appointmentType: string;
+      type: string;
       duration: number;
       price: number;
       isActive: boolean;
     }) => {
-      appointmentTypes.push(
-        new AppointmentType(
+      treatments.push(
+        new Treatment(
           el._id,
-          el.appointmentType,
+          el.type,
           el.duration,
           el.price,
           el.isActive
@@ -35,10 +35,10 @@ export async function getAllAppointmentTypes(
       );
     }
   );
-  onSuccess(appointmentTypes);
+  onSuccess(treatments);
 }
 
-export async function getAppointmentType(
+export async function getTreatment(
   id: string,
   onError: (arg0: any) => void
 ) {
@@ -53,13 +53,13 @@ export async function getAppointmentType(
   return res.data;
 }
 
-export async function addAppointmentType(
-  appointmentType: AppointmentType,
+export async function addTreatment(
+  treatment: Treatment,
   onError: (arg0: any) => void
 ) {
   let res: any = {};
   try {
-    res = await axios.post(`${APIENDPOINT}new`, { data: appointmentType });
+    res = await axios.post(`${APIENDPOINT}new`, { data: treatment });
   } catch (err) {
     onError(err);
   }
@@ -67,15 +67,15 @@ export async function addAppointmentType(
   return res.data;
 }
 
-export async function editAppointmentType(
-  appointmentType: AppointmentType,
+export async function editTreatment(
+  treatment: Treatment,
   onError: (arg0: any) => void
 ) {
   let res: boolean = false;
 
   try {
-    res = await axios.put(`${APIENDPOINT}edit/${appointmentType._id}`, {
-      appointmentType,
+    res = await axios.put(`${APIENDPOINT}edit/${treatment._id}`, {
+      treatment: treatment,
     });
   } catch (err) {
     onError(err);
@@ -84,7 +84,7 @@ export async function editAppointmentType(
   return res;
 }
 
-export async function deleteAppointmentType(
+export async function deleteTreatment(
   id: string,
   onError: (arg0: any) => void
 ) {

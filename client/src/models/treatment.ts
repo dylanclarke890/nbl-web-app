@@ -1,25 +1,25 @@
-export default class AppointmentType {
+export default class Treatment {
   _id: string;
-  appointmentType: string;
+  type: string;
   duration: number;
   price: number;
   isActive: boolean;
 
   public constructor(
     _id: string,
-    appointmentType: string,
+    type: string,
     duration: number,
     price: number,
     isActive: boolean
   ) {
     this._id = _id;
-    this.appointmentType = appointmentType;
+    this.type = type;
     this.duration = duration;
     this.price = price;
     this.isActive = isActive;
   }
 
   display = (): string => {
-    return `${this.appointmentType} - ${this.duration} - ${this.price} - ${this.isActive}`;
+    return `${this.type} - ${this.duration} - ${this.price} - ${this.isActive}`;
   };
 }

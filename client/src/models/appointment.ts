@@ -4,21 +4,21 @@ export default class Appointment {
   to: string;
   date?: Date;
   person?: { name?: string; phone?: string; email?: string };
-  appointmentType?: string;
+  treatmentName?: string;
 
   public constructor(
     id: string,
     from: string,
     to: string,
     person?: { name?: string; phone?: string; email?: string },
-    appointmentType?: string,
+    treatmentName?: string,
     date?: Date
   ) {
     this.id = id;
     this.from = from;
     this.to = to;
     this.date = date;
-    this.appointmentType = appointmentType;
+    this.treatmentName = treatmentName;
     this.person = person;
   }
 

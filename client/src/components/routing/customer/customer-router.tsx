@@ -11,7 +11,7 @@ import Treatments from "../../treatments/treatments";
 const customerRouter = [
   <Route key={0} path="/" element={<Home />} />,
   <Route key={1} path="/booking-options" element={<BookingOptions />} />,
-  <Route key={2} path="/booking-options/make-a-booking/:appointmentTypeId" element={<Booking />} />,
+  <Route key={2} path="/booking-options/make-a-booking/:treatmentId" element={<Booking />} />,
   <Route key={3} path="/cancel-booking" element={<CancelBooking />} />,
   <Route key={4} path="/treatments" element={<Treatments />} />,
   <Route key={5} path="/gallery" element={<Gallery />} />,

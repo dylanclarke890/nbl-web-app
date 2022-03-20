@@ -12,7 +12,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [appointmentType, setAppointmentType] = useState("");
+  const [treatmentName, setTreatmentName] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
     from: "",
     to: "",
     date: "",
-    appointmentType: "",
+    treatmentName: "",
     name: "",
     phone: "",
     email: "",
@@ -35,7 +35,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       setFrom(result.from);
       setTo(result.to);
       setDate(result.date!);
-      setAppointmentType(result.appointmentType!);
+      setTreatmentName(result.treatmentName!);
       setName(result.person?.name!);
       setEmail(result.person?.email!);
       setPhone(result.person?.phone!);
@@ -45,7 +45,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       from: "",
       to: "",
       date: "",
-      appointmentType: "",
+      treatmentName: "",
       name: "",
       phone: "",
       email: "",
@@ -60,7 +60,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       from,
       to,
       { name, phone, email },
-      appointmentType,
+      treatmentName,
       date
     );
     onSubmit!(model);
@@ -70,7 +70,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
 
   return (
     <>
-      <div className="appointment-type-form">
+      <div className="treatment-form">
         <CustomInput inputId={"name"}
           value={name}
           active={name !== ""}
