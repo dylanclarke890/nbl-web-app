@@ -83,6 +83,34 @@ export function sortByWeekdayScore(availabilities: Availability[]) {
   return availabilities;
 }
 
+export function overlapsWithTimeSlot(
+  time: ITimeSlot,
+  from: string,
+  to: string
+) {
+  const start = getTimeStampAsDate(time.from);
+  const end = getTimeStampAsDate(time.to);
+  const fromTime = getTimeStampAsDate(from);
+  const toTime = getTimeStampAsDate(to);
+
+  const toMs = (t: Date) => t.valueOf();
+
+  const isEarlierThanTimeSlot =
+    toMs(fromTime) < toMs(start) &&
+    toMs(fromTime) < toMs(end) &&
+    toMs(toTime) < toMs(start) &&
+    toMs(toTime) < toMs(end);
+
+  const isLaterThanTimeSlot =
+    toMs(fromTime) > toMs(start) &&
+    toMs(fromTime) > toMs(end) &&
+    toMs(toTime) > toMs(start) &&
+    toMs(toTime) > toMs(end);
+
+    // return true only if from and before are before or after the timeslot.
+  return !(isEarlierThanTimeSlot || isLaterThanTimeSlot);
+}
+
 function getWeekdayScore(day: string) {
   switch (day) {
     case "monday":

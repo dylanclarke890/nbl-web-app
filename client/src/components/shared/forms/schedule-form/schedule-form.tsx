@@ -14,7 +14,7 @@ import { WeekdayCheckboxList } from "../weekday-checkbox-list/weekday-checkbox-l
 
 import './schedule-form.css';
 import ITimeSlot from "../../../../interfaces/ITimeSlot";
-import { getTimeStampAsDate, sortByTimeSlot, sortByWeekdayScore, to24hr, toMeridian } from "../../../../helpers/timeSort";
+import { getTimeStampAsDate, overlapsWithTimeSlot, sortByTimeSlot, sortByWeekdayScore, to24hr, toMeridian } from "../../../../helpers/timeSort";
 import useOnInitialized from "../../../../custom-hooks/useOnInitialized";
 
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
@@ -53,14 +53,15 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   const updateSlide = (n: number) => {
     if (currSlide === 0) {
       if (firSlideErrs.error) return;
-      if (!validateName()) return;
-      if (!validateDate()) return;
+      if (!isValidName()) return;
+      if (!isValidDate()) return;
     };
     if (currSlide === 1 && secSlideErrs.error) return;
     setCurrSlide(n);
   }
 
-  const validateName = (n = name) => {
+  // First Slide
+  const isValidName = (n = name) => {
     if (n.length === 0) {
       setFirSlideErrs((curr) => ({
         ...curr,
@@ -77,7 +78,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     }
     return true;
   };
-  const validateDate = (fr = startDate, to = endDate, runsIndef = runsIndefinitely) => {
+  const isValidDate = (fr = startDate, to = endDate, runsIndef = runsIndefinitely) => {
     if (!runsIndef && to.valueOf() < fr.valueOf()) {
       setFirSlideErrs((curr) => ({
         ...curr,
@@ -96,27 +97,76 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   };
   const updateName = (n: string) => {
     setName(n);
-    validateName(n);
+    isValidName(n);
   }
   const updateStartDate = (d: Date) => {
     setStartDate(d);
     if (!runsIndefinitely) {
-      validateDate(d, endDate, runsIndefinitely);
+      isValidDate(d, endDate, runsIndefinitely);
     }
   }
   const updateEndDate = (d: Date) => {
     setEndDate(d);
-    validateDate(startDate, d, runsIndefinitely);
+    isValidDate(startDate, d, runsIndefinitely);
   }
   const updateRunsIndefinitely = () => {
-    validateDate(startDate, endDate, !runsIndefinitely)
+    isValidDate(startDate, endDate, !runsIndefinitely)
     setRunsIndefinitely(!runsIndefinitely);
   };
 
+  // Second slide 
   const [times, setTimes] = useState<ITimeSlot[]>([]);
   const [editing, setEditing] = useState(false);
+  const isValidTime = () => {
+    if (from === "" || to === "") {
+      setSecSlideErrs((curr) => ({
+        ...curr,
+        timeSlot: "Need both times for a slot.",
+        error: true
+      }));
+      return false;
+    } else {
+      setSecSlideErrs((curr) => ({
+        ...curr,
+        timeSlot: "",
+        error: false
+      }));
+    }
 
+    if (getTimeStampAsDate(from).valueOf() > getTimeStampAsDate(to).valueOf()) {
+      setSecSlideErrs((curr) => ({
+        ...curr,
+        timeSlot: "Till time should come after from time.",
+        error: true
+      }));
+      return false;
+    } else {
+      setSecSlideErrs((curr) => ({
+        ...curr,
+        timeSlot: "",
+        error: false
+      }));
+    };
+
+    if (times.some(t => overlapsWithTimeSlot(t, from, to))) {
+      setSecSlideErrs((curr) => ({
+        ...curr,
+        timeSlot: "Time slots overlap with existing ones",
+        error: true
+      }));
+      return false;
+    } else {
+      setSecSlideErrs((curr) => ({
+        ...curr,
+        timeSlot: "",
+        error: false
+      }));
+    };
+
+    return true;
+  }
   const addSlot = () => {
+    if (!isValidTime()) return;
     setTimes(curr => [...curr, { from: toMeridian(from), to: toMeridian(to) }])
     setFrom("");
     setTo("");
@@ -151,53 +201,6 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     }
   }
 
-  const validateTime = useCallback(() => {
-    if (from === "" || to === "") {
-      setSecSlideErrs((curr) => ({
-        ...curr,
-        timeSlot: "Need both times for a slot.",
-        error: true
-      }));
-      return;
-    } else {
-      setSecSlideErrs((curr) => ({
-        ...curr,
-        timeSlot: "",
-        error: false
-      }));
-    }
-
-    if (getTimeStampAsDate(from).valueOf() > getTimeStampAsDate(to).valueOf()){
-      setSecSlideErrs((curr) => ({
-        ...curr,
-        timeSlot: "To time should come after for.",
-        error: true
-      }));
-      return;
-    } else {
-      setSecSlideErrs((curr) => ({
-        ...curr,
-        timeSlot: "",
-        error: false
-      }));
-    };
-
-    if (times.some(t => t.from === from || t.from === from || t.from === to || t.to === to)) {
-      setSecSlideErrs((curr) => ({
-        ...curr,
-        timeSlot: "Time slots overlap with existing ones",
-        error: true
-      }));
-      return;
-    } else {
-      setSecSlideErrs((curr) => ({
-        ...curr,
-        timeSlot: "",
-        error: false
-      }));
-    };
-  }, [from, to, times]);
-
   useEffect(() => {
     if (editing) return;
     setMon(hasNoAvailabilityFor('monday'));
@@ -223,10 +226,6 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     fetchData().catch(console.error);
 
   }, [id, onSubmit]);
-
-  useEffect(() => {
-    validateTime();
-  }, [validateTime])
   useOnInitialized(() => {
     setFirSlideErrs((curr) => ({
       name: "",
@@ -406,19 +405,20 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
           <div className="time-inputs flex mt-2 mb-2">
             <CustomTimeInput inputId="from"
               value={from}
-              error={secSlideErrs.timeSlot}
+              error={""}
               labelText="Available From"
               onChange={setFrom}
               readOnly={readOnly}
             />
             <CustomTimeInput inputId="to"
               value={to}
-              error={secSlideErrs.timeSlot}
+              error={""}
               labelText="Available Till"
               onChange={setTo}
               readOnly={readOnly}
             />
           </div>
+          <p className="text-center text-error">{secSlideErrs.timeSlot}</p>
           <div className="flex justify-center mb-2">
             {inputButton(addSlot, "Add Time Slot", " btn-sm")}
           </div>
@@ -463,7 +463,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
           </table>
         </div>
         <div className="flex justify-evenly">
-          {inputButton(() => setCurrSlide(0), "Back", "")}
+          {inputButton(() => updateSlide(0), "Back", "")}
           {inputButton(forwardClick, "Save Schedule", "")}
         </div>
       </div>
