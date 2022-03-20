@@ -38,7 +38,7 @@ code {
     monospace;
 }
 
-.main-content,
+main,
 html {
   min-height: fit-content;
   background-color: #fff;
