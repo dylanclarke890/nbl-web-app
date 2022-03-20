@@ -22,10 +22,10 @@ export function toMeridian(time: string) {
   return `${hour}:${min} ${meridian}`;
 }
 
-const getTimeStampAsDate = (time: string) => {
+export function getTimeStampAsDate(time: string) {
   const [hour, min] = parseMeridianTime(time);
   return getDate(hour, min);
-};
+}
 
 export function to24hr(time: string) {
   const [hour, min] = parseMeridianTime(time);
