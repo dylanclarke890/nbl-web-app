@@ -9,6 +9,7 @@ import useOnInitialized from "../../../../custom-hooks/useOnInitialized";
 import { addAppointment } from "../../../../services/appointmentService";
 
 import "./appointment-picker.css";
+import Appointment from "../../../../models/appointment";
 
 export default function AppointmentPicker({
   closeModal,
@@ -16,6 +17,7 @@ export default function AppointmentPicker({
   date,
   setSelectedTime,
   selectedTime,
+  treatment,
   onError,
   onSuccessfulSubmit
 }: IAppointmentPicker) {
@@ -93,7 +95,8 @@ export default function AppointmentPicker({
     if (!time) {
       onError();
     }
-    await addAppointment(time!, { name, email, phone }, date, onSuccessfulSubmit, onError);
+
+    await addAppointment(time!, { name, email, phone }, date, treatment, onSuccessfulSubmit, onError);
   };
 
   useOnInitialized(() => {

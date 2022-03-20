@@ -2,6 +2,7 @@ import axios from "axios";
 import { sortByTimeStamp } from "../helpers/timeSort";
 import IPerson from "../interfaces/IPerson";
 import Appointment from "../models/appointment";
+import Treatment from "../models/treatment";
 
 const APIENDPOINT = "/api/appointments/";
 
@@ -28,7 +29,7 @@ export async function getAppointment(
       phone: data?.person?.phone,
       email: data?.person?.email,
     },
-    data?.type,
+    data?.treatment,
     new Date(data?.date)
   );
 }
@@ -51,7 +52,7 @@ export async function getAllAppointments(
       _id: string;
       time: { from: string; to: string };
       person: { name: string; phone: string; email: string };
-      type: string;
+      treatment: Treatment;
       date: string | number | Date;
     }) => {
       appointments.push(
@@ -64,7 +65,7 @@ export async function getAllAppointments(
             phone: el?.person?.phone,
             email: el?.person?.email,
           },
-          el?.type,
+          el?.treatment,
           new Date(el?.date)
         )
       );
@@ -77,6 +78,7 @@ export async function addAppointment(
   appointment: Appointment,
   person: IPerson,
   date: Date,
+  treatment: Treatment,
   onSuccess: (arg0: {
     message: string;
     reference: string;
@@ -91,6 +93,7 @@ export async function addAppointment(
       time: { from: appointment.from, to: appointment.to },
       person,
       date,
+      treatment
     });
   } catch (err) {
     onError(err);
@@ -108,8 +111,8 @@ export async function getAppointmentsByDay(
   day: Date,
   treatmentId: string,
   onError: () => any
-): Promise<Appointment[]> {
-  if (!day) return [];
+): Promise<[Appointment[], Treatment]> {
+  if (!day) return [[], new Treatment("", "", 0, 0, false)];
 
   let res: any;
   try {
@@ -118,14 +121,25 @@ export async function getAppointmentsByDay(
     );
   } catch (e) {
     onError();
-    return [];
+    return [[], new Treatment("", "", 0, 0, false)];
   }
 
   let times: Appointment[] = [];
   res.data.times.forEach((el: { day: Date; from: string; to: string }) =>
     times.push(new Appointment(res.data.times.indexOf(el), el.from, el.to))
   );
-  return sortByTimeStamp(times);
+
+  const treatment = res.data.treatment;
+  return [
+    sortByTimeStamp(times),
+    new Treatment(
+      treatment._id,
+      treatment.type,
+      treatment.duration,
+      treatment.price,
+      treatment.isActive
+    ),
+  ];
 }
 
 export async function getMonthOverview(

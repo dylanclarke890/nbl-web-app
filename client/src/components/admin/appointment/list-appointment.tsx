@@ -26,7 +26,7 @@ export default function ListAppointments(): JSX.Element {
       <td>{el.date?.toDateString()}</td>
       <td>{el.appointmentTime(' - ')}</td>
       <td>{el.person?.name}</td>
-      <td>{el.treatmentName}</td>
+      <td>{el.treatment?.type}</td>
       <td>
         <Link className="custom-link" to={`${URLPREFIX}view/${el.id}`}>View</Link>
         <Link className="custom-link" to={`${URLPREFIX}edit/${el.id}`}>Edit</Link>

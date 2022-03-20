@@ -20,7 +20,7 @@ export default function NewAppointment() {
     if (!readyToSubmit) return;
 
     const sendData = async () => {
-      await addAppointment(appointment, { ...appointment.person }, appointment.date!, () => setCurrSlide(1), console.error);
+      await addAppointment(appointment, { ...appointment.person }, appointment.date!, appointment.treatment!, () => setCurrSlide(1), console.error);
       setCurrSlide(1);
     }
     sendData().catch(console.error);

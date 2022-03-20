@@ -1,5 +1,6 @@
 import * as mongoose from "mongoose";
 import * as Validation from "../helpers/validation";
+import ITreatment from "../interfaces/ITreatment";
 
 let appointmentSchema = new mongoose.Schema({
   person: {
@@ -44,10 +45,10 @@ let appointmentSchema = new mongoose.Schema({
       uppercase: true,
     },
   },
-  treatmentName: {
-    type: String,
-    required: true,
-  },
+  treatment: {
+    type: Object,
+    required: true
+  }
 });
 
 module.exports = mongoose.model("Appointment", appointmentSchema);

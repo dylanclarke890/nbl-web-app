@@ -7,12 +7,13 @@ import CustomInput from "../../input/custom-input/custom-input";
 import IAppointmentForm from "./IAppointmentForm";
 
 import "./appointment-form.css";
+import Treatment from "../../../../models/treatment";
 
 export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointmentForm): JSX.Element {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [treatmentName, setTreatmentName] = useState("");
+  const [treatmentName, setTreatment] = useState(new Treatment("", "", 0, 0, false));
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -35,7 +36,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       setFrom(result.from);
       setTo(result.to);
       setDate(result.date!);
-      setTreatmentName(result.treatmentName!);
+      setTreatment(result.treatment!);
       setName(result.person?.name!);
       setEmail(result.person?.email!);
       setPhone(result.person?.phone!);

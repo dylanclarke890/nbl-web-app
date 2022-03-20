@@ -9,6 +9,7 @@ let AppointmentModel = require("../models/appointment");
 import { getAvailableTimeSlots } from "./time-service";
 import { getScheduleInUse } from "./schedule-service";
 import { getTreatment } from "./treatment-service";
+import ITreatment from "../interfaces/ITreatment";
 
 export async function addAppointment(
   req: any
@@ -26,7 +27,7 @@ export async function addAppointment(
     person: { ...data.person },
     date: data.date,
     time: { ...data.time },
-    treatmentName: data.treatmentName,
+    treatment: data.treatment,
   });
 
   try {
@@ -49,7 +50,7 @@ export async function getAllAppointments() {
 
 export async function getDailyAppointments(
   req: any
-): Promise<{ times: ITimeSlot[] }> {
+): Promise<{ times: ITimeSlot[], treatment: ITreatment }> {
   const params = req.params;
   const day = new Date(
     parseInt(params.year),
@@ -58,19 +59,19 @@ export async function getDailyAppointments(
   );
 
   const treatment = await getTreatment(params.treatmentId);
-  if (treatment.type === "")
-    throw new Error("Should've had a value for appointment type.");
+  if (treatment._id === "")
+    throw new Error("Should've had a value for treatment.");
 
   const existingAppointments = await getExistingAppointments(day);
 
   const scheduleForToday = await getAvailabilityByDate(day);
-  const availableTimeSlots = getAvailableTimeSlots(
+  const times = getAvailableTimeSlots(
     scheduleForToday!.times,
     treatment.duration,
     existingAppointments
   );
 
-  return { times: availableTimeSlots };
+  return { times, treatment };
 }
 
 export async function getMonthOverview(req: any): Promise<number[]> {

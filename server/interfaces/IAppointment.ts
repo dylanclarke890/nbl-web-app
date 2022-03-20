@@ -1,11 +1,12 @@
 import ITimeSlot from "./ITimeSlot";
+import ITreatment from "./ITreatment";
 
 export default interface IAppointment {
   _id: string;
   person: IPerson;
   date: Date;
   time: ITimeSlot;
-  type: string;
+  treatment: ITreatment;
 }
 
 export interface IPerson {

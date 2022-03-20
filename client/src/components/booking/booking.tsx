@@ -13,10 +13,12 @@ import AppointmentConfirmation from "./appointment/appointment-confirmation/appo
 
 import "./booking.css";
 import { useParams } from "react-router-dom";
+import Treatment from "../../models/treatment";
 
 export default function Booking() {
   const { treatmentId } = useParams()
   const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
+  const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
@@ -53,7 +55,8 @@ export default function Booking() {
     if (treatmentId === "") return;
     const fetchData = async () => {
       const data = await getAppointmentsByDay(selectedDate, treatmentId!, createErrorToast);
-      setAvailableTimes(data);
+      setAvailableTimes(data[0]);
+      setTreatment(data[1]);
     }
     fetchData().catch(console.error);
   }, [selectedDate, treatmentId]);
@@ -78,6 +81,7 @@ export default function Booking() {
                   availableTimes={availableTimes}
                   setSelectedTime={updateTime}
                   selectedTime={selectedTime}
+                  treatment={treatment}
                   onError={createErrorToast}
                   onSuccessfulSubmit={changeSlide}
                 />

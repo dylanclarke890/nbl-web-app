@@ -15,7 +15,7 @@ export default function EditAppointment() {
   const [currSlide, setCurrSlide] = useState(0);
 
   const handleSubmit = (a: Appointment) => {
-    setAppointment(new Appointment(a.id, a.from, a.to, a.person, a.treatmentName, a.date));
+    setAppointment(new Appointment(a.id, a.from, a.to, a.person, a.treatment, a.date));
     setReadyToSubmit(true);
   }
 
