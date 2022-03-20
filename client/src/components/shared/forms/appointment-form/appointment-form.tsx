@@ -17,13 +17,13 @@ import CustomDateInput from "../../input/custom-date-input/custom-date-input";
 export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointmentForm): JSX.Element {
   useEffect(() => {
     if (!id) return;
-
     const fetchData = async () => {
       const result = await getAppointment(id, console.error);
       setFrom(result.from);
       setTo(result.to);
       setDate(result.date!);
       setTreatment(result.treatment!);
+      setTreatmentPrice(result.treatment!.price.toString());
       setName(result.person?.name!);
       setEmail(result.person?.email!);
       setPhone(result.person?.phone!);
@@ -34,6 +34,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
   const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
+  const [treatmentPrice, setTreatmentPrice] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -164,7 +165,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
   }
 
   const validateTreatmentPrice = useCallback((): boolean => {
-    if (!treatment.price) {
+    if (!treatmentPrice) {
       setModelValidation((modelValidation) => ({
         ...modelValidation,
         treatmentPrice: "Must provide treatment price.",
@@ -178,12 +179,25 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
         error: false
       }));
     }
+    const pointIndex = treatmentPrice.indexOf(".");
+    if (pointIndex !== treatmentPrice.lastIndexOf(".") || (pointIndex !== -1 && (treatmentPrice.length - 1) - pointIndex !== 2)) {
+      setModelValidation((modelValidation) => ({
+        ...modelValidation,
+        treatmentPrice: "Invalid price.",
+        error: true
+      }));
+      return false;
+    } else {
+      setModelValidation((modelValidation) => ({
+        ...modelValidation,
+        treatmentPrice: "",
+        error: false
+      }));
+      setTreatment(curr => new Treatment(curr._id, curr.type, curr.duration, parseFloat(treatmentPrice), curr.isActive));
+    }
     return true;
-  }, [treatment.price]);
+  }, [treatmentPrice]);
   useEffect(() => { validateTreatmentPrice(); }, [treatment.price, validateTreatmentPrice]);
-  const updatePrice = (p: string) => {
-    setTreatment(curr => new Treatment(curr._id, curr.type, curr.duration, parseFloat(p), curr.isActive));
-  }
 
   const validateTime = useCallback((): boolean => {
     if (from === "" || to === "") {
@@ -230,12 +244,13 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       error: false
     })
   }, []);
-
+  
   const forwardClick = () => {
     if (!onSubmit) return;
     if (modelValidation.error) return;
-    if (!validateName() || !validateEmail() || !validatePhone() || !validateTime() || !validateTreatmentType() || !validateTreatmentDuration() || !validateTreatmentPrice()) return;
-
+    if (!validateName() || !validateEmail() || !validatePhone()
+      || !validateTime() || !validateTreatmentType() || !validateTreatmentDuration()
+      || !validateTreatmentPrice()) return;
     const model = new Appointment(
       id!,
       toMeridian(from),
@@ -316,11 +331,11 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
           readonly={readOnly}
         />
         <CustomInput inputId={"price"}
-          value={treatment.price ? treatment.price.toString() : ""}
-          active={treatment.price !== 0}
+          value={treatmentPrice}
+          active={treatmentPrice !== ""}
           error={modelValidation.treatmentPrice}
           onKeyPress={Validation.handlePriceNumberKeyPress}
-          onChange={updatePrice}
+          onChange={setTreatmentPrice}
           readonly={readOnly}
         />
         <div className="flex justify-center">
