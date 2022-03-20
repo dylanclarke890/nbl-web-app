@@ -96,7 +96,7 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
         active={phone !== ""}
         error={inputValidation.phone}
         onChange={setPhone}
-        onKeyPress={Validation.handleNumberKeyPress}
+        onKeyPress={Validation.handlePhoneNumberKeyPress}
       />
       <CustomInput inputId={"email"}
         active={email !== ""}

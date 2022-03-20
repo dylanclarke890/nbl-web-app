@@ -1,5 +1,6 @@
 interface ICustomInput {
   inputId: string;
+  labelText?: string;
   value?: string;
   error: string;
   active: boolean;
