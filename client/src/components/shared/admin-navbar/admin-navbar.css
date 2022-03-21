@@ -1,5 +1,5 @@
 .admin-navbar {
-  position: fixed;
+  position: absolute;
   left: 0;
   padding: 1rem;
 }

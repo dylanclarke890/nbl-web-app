@@ -253,6 +253,18 @@
 }
 /* END OF JUSTIFY */
 
+/* PLACE UTILITIES */
+.place-center {
+  place-items: center;
+}
+/* END OF PLACE */
+
+/* ALIGN UTILITIES */
+.align-center {
+  align-items: center;
+}
+/* END OF ALIGN */
+
 /* FONT WEIGHT UTILITIES */
 .semi-bold {
   font-weight: 600;
