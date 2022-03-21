@@ -1,10 +1,10 @@
 import React from 'react';
 import Footer from '../../shared/footer/footer';
 import Navbar from '../../shared/navbar/navbar';
-import IMainLayout from './IMainLayout';
+import ILayout from '../ILayout';
 
 
-export default function MainLayout({ children }: IMainLayout): JSX.Element {
+export default function MainLayout({ children }: ILayout): JSX.Element {
   return (
     <main>
       <section>
