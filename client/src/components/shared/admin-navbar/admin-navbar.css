@@ -1,0 +1,27 @@
+.admin-navbar {
+  position: fixed;
+  left: 0;
+  padding: 1rem;
+}
+
+.admin-navbar a {
+  margin: 1em 0;
+  font-size: 1.1em;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  text-indent: 0.3em;
+  color: rgba(127, 127, 127, 1);
+  border-bottom: 3px solid transparent;
+  transition: all 0.5s ease-in-out;
+}
+
+.admin-navbar a:hover {
+  transform: translateY(-6px);
+}
+
+.admin-navbar a.active {
+  border-bottom: 2px solid rgba(127, 127, 127, 1);
+  transition: all 0.5s ease-in-out;
+}

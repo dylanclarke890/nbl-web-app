@@ -1,5 +1,7 @@
 import React from 'react';
-// import Footer from '../../components/shared/footer/footer';
+import AdminNavbar from '../../shared/admin-navbar/admin-navbar';
+
+import Footer from '../../shared/footer/footer';
 import Navbar from '../../shared/navbar/navbar';
 import ILayout from '../ILayout';
 
@@ -9,10 +11,11 @@ export default function AdminLayout({ children }: ILayout): JSX.Element {
     <main>
       <section>
         <Navbar />
+        <AdminNavbar />
         <div className="main-content">
           {children}
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </section>
     </main>
   )

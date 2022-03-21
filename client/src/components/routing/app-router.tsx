@@ -29,34 +29,38 @@ import Treatments from "../treatments/treatments";
 import NotFound from '../shared/error/not-found';
 import MainLayout from '../layouts/main-layout/main-layout';
 import AdminLayout from '../layouts/admin-layout/admin-layout';
+import Admin from '../admin/admin';
 
 export default function AppRouter() {
   const customerRoutes: [string, JSX.Element][] =
-    [["/", <Home />],
-    ["/booking-options", <BookingOptions />],
-    ["/booking-options/make-a-booking/:treatmentId", <Booking />],
-    ["/cancel-booking", <CancelBooking />],
-    ["/treatments", <Treatments />],
-    ["/gallery", <Gallery />],
-    ["/contact", <Contact />],
+    [
+      ["/", <Home />],
+      ["/booking-options", <BookingOptions />],
+      ["/booking-options/make-a-booking/:treatmentId", <Booking />],
+      ["/cancel-booking", <CancelBooking />],
+      ["/treatments", <Treatments />],
+      ["/gallery", <Gallery />],
+      ["/contact", <Contact />],
     ];
 
   const adminRoutes: [string, JSX.Element][] =
-    [["/appointments", <ListAppointments />],
-    ["/appointments/new", <NewAppointment />],
-    ["/appointments/edit/:id", <EditAppointment />],
-    ["/appointments/delete/:id", <DeleteAppointment />],
-    ["/appointments/view/:id", <ViewAppointment />],
-    ["/schedules", <ListSchedules />],
-    ["/schedules/new", <NewSchedule />],
-    ["/schedules/edit/:id", <EditSchedule />],
-    ["/schedules/delete/:id", <DeleteSchedule />],
-    ["/schedules/view/:id", <ViewSchedule />],
-    ["/treatments", <ListTreatments />],
-    ["/treatments/new", <NewTreatment />],
-    ["/treatments/edit/:id", <EditTreatment />],
-    ["/treatments/delete/:id", <DeleteTreatment />],
-    ["/treatments/view/:id", <ViewTreatment />],
+    [
+      ["", <Admin />],
+      ["/appointments", <ListAppointments />],
+      ["/appointments/new", <NewAppointment />],
+      ["/appointments/edit/:id", <EditAppointment />],
+      ["/appointments/delete/:id", <DeleteAppointment />],
+      ["/appointments/view/:id", <ViewAppointment />],
+      ["/schedules", <ListSchedules />],
+      ["/schedules/new", <NewSchedule />],
+      ["/schedules/edit/:id", <EditSchedule />],
+      ["/schedules/delete/:id", <DeleteSchedule />],
+      ["/schedules/view/:id", <ViewSchedule />],
+      ["/treatments", <ListTreatments />],
+      ["/treatments/new", <NewTreatment />],
+      ["/treatments/edit/:id", <EditTreatment />],
+      ["/treatments/delete/:id", <DeleteTreatment />],
+      ["/treatments/view/:id", <ViewTreatment />],
     ];
   return (
     <Routes>
