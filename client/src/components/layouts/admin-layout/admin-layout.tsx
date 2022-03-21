@@ -1,12 +1,12 @@
 import React from 'react';
-import AdminNavbar from '../../shared/admin-navbar/admin-navbar';
 
+import IChildren from '../../../interfaces/IChildren';
+import AdminNavbar from '../../shared/admin-navbar/admin-navbar';
 import Footer from '../../shared/footer/footer';
 import Navbar from '../../shared/navbar/navbar';
-import ILayout from '../ILayout';
 
 
-export default function AdminLayout({ children }: ILayout): JSX.Element {
+export default function AdminLayout({ children }: IChildren): JSX.Element {
   return (
     <main>
       <section>
