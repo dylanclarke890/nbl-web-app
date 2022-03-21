@@ -61,10 +61,10 @@ export default function AppRouter() {
   return (
     <Routes>
       {customerRoutes.map(pr => (
-        <Route path={pr[0]} element={<MainLayout>{pr[1]}</MainLayout>} />
+        <Route key={customerRoutes.indexOf(pr)} path={pr[0]} element={<MainLayout>{pr[1]}</MainLayout>} />
       ))}
       {adminRoutes.map(pr => (
-        <Route path={`admin${pr[0]}`} element={<AdminLayout>{pr[1]}</AdminLayout>} />
+        <Route key={adminRoutes.indexOf(pr) + customerRoutes.length} path={`admin${pr[0]}`} element={<AdminLayout>{pr[1]}</AdminLayout>} />
       ))}
       <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
     </Routes>
