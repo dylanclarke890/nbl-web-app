@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 
 import { getAppointmentsByDay } from "../../services/appointmentService";
 import Appointment from "../../models/appointment";
+import Treatment from "../../models/treatment";
 import IToast from "../shared/toast/IToast";
 
 import createToast from "../shared/toast/toast-helper";
@@ -12,33 +14,28 @@ import AppointmentPicker from "./appointment/appointment-picker/appointment-pick
 import AppointmentConfirmation from "./appointment/appointment-confirmation/appointment-confirmation";
 
 import "./booking.css";
-import { useParams } from "react-router-dom";
-import Treatment from "../../models/treatment";
+import { LoadingContext } from "../../contexts/loading-context/loading-context";
 
 export default function Booking() {
-  const { treatmentId } = useParams()
+  const { treatmentId } = useParams();
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
+
   const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
   const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
 
-  const openModal = () => setShowModal(true);
-
   const updateDate = (date: Date) => {
     openModal();
     setDate(date);
   };
 
-  const updateTime = (time: string) => {
-    setSelectedTime(time);
-  }
-
+  const openModal = () => setShowModal(true);
   const closeModal = () => {
     setSelectedTime("");
     setShowModal(false);
   }
-
   const setModal = (isActive: boolean) => {
     if (!isActive) {
       setSelectedTime("");
@@ -53,13 +50,15 @@ export default function Booking() {
 
   useEffect(() => {
     if (treatmentId === "") return;
+    isLoading();
     const fetchData = async () => {
       const data = await getAppointmentsByDay(selectedDate, treatmentId!, createErrorToast);
       setAvailableTimes(data[0]);
       setTreatment(data[1]);
     }
     fetchData().catch(console.error);
-  }, [selectedDate, treatmentId]);
+    loaded();
+  }, [selectedDate, treatmentId, isLoading, loaded]);
 
   const [modalSlide, setModalSlide] = useState(0);
   const [successInfo, setSuccessInfo] = useState({ message: "", reference: "", time: "" });
@@ -79,7 +78,7 @@ export default function Booking() {
                   closeModal={closeModal}
                   date={selectedDate}
                   availableTimes={availableTimes}
-                  setSelectedTime={updateTime}
+                  setSelectedTime={setSelectedTime}
                   selectedTime={selectedTime}
                   treatment={treatment}
                   onError={createErrorToast}

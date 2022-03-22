@@ -2,6 +2,7 @@
   position: absolute;
   left: 0;
   padding: 1rem;
+  z-index: 100;
 }
 
 .admin-navbar a {

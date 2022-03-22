@@ -5,6 +5,8 @@
   border-radius: 4px;
   background-color: var(--neutral-color);
   border-bottom: 3px solid rgba(127, 127, 127, 0.3);
+  z-index: 100;
+  position: relative;
 }
 
 .navbar-items-wrapper {

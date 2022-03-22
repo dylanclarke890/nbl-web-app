@@ -1,5 +1,5 @@
 export default interface ILoadingContext {
   loading: boolean;
-  isLoading: (displayText: string) => void;
+  isLoading: (displayText?: string) => void;
   loaded: () => void;
 }

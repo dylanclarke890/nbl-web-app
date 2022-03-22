@@ -8,9 +8,9 @@ export default function LoadingController({ children }: IChildren) {
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
 
-  const isLoading = (displayText: string) => {
+  const isLoading = (displayText?: string) => {
     setLoading(true);
-    setLoadingText(displayText);
+    setLoadingText(displayText ? displayText : "Loading...");
   }
   const loaded = () => {
     setLoading(false);
