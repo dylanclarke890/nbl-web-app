@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import IToast from "../../shared/toast/IToast";
 
-import Appointment from "../../../models/appointment";
+import { ToastContext } from "../../../contexts/toast-context/toast-context";
 import { cancelAppointment, getAppointment } from "../../../services/appointmentService";
+import Appointment from "../../../models/appointment";
 
 import CustomInput from "../../shared/input/custom-input/custom-input";
 import Modal from "../../shared/modal/modal";
 import CheckmarkSvg from "../../shared/svgs/checkmark-svg";
-import Toast from "../../shared/toast/toast";
-import createToast from "../../shared/toast/toast-helper";
 
 import './cancel-booking.css';
 
 export default function CancelBooking() {
+  const { createToast } = useContext(ToastContext);
+
   const [currSlide, setCurrSlide] = useState(0);
   const [reference, setReference] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -28,11 +28,12 @@ export default function CancelBooking() {
     fetchAppointment(reference);
   }
 
+  const onError = () => createToast("Error", "Unexpected error, please try again.");
   const fetchAppointment = async (id: string) => {
-    const data = await getAppointment(id, createErrorToast);
+    const data = await getAppointment(id, onError);
 
     if (data?.person?.name == null) {
-      createErrorToast();
+      onError();
       setError("Need a valid reference.")
       return;
     }
@@ -49,16 +50,11 @@ export default function CancelBooking() {
   }
 
   const cancelApp = async (id: string) => {
-    const res = await cancelAppointment(id, createErrorToast);
+    const res = await cancelAppointment(id, onError);
     if (res) {
       setCurrSlide(1);
       setShowModal(false);
-    }
-  }
-
-  const [toastList, setToastList] = useState(new Array<IToast>());
-  const createErrorToast = () => {
-    setToastList(t => [...t, createToast("Error", "Unexpected error, please try again.")]);
+    };
   }
 
   return currSlide === 0 ? (
@@ -88,7 +84,6 @@ export default function CancelBooking() {
           onChange={setReference} />
         <button className="btn mt-1" onClick={handleClick}>Next</button>
       </div>
-      <Toast autoDelete={true} autoDeleteTime={2000} toastList={toastList} setToastList={setToastList} position={'top-right'} />
     </>
   ) :
     <>
@@ -99,6 +94,5 @@ export default function CancelBooking() {
           <Link className="btn mt-1" to={'/'}>Back to home</Link>
         </div>
       </div>
-      <Toast autoDelete={true} autoDeleteTime={2000} toastList={toastList} setToastList={setToastList} position={'top-right'} />
     </>
 }

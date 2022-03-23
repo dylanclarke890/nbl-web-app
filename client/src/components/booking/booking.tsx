@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
+import { LoadingContext } from "../../contexts/loading-context/loading-context";
+import { ToastContext } from "../../contexts/toast-context/toast-context";
+
 import { getAppointmentsByDay } from "../../services/appointmentService";
 import Appointment from "../../models/appointment";
 import Treatment from "../../models/treatment";
-import IToast from "../shared/toast/IToast";
 
-import createToast from "../shared/toast/toast-helper";
-import Toast from "../shared/toast/toast";
 import Calendar from "./calendar/calendar";
 import Modal from "../shared/modal/modal";
 import AppointmentPicker from "./appointment/appointment-picker/appointment-picker";
 import AppointmentConfirmation from "./appointment/appointment-confirmation/appointment-confirmation";
 
 import "./booking.css";
-import { LoadingContext } from "../../contexts/loading-context/loading-context";
 
 export default function Booking() {
   const { treatmentId } = useParams();
-  const { loading, isLoading, loaded } = useContext(LoadingContext);
+  const { isLoading, loaded } = useContext(LoadingContext);
+  const { createToast } = useContext(ToastContext);
 
   const [availableTimes, setAvailableTimes] = useState(new Array<Appointment>());
   const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
@@ -30,7 +30,6 @@ export default function Booking() {
     openModal();
     setDate(date);
   };
-
   const openModal = () => setShowModal(true);
   const closeModal = () => {
     setSelectedTime("");
@@ -43,16 +42,12 @@ export default function Booking() {
     setShowModal(isActive);
   }
 
-  const [toastList, setToastList] = useState(new Array<IToast>());
-  const createErrorToast = () => {
-    setToastList(t => [...t, createToast("Error", "Unexpected error, please try again.")]);
-  }
-
+  const onError = () => createToast("Error", "Unexpected error, please try again.");
   useEffect(() => {
     if (treatmentId === "") return;
     isLoading();
     const fetchData = async () => {
-      const data = await getAppointmentsByDay(selectedDate, treatmentId!, createErrorToast);
+      const data = await getAppointmentsByDay(selectedDate, treatmentId!, onError);
       setAvailableTimes(data[0]);
       setTreatment(data[1]);
     }
@@ -81,7 +76,7 @@ export default function Booking() {
                   setSelectedTime={setSelectedTime}
                   selectedTime={selectedTime}
                   treatment={treatment}
-                  onError={createErrorToast}
+                  onError={onError}
                   onSuccessfulSubmit={changeSlide}
                 />
               ) : (
@@ -95,7 +90,6 @@ export default function Booking() {
           <Calendar handleSelectedDate={updateDate} />
         </div>
       </div>
-      <Toast autoDelete={true} autoDeleteTime={2000} toastList={toastList} setToastList={setToastList} position={'top-right'} />
     </>
   );
 }
