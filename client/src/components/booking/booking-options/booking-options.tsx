@@ -7,10 +7,11 @@ import TreatmentOption from "../treatment/treatment-option/treatment-option";
 import TreatmentOptionSelector from "../treatment/treatment-option-selector/treatment-option-selector";
 import Treatment from "../../../models/treatment";
 import CancellationOption from "../cancel-appointment/cancellation-option";
+import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 
 export default function BookingOptions() {
   const { createToast } = useContext(ToastContext);
-
+  const { isLoading, loaded, loading } = useContext(LoadingContext);
   const [treatmentOptions, setTreatmentOptions] = useState<JSX.Element[]>([]);
 
   const updateTreatmentSelection = useCallback((treatments: Treatment[]) => {
@@ -24,14 +25,18 @@ export default function BookingOptions() {
     setTreatmentOptions([...treatmentOptions]);
   }, [])
 
-
-  const onError = () => createToast("Error", "Unexpected error, please try again.");
+  /* eslint-disable */
+  const onError = useCallback(() => createToast("Error", "Unexpected error, please try again."), []);
   useEffect(() => {
+    if (loading) return;
+    isLoading();
     const fetchData = async () => {
-      await getAllTreatments(updateTreatmentSelection, onError);
+      await getAllTreatments(updateTreatmentSelection);
     }
-    fetchData().catch(console.error);
-  }, [updateTreatmentSelection]);
+    fetchData().catch(onError);
+    loaded();
+  }, [loading]);
+  /* eslint-enable */
 
   return (
     <>

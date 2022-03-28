@@ -27,14 +27,19 @@ export default function ToastController({ children }: IChildren) {
     switch (toastType.toLowerCase()) {
       case "warning":
         toast = newToastParams('Warning', description, '#f0ad4e', warningIcon);
+        break;
       case "error":
         toast = newToastParams('Error', description, '#d9534f', errorIcon);
+        break;
       case "info":
         toast = newToastParams('Info', description, '#5bc0de', infoIcon);
+        break;
       case "success":
         toast = newToastParams('Success', description, '#5cb85c', checkIcon);
+        break;
       default:
         toast = newToastParams('Error', '', '#d9534f', errorIcon);
+        break;
     };
     setToastList(curr => [...curr, toast!]);
   }
@@ -42,9 +47,9 @@ export default function ToastController({ children }: IChildren) {
   const providerVal = { createToast };
   return (
     <>
-      <Toast toastList={toastList} setToastList={setToastList}
-        position="top-right" autoDelete autoDeleteTime={2000} />
       <ToastContext.Provider value={providerVal}>
+        <Toast toastList={toastList} setToastList={setToastList}
+          position="top-right" autoDelete autoDeleteTime={2000} />
         {children}
       </ToastContext.Provider>
     </>

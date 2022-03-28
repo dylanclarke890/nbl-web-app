@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import { LoadingContext } from "../../contexts/loading-context/loading-context";
@@ -42,7 +42,7 @@ export default function Booking() {
     setShowModal(isActive);
   }
 
-  const onError = () => createToast("Error", "Unexpected error, please try again.");
+  const onError = useCallback(() => createToast("Error", "Unexpected error, please try again."), [createToast]);
   useEffect(() => {
     if (treatmentId === "") return;
     isLoading();
@@ -53,7 +53,7 @@ export default function Booking() {
     }
     fetchData().catch(console.error);
     loaded();
-  }, [selectedDate, treatmentId, isLoading, loaded]);
+  }, [selectedDate, treatmentId, isLoading, loaded, onError]);
 
   const [modalSlide, setModalSlide] = useState(0);
   const [successInfo, setSuccessInfo] = useState({ message: "", reference: "", time: "" });

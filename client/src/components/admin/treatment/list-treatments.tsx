@@ -13,9 +13,9 @@ export default function ListTreatments(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getAllTreatments(setTreatments, console.error);
+      await getAllTreatments(setTreatments);
     }
-    fetchData();
+    fetchData().catch(console.error);
   }, []);
 
   const URLPREFIX = '/admin/treatments/'
