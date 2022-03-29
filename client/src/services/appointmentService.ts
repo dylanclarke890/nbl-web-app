@@ -93,7 +93,7 @@ export async function addAppointment(
       time: { from: appointment.from, to: appointment.to },
       person,
       date,
-      treatment
+      treatment,
     });
   } catch (err) {
     onError(err);
@@ -109,20 +109,14 @@ export async function addAppointment(
 
 export async function getAppointmentsByDay(
   day: Date,
-  treatmentId: string,
-  onError: () => any
-): Promise<[Appointment[], Treatment]> {
-  if (!day) return [[], new Treatment("", "", 0, 0, false)];
+  treatmentId: string): Promise<[Appointment[], Treatment]> {
+  if (!day) throw Error("Should have a date");
 
+  const d = day.getDay();
+  const m = day.getMonth();
+  const y = day.getFullYear();
   let res: any;
-  try {
-    res = await axios.get(
-      `${APIENDPOINT}${day.getDate()}/${day.getMonth()}/${day.getFullYear()}/${treatmentId}`
-    );
-  } catch (e) {
-    onError();
-    return [[], new Treatment("", "", 0, 0, false)];
-  }
+  res = await axios.get(`${APIENDPOINT}${d}/${m}/${y}/${treatmentId}`);
 
   let times: Appointment[] = [];
   res.data.times.forEach((el: { day: Date; from: string; to: string }) =>
