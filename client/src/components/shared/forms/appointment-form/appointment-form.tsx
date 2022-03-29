@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import * as Validation from '../../../../helpers/validation';
 import { getAppointment } from "../../../../services/appointmentService";
@@ -13,12 +13,16 @@ import useOnInitialized from "../../../../custom-hooks/useOnInitialized";
 import { getTimeStampAsDate, to24hr, toMeridian } from "../../../../helpers/timeSort";
 import CustomTimeInput from "../../input/custom-time-input/custom-time-input";
 import CustomDateInput from "../../input/custom-date-input/custom-date-input";
+import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 
 export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointmentForm): JSX.Element {
+  const { createToast } = useContext(ToastContext);
+  /* eslint-disable */
+  const onError = useCallback(() => createToast("error", "Error while fetching appointment"), []);
   useEffect(() => {
     if (!id) return;
     const fetchData = async () => {
-      const result = await getAppointment(id, console.error);
+      const result = await getAppointment(id);
       setFrom(result.from);
       setTo(result.to);
       setDate(result.date!);
@@ -28,8 +32,10 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       setEmail(result.person?.email!);
       setPhone(result.person?.phone!);
     };
-    fetchData().catch(console.error);
+    fetchData().catch(onError);
   }, [id]);
+  /* eslint-enable */
+
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
@@ -244,7 +250,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       error: false
     })
   }, []);
-  
+
   const forwardClick = () => {
     if (!onSubmit) return;
     if (modelValidation.error) return;

@@ -4,13 +4,11 @@ import * as dateFns from "date-fns";
 import { getMonthOverview } from '../../../services/appointmentService';
 import ICalendar from './ICalendar';
 import { ToastContext } from '../../../contexts/toast-context/toast-context';
-import { LoadingContext } from '../../../contexts/loading-context/loading-context';
 
 import './calendar.css'
 
 export default function Calendar({ handleSelectedDate }: ICalendar) {
-  const {createToast} = useContext(ToastContext);
-  const {loading, isLoading, loaded} = useContext(LoadingContext);
+  const { createToast } = useContext(ToastContext);
 
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());

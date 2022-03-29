@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { ToastContext } from "../../../contexts/toast-context/toast-context";
 import { editAppointment } from "../../../services/appointmentService";
 import Appointment from "../../../models/appointment";
 
@@ -9,6 +10,7 @@ import Header from "../../shared/header/header";
 
 export default function EditAppointment() {
   const { id } = useParams();
+  const { createToast } = useContext(ToastContext);
 
   const [appointment, setAppointment] = useState(new Appointment("", "", ""));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
@@ -19,18 +21,17 @@ export default function EditAppointment() {
     setReadyToSubmit(true);
   }
 
+  /* eslint-disable */
+  const onError = useCallback(() => createToast("error", "Error while saving appointment."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
     const sendData = async () => {
-      const res = await editAppointment(appointment, console.error);
-      if (res) {
-        setCurrSlide(1)
-      } else {
-        alert("Failed");
-      };
+      const res = await editAppointment(appointment);
+      if (res) setCurrSlide(1);
     }
-    sendData().catch(console.error);
+    sendData().catch(onError);
   }, [appointment, readyToSubmit]);
+  /* eslint-enable */
 
   return currSlide === 0 ? (
     <>

@@ -30,7 +30,7 @@ export default function CancelBooking() {
 
   const onError = () => createToast("Error", "Unexpected error, please try again.");
   const fetchAppointment = async (id: string) => {
-    const data = await getAppointment(id, onError);
+    const data = await getAppointment(id).catch(onError);
 
     if (data?.person?.name == null) {
       onError();
@@ -42,19 +42,19 @@ export default function CancelBooking() {
     setShowModal(true);
     setAppointment(data);
   }
-
   const confirmCancellation = () => {
+    setShowModal(false);
     if (appointment.id === "") return;
-
     cancelApp(appointment.id);
   }
 
   const cancelApp = async (id: string) => {
-    const res = await cancelAppointment(id, onError);
-    if (res) {
-      setCurrSlide(1);
-      setShowModal(false);
-    };
+    try {
+      const res = await cancelAppointment(id);
+      if (res) setCurrSlide(1);
+    } catch {
+      onError();
+    }
   }
 
   return currSlide === 0 ? (

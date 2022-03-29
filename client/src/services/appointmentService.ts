@@ -6,18 +6,8 @@ import Treatment from "../models/treatment";
 
 const APIENDPOINT = "/api/appointments/";
 
-export async function getAppointment(
-  id: string,
-  onError: (err: any) => void
-): Promise<Appointment> {
-  let res: any;
-
-  try {
-    res = await axios.get(`${APIENDPOINT}/${id}`);
-  } catch (err) {
-    onError(err);
-  }
-
+export async function getAppointment(id: string): Promise<Appointment> {
+  let res = await axios.get(`${APIENDPOINT}/${id}`);
   const data = res.data;
 
   return new Appointment(
@@ -35,16 +25,9 @@ export async function getAppointment(
 }
 
 export async function getAllAppointments(
-  onSuccess: (data: Appointment[]) => void,
-  onError: (arg0: any) => void
+  onSuccess: (data: Appointment[]) => void
 ) {
-  let res: any = {};
-  try {
-    res = await axios.get(`${APIENDPOINT}all`);
-  } catch (err) {
-    onError(err);
-  }
-
+  let res = await axios.get(`${APIENDPOINT}all`);
   let appointments: Appointment[] = [];
 
   res.data.forEach(
@@ -83,21 +66,14 @@ export async function addAppointment(
     message: string;
     reference: string;
     time: string;
-  }) => void,
-  onError: (err: any) => void
+  }) => void
 ): Promise<void> {
-  let res: any;
-
-  try {
-    res = await axios.post(`${APIENDPOINT}new/`, {
-      time: { from: appointment.from, to: appointment.to },
-      person,
-      date,
-      treatment,
-    });
-  } catch (err) {
-    onError(err);
-  }
+  let res = await axios.post(`${APIENDPOINT}new/`, {
+    time: { from: appointment.from, to: appointment.to },
+    person,
+    date,
+    treatment,
+  });
   let booking = res.data;
   const successInfo = {
     message: res.data.message,
@@ -146,34 +122,18 @@ export async function getMonthOverview(month: Date): Promise<number[]> {
   return res.data;
 }
 
-export async function editAppointment(
-  appointment: Appointment,
-  onError: (arg0: any) => void
-) {
+export async function editAppointment(appointment: Appointment) {
   let res: boolean = false;
 
-  try {
-    res = await axios.put(`${APIENDPOINT}edit/${appointment.id}`, {
-      appointment: appointment,
-    });
-  } catch (err) {
-    onError(err);
-  }
+  res = await axios.put(`${APIENDPOINT}edit/${appointment.id}`, {
+    appointment: appointment,
+  });
 
   return res;
 }
 
-export async function cancelAppointment(
-  id: string,
-  onError: (err: any) => void
-): Promise<boolean> {
+export async function cancelAppointment(id: string): Promise<boolean> {
   let res: boolean = false;
-
-  try {
-    res = await axios.delete(`${APIENDPOINT}cancel/${id}`);
-  } catch (err) {
-    onError(err);
-  }
-
+  res = await axios.delete(`${APIENDPOINT}cancel/${id}`);
   return res;
 }
