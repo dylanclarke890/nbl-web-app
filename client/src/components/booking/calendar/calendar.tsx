@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import * as dateFns from "date-fns";
 
 import { getMonthOverview } from '../../../services/appointmentService';
 import ICalendar from './ICalendar';
+import { ToastContext } from '../../../contexts/toast-context/toast-context';
+import { LoadingContext } from '../../../contexts/loading-context/loading-context';
 
 import './calendar.css'
 
 export default function Calendar({ handleSelectedDate }: ICalendar) {
+  const {createToast} = useContext(ToastContext);
+  const {loading, isLoading, loaded} = useContext(LoadingContext);
+
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());
 
@@ -18,13 +23,16 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
   }
 
   const [overview, setOverview] = useState<number[]>([])
+  /* eslint-disable */
+  const onError = useCallback(() => createToast("error", "Error while loading availability."), []);
   useEffect(() => {
     const fetchData = async () => {
-      let data = await getMonthOverview(currentMonth, console.error);
+      let data = await getMonthOverview(currentMonth);
       setOverview(data);
     }
-    fetchData();
+    fetchData().catch(onError);
   }, [currentMonth]);
+  /* eslint-enable */
 
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";

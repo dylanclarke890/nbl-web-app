@@ -47,7 +47,6 @@ export default function Booking() {
   const onError = useCallback(() => createToast("Error", "Unexpected error, please try again."), []);
   useEffect(() => {
     if (!treatmentId || loading || selectedDate.getDay() < new Date().getDay()) return;
-    console.log("We got here.")
     isLoading();
     const fetchData = async () => {
       const data = await getAppointmentsByDay(selectedDate, treatmentId);

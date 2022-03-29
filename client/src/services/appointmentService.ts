@@ -109,7 +109,8 @@ export async function addAppointment(
 
 export async function getAppointmentsByDay(
   day: Date,
-  treatmentId: string): Promise<[Appointment[], Treatment]> {
+  treatmentId: string
+): Promise<[Appointment[], Treatment]> {
   if (!day) throw Error("Should have a date");
 
   const d = day.getDay();
@@ -136,19 +137,12 @@ export async function getAppointmentsByDay(
   ];
 }
 
-export async function getMonthOverview(
-  month: Date,
-  onError: (arg0: any) => void
-): Promise<number[]> {
+export async function getMonthOverview(month: Date): Promise<number[]> {
+  const y = month.getFullYear();
+  const m = month.getMonth();
+
   let res: any;
-  try {
-    res = await axios.get(
-      `${APIENDPOINT}overview/${month.getFullYear()}/${month.getMonth()}`
-    );
-  } catch (err) {
-    onError(err);
-    return [];
-  }
+  res = await axios.get(`${APIENDPOINT}overview/${y}/${m}`);
   return res.data;
 }
 
