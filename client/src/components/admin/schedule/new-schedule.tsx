@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import { addSchedule } from "../../../services/scheduleService";
 import Schedule from "../../../models/schedule";
 
 import ScheduleForm from "../../shared/forms/schedule-form/schedule-form";
 import Header from "../../shared/header/header";
+import { ToastContext } from "../../../contexts/toast-context/toast-context";
 
 export default function NewSchedule() {
+  const { createToast } = useContext(ToastContext);
+
   const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), [], false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [currSlide, setCurrSlide] = useState(0);
@@ -16,15 +19,18 @@ export default function NewSchedule() {
     setSchedule(schedule);
   }
 
+  // eslint-disable
+  const onError = useCallback(() => createToast("errror", "Error while saving"), []);
   useEffect(() => {
     if (!readyToSubmit) return;
 
     const sendData = async () => {
-      await addSchedule(schedule, console.error);
+      await addSchedule(schedule);
       setCurrSlide(1);
     }
-    sendData().catch(console.error);
+    sendData().catch(onError);
   }, [schedule, readyToSubmit]);
+  // eslint-enable
 
   return currSlide === 0 ? (
     <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { editSchedule } from "../../../services/scheduleService";
@@ -6,9 +6,11 @@ import Schedule from "../../../models/schedule";
 
 import ScheduleForm from "../../shared/forms/schedule-form/schedule-form";
 import Header from "../../shared/header/header";
+import { ToastContext } from "../../../contexts/toast-context/toast-context";
 
 export default function EditSchedule() {
   const { id } = useParams();
+  const { createToast } = useContext(ToastContext);
 
   const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), [], false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
@@ -19,18 +21,17 @@ export default function EditSchedule() {
     setReadyToSubmit(true);
   }
 
+  /* eslint-disable */
+  const onError = useCallback(() => createToast("error", "Error while saving."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
     const sendData = async () => {
-      const res = await editSchedule(schedule, console.error);
-      if (res) {
-        setCurrSlide(1)
-      } else {
-        alert("Failed");
-      };
+      const res = await editSchedule(schedule);
+      if (res) setCurrSlide(1);
     }
-    sendData().catch(console.error);
+    sendData().catch(onError);
   }, [schedule, readyToSubmit]);
+  /* eslint-enable */
 
   return currSlide === 0 ? (
     <>

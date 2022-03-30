@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getAllSchedules } from '../../../services/scheduleService';
@@ -7,18 +7,23 @@ import Schedule from '../../../models/schedule';
 import Header from '../../shared/header/header';
 import '../styles/admin.css'
 import { differenceInCalendarDays } from 'date-fns';
+import { ToastContext } from '../../../contexts/toast-context/toast-context';
 
 
 export default function ListSchedules(): JSX.Element {
+  const { createToast } = useContext(ToastContext);
+
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
+  // eslint-disable
+  const onError = useCallback(() => createToast("error", "Error while fetching schedules."), []);
   useEffect(() => {
     const fetchData = async () => {
-      await getAllSchedules(setSchedules, console.error);
+      await getAllSchedules(setSchedules);
     }
-    fetchData();
+    fetchData().catch(onError);
   }, []);
-
+  // eslint-enable
   const URLPREFIX = '/admin/schedules/'
 
   let displayTypes: JSX.Element[] = [];

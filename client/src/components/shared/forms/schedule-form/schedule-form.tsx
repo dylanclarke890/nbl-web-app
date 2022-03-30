@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import { getSchedule } from "../../../../services/scheduleService";
 import IScheduleForm from "./IScheduleForm";
@@ -16,8 +16,11 @@ import './schedule-form.css';
 import ITimeSlot from "../../../../interfaces/ITimeSlot";
 import { getTimeStampAsDate, overlapsWithTimeSlot, sortByTimeSlot, sortByWeekdayScore, to24hr, toMeridian } from "../../../../helpers/timeSort";
 import useOnInitialized from "../../../../custom-hooks/useOnInitialized";
+import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
+  const { createToast } = useContext(ToastContext);
+
   const [currSlide, setCurrSlide] = useState(0);
   const [name, setName] = useState("");
   const dateWithoutTime = (d: Date) => new Date(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate());
@@ -211,11 +214,12 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     setSat(hasNoAvailabilityFor('saturday'));
     setSun(hasNoAvailabilityFor('sunday'));
   }, [availabilities, getDay, editing, hasNoAvailabilityFor])
+  // eslint-disable
+  const onError = useCallback(() => createToast("error", "Error while fetching."), []);
   useEffect(() => {
     if (!id) return;
-
     const fetchData = async () => {
-      const result = await getSchedule(id, console.error);
+      const result = await getSchedule(id);
       setName(result.name);
       setStartDate(result.starts);
       setAvailabilities(result.availability);
@@ -223,9 +227,9 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       setEndDate(result.ends == null ? new Date() : result.ends!);
       setCurrSlide(onSubmit ? 0 : 1);
     }
-    fetchData().catch(console.error);
-
+    fetchData().catch(onError);
   }, [id, onSubmit]);
+  // eslint-enable
   useOnInitialized(() => {
     setFirSlideErrs((curr) => ({
       name: "",
