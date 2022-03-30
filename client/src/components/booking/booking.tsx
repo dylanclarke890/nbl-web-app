@@ -44,7 +44,7 @@ export default function Booking() {
   }
 
   /* eslint-disable */
-  const onError = useCallback(() => createToast("Error", "Error while saving booking."), []);
+  const onError = useCallback(() => createToast("Error", "Error while loading appointments."), []);
   useEffect(() => {
     if (!treatmentId || loading || selectedDate.getDay() < new Date().getDay()) return;
     isLoading();
