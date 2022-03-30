@@ -19,7 +19,7 @@ export default function NewSchedule() {
     setSchedule(schedule);
   }
 
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("errror", "Error while saving schedule."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
@@ -30,7 +30,7 @@ export default function NewSchedule() {
     }
     sendData().catch(onError);
   }, [schedule, readyToSubmit]);
-  // eslint-enable
+  /* eslint-enable */
 
   return currSlide === 0 ? (
     <>

@@ -214,7 +214,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     setSat(hasNoAvailabilityFor('saturday'));
     setSun(hasNoAvailabilityFor('sunday'));
   }, [availabilities, getDay, editing, hasNoAvailabilityFor])
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading schedule."), []);
   useEffect(() => {
     if (!id) return;
@@ -229,7 +229,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     }
     fetchData().catch(onError);
   }, [id, onSubmit]);
-  // eslint-enable
+  /* eslint-enable */
   useOnInitialized(() => {
     setFirSlideErrs((curr) => ({
       name: "",

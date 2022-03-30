@@ -19,7 +19,7 @@ export default function NewTreatment() {
     setTreatment(treatment);
   }
 
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while saving treatment."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
@@ -30,7 +30,7 @@ export default function NewTreatment() {
     }
     sendData().catch(onError);
   }, [treatment, readyToSubmit]);
-  // eslint-enable
+  /* eslint-enable */
 
   return currSlide === 0 ? (
     <>

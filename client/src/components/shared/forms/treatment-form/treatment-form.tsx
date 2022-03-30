@@ -13,7 +13,7 @@ import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm) {
   const {createToast } = useContext(ToastContext);
   
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading treatment."), []);
   useEffect(() => {
     if (!id) return;
@@ -26,7 +26,7 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
     }
     fetchData().catch(onError);
   }, [id]);
-  // eslint-enable
+  /* eslint-enable */
 
   const [type, setType] = useState("");
   const [duration, setDuration] = useState("");

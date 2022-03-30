@@ -18,7 +18,7 @@ export default function DeleteTreatment() {
     setDeleteConfirmed(true);
   }
 
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while deleting treatment."), []);
   useEffect(() => {
     if (!deleteConfirmed || !id) return;
@@ -28,7 +28,7 @@ export default function DeleteTreatment() {
     }
     sendData().catch(onError);
   }, [deleteConfirmed, id]);
-  // eslint-enable
+  /* eslint-enable */
 
   return currSlide === 0 ? (
     <>

@@ -21,7 +21,7 @@ export default function EditTreatment() {
     setReadyToSubmit(true);
   }
 
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while saving treatment."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
@@ -31,7 +31,7 @@ export default function EditTreatment() {
     }
     sendData().catch(onError);
   }, [treatment, readyToSubmit]);
-  // eslint-disable
+  /* eslint-disable */
 
   return currSlide === 0 ? (
     <>

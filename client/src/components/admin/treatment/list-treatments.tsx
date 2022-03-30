@@ -14,7 +14,7 @@ export default function ListTreatments(): JSX.Element {
 
   const [treatments, setTreatments] = useState<Treatment[]>([]);
 
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading treatments."), []);
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +22,7 @@ export default function ListTreatments(): JSX.Element {
     }
     fetchData().catch(onError);
   }, []);
-  // eslint-disable
+  /* eslint-disable */
 
   const URLPREFIX = '/admin/treatments/'
 

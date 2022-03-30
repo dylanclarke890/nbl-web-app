@@ -15,7 +15,7 @@ export default function ListSchedules(): JSX.Element {
 
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
-  // eslint-disable
+  /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading schedules."), []);
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +23,7 @@ export default function ListSchedules(): JSX.Element {
     }
     fetchData().catch(onError);
   }, []);
-  // eslint-enable
+  /* eslint-enable */
   const URLPREFIX = '/admin/schedules/'
 
   let displayTypes: JSX.Element[] = [];
