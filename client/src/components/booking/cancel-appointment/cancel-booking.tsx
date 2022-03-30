@@ -28,7 +28,7 @@ export default function CancelBooking() {
     fetchAppointment(reference);
   }
 
-  const onError = () => createToast("Error", "Unexpected error, please try again.");
+  const onError = () => createToast("Error", "Error while cancelling appointment.");
   const fetchAppointment = async (id: string) => {
     const data = await getAppointment(id).catch(onError);
 

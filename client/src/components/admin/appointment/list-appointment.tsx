@@ -14,7 +14,7 @@ export default function ListAppointments(): JSX.Element {
   
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while loading appointments"), []);  
+  const onError = useCallback(() => createToast("error", "Error while loading appointments."), []);  
   useEffect(() => {
     const fetchData = async () => {
       await getAllAppointments(setAppointments);

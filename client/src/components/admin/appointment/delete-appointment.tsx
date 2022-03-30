@@ -19,7 +19,7 @@ export default function DeleteAppointment() {
   }
 
   /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while cancelling."), []);
+  const onError = useCallback(() => createToast("error", "Error while deleting appointment."), []);
   useEffect(() => {
     if (!id || !deleteConfirmed) return;
     const sendData = async () => {

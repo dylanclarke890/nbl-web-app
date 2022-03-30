@@ -19,7 +19,7 @@ export default function DeleteSchedule() {
   }
 
   /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while deleting."), []);
+  const onError = useCallback(() => createToast("error", "Error while deleting schedule."), []);
   useEffect(() => {
     if (!deleteConfirmed || !id) return;
     const sendData = async () => {

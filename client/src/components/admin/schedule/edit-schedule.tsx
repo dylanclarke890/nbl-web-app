@@ -22,7 +22,7 @@ export default function EditSchedule() {
   }
 
   /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while saving."), []);
+  const onError = useCallback(() => createToast("error", "Error while saving schedule."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
     const sendData = async () => {

@@ -26,7 +26,7 @@ export default function BookingOptions() {
   }, [])
 
   /* eslint-disable */
-  const onError = useCallback(() => createToast("Error", "Unexpected error, please try again."), []);
+  const onError = useCallback(() => createToast("Error", "Error while loading treatments."), []);
   useEffect(() => {
     if (loading) return;
     isLoading();

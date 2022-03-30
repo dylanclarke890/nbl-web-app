@@ -19,7 +19,7 @@ export default function DeleteTreatment() {
   }
 
   // eslint-disable
-  const onError = useCallback(() => createToast("error", "Error while deleting"), []);
+  const onError = useCallback(() => createToast("error", "Error while deleting treatment."), []);
   useEffect(() => {
     if (!deleteConfirmed || !id) return;
     const sendData = async () => {

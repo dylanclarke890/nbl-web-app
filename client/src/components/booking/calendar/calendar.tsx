@@ -22,7 +22,7 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
 
   const [overview, setOverview] = useState<number[]>([])
   /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while loading availability."), []);
+  const onError = useCallback(() => createToast("error", "Error loading month availability."), []);
   useEffect(() => {
     const fetchData = async () => {
       let data = await getMonthOverview(currentMonth);

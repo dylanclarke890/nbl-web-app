@@ -20,7 +20,7 @@ export default function NewTreatment() {
   }
 
   // eslint-disable
-  const onError = useCallback(() => createToast("error", "Error while saving"), []);
+  const onError = useCallback(() => createToast("error", "Error while saving treatment."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
 

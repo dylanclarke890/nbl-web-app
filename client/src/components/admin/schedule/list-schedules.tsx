@@ -16,7 +16,7 @@ export default function ListSchedules(): JSX.Element {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
   // eslint-disable
-  const onError = useCallback(() => createToast("error", "Error while fetching schedules."), []);
+  const onError = useCallback(() => createToast("error", "Error while loading schedules."), []);
   useEffect(() => {
     const fetchData = async () => {
       await getAllSchedules(setSchedules);

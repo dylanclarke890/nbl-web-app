@@ -215,7 +215,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
     setSun(hasNoAvailabilityFor('sunday'));
   }, [availabilities, getDay, editing, hasNoAvailabilityFor])
   // eslint-disable
-  const onError = useCallback(() => createToast("error", "Error while fetching."), []);
+  const onError = useCallback(() => createToast("error", "Error while loading schedule."), []);
   useEffect(() => {
     if (!id) return;
     const fetchData = async () => {

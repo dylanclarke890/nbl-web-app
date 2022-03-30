@@ -20,7 +20,7 @@ export default function NewSchedule() {
   }
 
   // eslint-disable
-  const onError = useCallback(() => createToast("errror", "Error while saving"), []);
+  const onError = useCallback(() => createToast("errror", "Error while saving schedule."), []);
   useEffect(() => {
     if (!readyToSubmit) return;
 

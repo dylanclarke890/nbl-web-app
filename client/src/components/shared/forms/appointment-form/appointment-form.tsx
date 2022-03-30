@@ -18,7 +18,7 @@ import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointmentForm): JSX.Element {
   const { createToast } = useContext(ToastContext);
   /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while fetching appointment"), []);
+  const onError = useCallback(() => createToast("error", "Error while loading appointment."), []);
   useEffect(() => {
     if (!id) return;
     const fetchData = async () => {

@@ -15,7 +15,7 @@ export default function ListTreatments(): JSX.Element {
   const [treatments, setTreatments] = useState<Treatment[]>([]);
 
   // eslint-disable
-  const onError = useCallback(() => createToast("error", "Error while fetching"), []);
+  const onError = useCallback(() => createToast("error", "Error while loading treatments."), []);
   useEffect(() => {
     const fetchData = async () => {
       await getAllTreatments(setTreatments);

@@ -14,7 +14,7 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
   const {createToast } = useContext(ToastContext);
   
   // eslint-disable
-  const onError = useCallback(() => createToast("error", ""), []);
+  const onError = useCallback(() => createToast("error", "Error while loading treatment."), []);
   useEffect(() => {
     if (!id) return;
     const fetchData = async () => {
