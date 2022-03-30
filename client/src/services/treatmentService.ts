@@ -8,69 +8,36 @@ export async function getAllTreatments(onSuccess: (data: Treatment[]) => void) {
   res = await axios.get(`${APIENDPOINT}all/true`);
   let treatments: Treatment[] = [];
 
-  res.data.forEach(
-    (el: Treatment) => {
-      treatments.push(
-        new Treatment(el._id, el.type, el.duration, el.price, el.isActive)
-      );
-    }
-  );
+  res.data.forEach((el: Treatment) => {
+    treatments.push(
+      new Treatment(el._id, el.type, el.duration, el.price, el.isActive)
+    );
+  });
   onSuccess(treatments);
 }
 
-export async function getTreatment(id: string, onError: (arg0: any) => void) {
+export async function getTreatment(id: string) {
   let res: any = {};
-
-  try {
-    res = await axios.get(`${APIENDPOINT}${id}`);
-  } catch (err) {
-    onError(err);
-  }
-
+  res = await axios.get(`${APIENDPOINT}${id}`);
   return res.data;
 }
 
-export async function addTreatment(
-  treatment: Treatment,
-  onError: (arg0: any) => void
-) {
+export async function addTreatment(treatment: Treatment) {
   let res: any = {};
-  try {
-    res = await axios.post(`${APIENDPOINT}new`, { data: treatment });
-  } catch (err) {
-    onError(err);
-  }
-
+  res = await axios.post(`${APIENDPOINT}new`, { data: treatment });
   return res.data;
 }
 
-export async function editTreatment(
-  treatment: Treatment,
-  onError: (arg0: any) => void
-) {
+export async function editTreatment(treatment: Treatment) {
   let res: boolean = false;
-
-  try {
-    res = await axios.put(`${APIENDPOINT}edit/${treatment._id}`, {
-      treatment: treatment,
-    });
-  } catch (err) {
-    onError(err);
-  }
-
+  res = await axios.put(`${APIENDPOINT}edit/${treatment._id}`, {
+    treatment: treatment,
+  });
   return res;
 }
 
-export async function deleteTreatment(
-  id: string,
-  onError: (arg0: any) => void
-) {
+export async function deleteTreatment(id: string) {
   let res: boolean = false;
-  try {
-    res = await axios.delete(`${APIENDPOINT}delete/${id}`);
-  } catch (err) {
-    onError(err);
-  }
-
+  res = await axios.delete(`${APIENDPOINT}delete/${id}`);
   return res;
 }

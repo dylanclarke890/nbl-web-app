@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import { addTreatment } from "../../../services/treatmentService";
 import Treatment from "../../../models/treatment";
 
 import TreatmentForm from "../../shared/forms/treatment-form/treatment-form";
 import Header from "../../shared/header/header";
+import { ToastContext } from "../../../contexts/toast-context/toast-context";
 
 export default function NewTreatment() {
+  const { createToast } = useContext(ToastContext);
+
   const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [currSlide, setCurrSlide] = useState(0);
@@ -16,15 +19,18 @@ export default function NewTreatment() {
     setTreatment(treatment);
   }
 
+  // eslint-disable
+  const onError = useCallback(() => createToast("error", "Error while saving"), []);
   useEffect(() => {
     if (!readyToSubmit) return;
 
     const sendData = async () => {
-      await addTreatment(treatment, console.error);
+      await addTreatment(treatment);
       setCurrSlide(1);
     }
-    sendData().catch(console.error);
+    sendData().catch(onError);
   }, [treatment, readyToSubmit]);
+  // eslint-enable
 
   return currSlide === 0 ? (
     <>

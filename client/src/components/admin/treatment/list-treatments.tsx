@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getAllTreatments } from '../../../services/treatmentService';
@@ -6,17 +6,23 @@ import Treatment from '../../../models/treatment';
 
 import Header from '../../shared/header/header';
 import '../styles/admin.css'
+import { ToastContext } from '../../../contexts/toast-context/toast-context';
 
 
 export default function ListTreatments(): JSX.Element {
+  const { createToast } = useContext(ToastContext);
+
   const [treatments, setTreatments] = useState<Treatment[]>([]);
 
+  // eslint-disable
+  const onError = useCallback(() => createToast("error", "Error while fetching"), []);
   useEffect(() => {
     const fetchData = async () => {
       await getAllTreatments(setTreatments);
     }
-    fetchData().catch(console.error);
+    fetchData().catch(onError);
   }, []);
+  // eslint-disable
 
   const URLPREFIX = '/admin/treatments/'
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { editTreatment } from "../../../services/treatmentService";
@@ -6,9 +6,11 @@ import Treatment from "../../../models/treatment";
 
 import TreatmentForm from "../../shared/forms/treatment-form/treatment-form";
 import Header from "../../shared/header/header";
+import { ToastContext } from "../../../contexts/toast-context/toast-context";
 
 export default function EditTreatment() {
   const { id } = useParams();
+  const { createToast } = useContext(ToastContext);
 
   const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
@@ -19,18 +21,17 @@ export default function EditTreatment() {
     setReadyToSubmit(true);
   }
 
+  // eslint-disable
+  const onError = useCallback(() => createToast("error", ""), []);
   useEffect(() => {
     if (!readyToSubmit) return;
     const sendData = async () => {
-      const res = await editTreatment(treatment, console.error);
-      if (res) {
-        setCurrSlide(1)
-      } else {
-        alert("Failed");
-      };
+      const res = await editTreatment(treatment);
+      if (res) setCurrSlide(1);
     }
-    sendData().catch(console.error);
+    sendData().catch(onError);
   }, [treatment, readyToSubmit]);
+  // eslint-disable
 
   return currSlide === 0 ? (
     <>

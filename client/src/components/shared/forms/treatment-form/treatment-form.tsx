@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import * as Validation from '../../../../helpers/validation';
 import { getTreatment } from "../../../../services/treatmentService";
@@ -8,19 +8,25 @@ import Treatment from "../../../../models/treatment";
 import CustomCheckbox from "../../input/custom-checkbox/custom-checkbox";
 import CustomInput from "../../input/custom-input/custom-input";
 import './treatment-form.css'
+import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 
 export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm) {
+  const {createToast } = useContext(ToastContext);
+  
+  // eslint-disable
+  const onError = useCallback(() => createToast("error", ""), []);
   useEffect(() => {
     if (!id) return;
     const fetchData = async () => {
-      const result = await getTreatment(id, console.error);
+      const result = await getTreatment(id);
       setType(result.type);
       setDuration(result.duration);
       setPrice(result.price);
       setIsActive(result.isActive);
     }
-    fetchData().catch(console.error);
+    fetchData().catch(onError);
   }, [id]);
+  // eslint-enable
 
   const [type, setType] = useState("");
   const [duration, setDuration] = useState("");
