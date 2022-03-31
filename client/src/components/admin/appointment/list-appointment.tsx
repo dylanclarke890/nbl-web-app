@@ -8,18 +8,23 @@ import Appointment from '../../../models/appointment';
 import Header from '../../shared/header/header';
 
 import '../styles/admin.css'
+import { LoadingContext } from '../../../contexts/loading-context/loading-context';
 
 export default function ListAppointments(): JSX.Element {
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
   
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading appointments."), []);  
   useEffect(() => {
+    if (loading) return;
+    isLoading();
     const fetchData = async () => {
       await getAllAppointments(setAppointments);
     }
     fetchData().catch(onError);
+    loaded();
   }, []);
   /* eslint-enable */
 

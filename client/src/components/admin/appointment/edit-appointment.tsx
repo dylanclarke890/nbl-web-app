@@ -7,10 +7,12 @@ import Appointment from "../../../models/appointment";
 
 import AppointmentForm from "../../shared/forms/appointment-form/appointment-form";
 import Header from "../../shared/header/header";
+import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 
 export default function EditAppointment() {
   const { id } = useParams();
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const [appointment, setAppointment] = useState(new Appointment("", "", ""));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
@@ -24,12 +26,14 @@ export default function EditAppointment() {
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while saving appointment."), []);
   useEffect(() => {
-    if (!readyToSubmit) return;
+    if (!readyToSubmit || loading) return;
+    isLoading();
     const sendData = async () => {
       const res = await editAppointment(appointment);
       if (res) setCurrSlide(1);
     }
     sendData().catch(onError);
+    loaded();
   }, [appointment, readyToSubmit]);
   /* eslint-enable */
 

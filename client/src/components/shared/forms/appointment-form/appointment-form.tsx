@@ -14,13 +14,17 @@ import { getTimeStampAsDate, to24hr, toMeridian } from "../../../../helpers/time
 import CustomTimeInput from "../../input/custom-time-input/custom-time-input";
 import CustomDateInput from "../../input/custom-date-input/custom-date-input";
 import { ToastContext } from "../../../../contexts/toast-context/toast-context";
+import { LoadingContext } from "../../../../contexts/loading-context/loading-context";
 
 export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointmentForm): JSX.Element {
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
+  
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading appointment."), []);
   useEffect(() => {
-    if (!id) return;
+    if (!id || loading) return;
+    isLoading();
     const fetchData = async () => {
       const result = await getAppointment(id);
       setFrom(result.from);
@@ -33,6 +37,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       setPhone(result.person?.phone!);
     };
     fetchData().catch(onError);
+    loaded();
   }, [id]);
   /* eslint-enable */
 
