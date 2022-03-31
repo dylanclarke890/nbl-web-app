@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { format } from "date-fns";
 
 import IAppointmentPicker from "./IAppointmentPicker";
@@ -9,6 +9,7 @@ import useOnInitialized from "../../../../custom-hooks/useOnInitialized";
 import { addAppointment } from "../../../../services/appointmentService";
 
 import "./appointment-picker.css";
+import { LoadingContext } from "../../../../contexts/loading-context/loading-context";
 
 export default function AppointmentPicker({
   closeModal,
@@ -20,6 +21,8 @@ export default function AppointmentPicker({
   onError,
   onSuccessfulSubmit
 }: IAppointmentPicker) {
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
+
   const times = [];
   for (let i = 0; i < availableTimes.length; i++) {
     const currItem = availableTimes[i];
@@ -84,19 +87,23 @@ export default function AppointmentPicker({
   }
 
   const submit = async () => {
+    if (loading) return;
     checkForEmptyInputs();
     checkTimeIsSelected();
     if (inputValidation.error || showTimeError) {
       return;
     }
-
+    isLoading();
     const time = availableTimes.find(ti => ti.id === selectedTime);
     if (!time) {
       onError();
+      loaded();
+      return;
     }
 
     await addAppointment(time!, { name, email, phone }, date, treatment, onSuccessfulSubmit)
       .catch(onError);
+    loaded();
   };
 
   useOnInitialized(() => {

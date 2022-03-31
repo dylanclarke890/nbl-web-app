@@ -10,9 +10,11 @@ import Modal from "../../shared/modal/modal";
 import CheckmarkSvg from "../../shared/svgs/checkmark-svg";
 
 import './cancel-booking.css';
+import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 
 export default function CancelBooking() {
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const [currSlide, setCurrSlide] = useState(0);
   const [reference, setReference] = useState("");
@@ -30,17 +32,20 @@ export default function CancelBooking() {
 
   const onError = () => createToast("Error", "Error while cancelling appointment.");
   const fetchAppointment = async (id: string) => {
+    if (loading) return;
+    isLoading();
     const data = await getAppointment(id).catch(onError);
-
     if (data?.person?.name == null) {
       onError();
       setError("Need a valid reference.")
+      loaded();
       return;
     }
 
     setError("");
     setShowModal(true);
     setAppointment(data);
+    loaded();
   }
   const confirmCancellation = () => {
     setShowModal(false);

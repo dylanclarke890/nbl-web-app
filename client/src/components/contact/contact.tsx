@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useCallback } from "react";
+import { LoadingContext } from "../../contexts/loading-context/loading-context";
+import { ToastContext } from "../../contexts/toast-context/toast-context";
 import useOnInitialized from "../../custom-hooks/useOnInitialized";
 
 import ContactForm from "../shared/forms/contact-form/contact-form";
@@ -8,6 +10,9 @@ import CustomTextArea from "../shared/input/custom-textarea/custom-textarea";
 import "./contact.css";
 
 export default function Contact() {
+  const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
+
   const [inputValidation, setInputValidation] = useState({
     name: "", email: "", phone: "", message: "", error: false
   });
@@ -39,9 +44,20 @@ export default function Contact() {
     }
   }, [message])
 
+  /* eslint-disable */
+  const onError = useCallback(() => createToast("error", "Error while sending message."), [])
   useEffect(() => {
+    if (loading) return;
+    isLoading();
     validateMessage();
+    if (inputValidation.error) {
+      onError();
+      loaded();
+      return;
+    }
+    loaded();
   }, [message, validateMessage])
+  /* eslint-disable */
 
   useOnInitialized(() => {
     setInputValidation({ name: "", email: "", phone: "", message: "", error: false });

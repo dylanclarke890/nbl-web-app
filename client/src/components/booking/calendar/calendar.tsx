@@ -6,9 +6,11 @@ import ICalendar from './ICalendar';
 import { ToastContext } from '../../../contexts/toast-context/toast-context';
 
 import './calendar.css'
+import { LoadingContext } from '../../../contexts/loading-context/loading-context';
 
 export default function Calendar({ handleSelectedDate }: ICalendar) {
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const [selectedDate, setDate] = useState(new Date());
   const [currentMonth, setMonth] = useState(new Date());
@@ -24,11 +26,14 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error loading month availability."), []);
   useEffect(() => {
+    if (loading) return;
+    isLoading();
     const fetchData = async () => {
       let data = await getMonthOverview(currentMonth);
       setOverview(data);
     }
     fetchData().catch(onError);
+    loaded();
   }, [currentMonth]);
   /* eslint-enable */
 
