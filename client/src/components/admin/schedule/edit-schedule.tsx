@@ -7,10 +7,12 @@ import Schedule from "../../../models/schedule";
 import ScheduleForm from "../../shared/forms/schedule-form/schedule-form";
 import Header from "../../shared/header/header";
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
+import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 
 export default function EditSchedule() {
   const { id } = useParams();
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), [], false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
@@ -24,12 +26,14 @@ export default function EditSchedule() {
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while saving schedule."), []);
   useEffect(() => {
-    if (!readyToSubmit) return;
+    if (!readyToSubmit || loading) return;
+    isLoading();
     const sendData = async () => {
       const res = await editSchedule(schedule);
       if (res) setCurrSlide(1);
     }
     sendData().catch(onError);
+    loaded();
   }, [schedule, readyToSubmit]);
   /* eslint-enable */
 

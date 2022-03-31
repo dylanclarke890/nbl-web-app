@@ -17,10 +17,12 @@ import ITimeSlot from "../../../../interfaces/ITimeSlot";
 import { getTimeStampAsDate, overlapsWithTimeSlot, sortByTimeSlot, sortByWeekdayScore, to24hr, toMeridian } from "../../../../helpers/timeSort";
 import useOnInitialized from "../../../../custom-hooks/useOnInitialized";
 import { ToastContext } from "../../../../contexts/toast-context/toast-context";
+import { LoadingContext } from "../../../../contexts/loading-context/loading-context";
 
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
   const { createToast } = useContext(ToastContext);
-
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
+  
   const [currSlide, setCurrSlide] = useState(0);
   const [name, setName] = useState("");
   const dateWithoutTime = (d: Date) => new Date(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate());
@@ -217,7 +219,8 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading schedule."), []);
   useEffect(() => {
-    if (!id) return;
+    if (!id || loading) return;
+    isLoading();
     const fetchData = async () => {
       const result = await getSchedule(id);
       setName(result.name);
@@ -228,6 +231,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       setCurrSlide(onSubmit ? 0 : 1);
     }
     fetchData().catch(onError);
+    loaded();
   }, [id, onSubmit]);
   /* eslint-enable */
   useOnInitialized(() => {

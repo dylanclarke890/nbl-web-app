@@ -8,20 +8,25 @@ import Header from '../../shared/header/header';
 import '../styles/admin.css'
 import { differenceInCalendarDays } from 'date-fns';
 import { ToastContext } from '../../../contexts/toast-context/toast-context';
+import { LoadingContext } from '../../../contexts/loading-context/loading-context';
 
 
 export default function ListSchedules(): JSX.Element {
   const { createToast } = useContext(ToastContext);
-
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
+  
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading schedules."), []);
   useEffect(() => {
+    if (loading) return;
+    isLoading();
     const fetchData = async () => {
       await getAllSchedules(setSchedules);
     }
     fetchData().catch(onError);
+    loaded();
   }, []);
   /* eslint-enable */
   const URLPREFIX = '/admin/schedules/'
@@ -31,7 +36,7 @@ export default function ListSchedules(): JSX.Element {
     const diffInDaysVal = (ends: Date | undefined) => {
       const diff = differenceInCalendarDays(el.ends!, el.starts)
       return ends !== undefined ? diff > 0 ? diff : "Expired" : "Indefinite";
-    }
+    };
     displayTypes.push(<tr key={el._id}>
       <td>{el.name}</td>
       <td>{el.starts.toDateString()}</td>
