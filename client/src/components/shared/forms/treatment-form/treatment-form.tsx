@@ -9,14 +9,17 @@ import CustomCheckbox from "../../input/custom-checkbox/custom-checkbox";
 import CustomInput from "../../input/custom-input/custom-input";
 import './treatment-form.css'
 import { ToastContext } from "../../../../contexts/toast-context/toast-context";
+import { LoadingContext } from "../../../../contexts/loading-context/loading-context";
 
 export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm) {
-  const {createToast } = useContext(ToastContext);
-  
+  const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
+
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading treatment."), []);
   useEffect(() => {
-    if (!id) return;
+    if (!id || loading) return;
+    isLoading();
     const fetchData = async () => {
       const result = await getTreatment(id);
       setType(result.type);
@@ -25,6 +28,7 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
       setIsActive(result.isActive);
     }
     fetchData().catch(onError);
+    loaded();
   }, [id]);
   /* eslint-enable */
 

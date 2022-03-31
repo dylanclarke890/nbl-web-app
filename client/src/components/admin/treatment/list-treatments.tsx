@@ -7,20 +7,25 @@ import Treatment from '../../../models/treatment';
 import Header from '../../shared/header/header';
 import '../styles/admin.css'
 import { ToastContext } from '../../../contexts/toast-context/toast-context';
+import { LoadingContext } from '../../../contexts/loading-context/loading-context';
 
 
 export default function ListTreatments(): JSX.Element {
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const [treatments, setTreatments] = useState<Treatment[]>([]);
 
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading treatments."), []);
   useEffect(() => {
+    if (loading) return;
+    isLoading();
     const fetchData = async () => {
       await getAllTreatments(setTreatments);
     }
     fetchData().catch(onError);
+    loaded();
   }, []);
   /* eslint-disable */
 

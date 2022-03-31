@@ -7,10 +7,12 @@ import Treatment from "../../../models/treatment";
 import TreatmentForm from "../../shared/forms/treatment-form/treatment-form";
 import Header from "../../shared/header/header";
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
+import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 
 export default function EditTreatment() {
   const { id } = useParams();
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
@@ -24,12 +26,14 @@ export default function EditTreatment() {
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while saving treatment."), []);
   useEffect(() => {
-    if (!readyToSubmit) return;
+    if (!readyToSubmit || loading) return;
+    isLoading();
     const sendData = async () => {
       const res = await editTreatment(treatment);
       if (res) setCurrSlide(1);
     }
     sendData().catch(onError);
+    loaded();
   }, [treatment, readyToSubmit]);
   /* eslint-disable */
 

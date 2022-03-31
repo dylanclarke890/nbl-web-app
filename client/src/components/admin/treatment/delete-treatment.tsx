@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
 
 import { deleteTreatment } from "../../../services/treatmentService";
@@ -10,6 +11,7 @@ import Header from "../../shared/header/header";
 export default function DeleteTreatment() {
   const { id } = useParams();
   const { createToast } = useContext(ToastContext);
+  const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const [currSlide, setCurrSlide] = useState(0);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
@@ -21,12 +23,14 @@ export default function DeleteTreatment() {
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while deleting treatment."), []);
   useEffect(() => {
-    if (!deleteConfirmed || !id) return;
+    if (!deleteConfirmed || !id || loading) return;
+    isLoading();
     const sendData = async () => {
       const res = await deleteTreatment(id);
       if (res) setCurrSlide(1);
     }
     sendData().catch(onError);
+    loaded();
   }, [deleteConfirmed, id]);
   /* eslint-enable */
 
