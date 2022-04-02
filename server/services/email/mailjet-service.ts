@@ -4,8 +4,8 @@ require("dotenv").config();
 import IEmailRequest from "../../interfaces/IEmailRequest";
 import IMailJetRequest from "../../interfaces/IMailJetRequest";
 
-const apiKey = process.env.apiKey;
-const apiSecret = process.env.apiSecret;
+const apiKey = process.env.apiKey!;
+const apiSecret = process.env.apiSecret!;
 const mailjet = MJ.connect(apiKey, apiSecret);
 
 export async function sendOne(emailRequest: IEmailRequest) {
@@ -33,15 +33,12 @@ function createMailJetRequest(req: IEmailRequest): IMailJetRequest {
           Email: req.from.email,
           Name: req.from.name,
         },
-        To: [
-          {
-            Email: req.from.email,
-            Name: req.from.name,
-          },
-        ],
+        To: req.to.map((val) => {
+          return { Email: val.email, Name: val.name };
+        }),
         Subject: req.subject,
-        TextPart: req.textPart,
-        HTMLPart: req.HTMLPart,
+        TextPart: req.textContent,
+        HTMLPart: req.HTMLContent,
         CustomID: req.customId,
       },
     ],

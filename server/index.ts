@@ -15,7 +15,7 @@ app.use(express.json());
 app.use("/api/appointments", appointmentRouter);
 app.use("/api/treatments", treatmentRouter);
 app.use("/api/schedules", scheduleRouter);
-app.use("api/contact", emailRouter);
+app.use("/api/contact", emailRouter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

@@ -4,11 +4,9 @@ import IAppointmentConfirmation from "./IAppointmentConfirmation";
 
 import CheckmarkSvg from "../../../shared/svgs/checkmark-svg";
 
-import './appointment-confirmation.css';
-
 export default function AppointmentConfirmation({ time, date, reference }: IAppointmentConfirmation) {
   return (
-    <div className="appointment-confirmation text-center">
+    <div className="text-center">
       <p className="title">Success!</p>
       <CheckmarkSvg />
       <p className="title">Your appointment is confirmed for {date.toDateString()}</p>

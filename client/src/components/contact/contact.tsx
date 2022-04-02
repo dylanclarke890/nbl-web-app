@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useCallback } from "react";
+
+import useOnInitialized from "../../custom-hooks/useOnInitialized";
 import { LoadingContext } from "../../contexts/loading-context/loading-context";
 import { ToastContext } from "../../contexts/toast-context/toast-context";
-import useOnInitialized from "../../custom-hooks/useOnInitialized";
+import { sendContactRequest } from "../../services/contactService";
 
 import ContactForm from "../shared/forms/contact-form/contact-form";
 import CustomTextArea from "../shared/input/custom-textarea/custom-textarea";
+import MessageConfirmation from "./message-confirmation/message-confirmation";
 
 import "./contact.css";
 
@@ -21,6 +24,8 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+
+  const [currSlide, setCurrSlide] = useState(0);
 
   const validateMessage = useCallback(() => {
     if (!message) {
@@ -43,30 +48,34 @@ export default function Contact() {
       }));
     }
   }, [message])
-
-  /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while sending message."), [])
   useEffect(() => {
-    if (loading) return;
-    isLoading();
     validateMessage();
-    if (inputValidation.error) {
-      onError();
-      loaded();
-      return;
-    }
-    loaded();
   }, [message, validateMessage])
-  /* eslint-disable */
 
   useOnInitialized(() => {
     setInputValidation({ name: "", email: "", phone: "", message: "", error: false });
   }, [])
 
+  /* eslint-disable */
+  const onError = useCallback(() => createToast("error", "Error while sending message."), [])
+  /* eslint-disable */
   const submit = () => {
+    if (loading || inputValidation.error) return;
+    isLoading();
+    const request = { name, email, phone, message };
+    const sendRequest = async () => {
+      const res = await sendContactRequest(request);
+      if (res) {
+        setCurrSlide(1);
+      } else {
+        onError();
+      }
+    }
+    sendRequest().catch(onError);
+    loaded();
   };
 
-  return (
+  return currSlide === 0 ? (
     <div className="contact-content">
       <p className="text-center contact-title fade-in">Contact Us</p>
       <div className="contact-form fade-in">
@@ -80,5 +89,9 @@ export default function Contact() {
         </div>
       </div>
     </div>
-  );
+  ) : (
+    <div className="mt-3">
+      <MessageConfirmation />
+    </div>
+  )
 }
