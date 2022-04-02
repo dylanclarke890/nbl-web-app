@@ -5,6 +5,7 @@ import * as Validation from '../../../../helpers/validation'
 import IContactForm from './IContactForm';
 import IInputValidation from '../../../../interfaces/IInputValidation';
 import CustomInput from "../../input/custom-input/custom-input";
+import useOnInitialized from '../../../../custom-hooks/useOnInitialized';
 
 export default function ContactForm({ inputValidation, setInputValidation, name, setName, email, setEmail, phone, setPhone }: IContactForm) {
   const validateName = useCallback((): void => {
@@ -84,6 +85,10 @@ export default function ContactForm({ inputValidation, setInputValidation, name,
   useEffect(() => {
     validatePhone();
   }, [phone, validatePhone])
+
+  useOnInitialized(() => {
+    setInputValidation({ name: "", email: "", phone: "", error: false });
+  }, [])
 
   return (
     <>

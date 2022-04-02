@@ -24,7 +24,7 @@ export default function Booking() {
   const [treatment, setTreatment] = useState(new Treatment("", "", 0, 0, false));
   const [showModal, setShowModal] = useState(false);
   // set the initial date to yesterday to avoid an unnecessary api call. 86400000 = 1 day in milliseconds.
-  const [selectedDate, setDate] = useState(new Date(new Date().valueOf() - 86400000)); 
+  const [selectedDate, setDate] = useState(new Date(new Date().valueOf() - 86400000));
   const [selectedTime, setSelectedTime] = useState("");
 
   const updateDate = (date: Date) => {
@@ -47,15 +47,15 @@ export default function Booking() {
   const onError = useCallback(() => createToast("Error", "Error while loading appointments."), []);
   useEffect(() => {
     if (!treatmentId || loading || selectedDate.valueOf() < new Date().valueOf()) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       const data = await getAppointmentsByDay(selectedDate, treatmentId);
       setAvailableTimes(data[0]);
       setTreatment(data[1]);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
-  }, [loading, treatmentId, selectedDate]);
+    fetchData().catch(() => { onError(); loaded(); });
+  }, [treatmentId, selectedDate]);
   /* eslint-enable */
 
   const [modalSlide, setModalSlide] = useState(0);
