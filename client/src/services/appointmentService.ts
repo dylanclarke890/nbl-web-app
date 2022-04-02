@@ -74,7 +74,7 @@ export async function addAppointment(
     person,
     date,
     treatment,
-    sendConfirmation
+    sendConfirmation,
   });
   let booking = res.data;
   const successInfo = {
@@ -90,8 +90,7 @@ export async function getAppointmentsByDay(
   treatmentId: string
 ): Promise<[Appointment[], Treatment]> {
   if (!day) throw Error("Should have a date");
-
-  const d = day.getDay();
+  const d = day.getDate();
   const m = day.getMonth();
   const y = day.getFullYear();
   let res: any;
