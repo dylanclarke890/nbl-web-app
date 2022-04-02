@@ -35,7 +35,7 @@ export default function getRequestTemplate(
       from = { name: "NBL", email: businessEmail };
       to = [{ name: "Admin", email: adminEmail }];
       // to = [{ name: content.customer.name, email: content.customer.email }];
-      reference = content.appointment.reference;
+      reference = content._id;
       customId = "CustomerAppointmentConfirmation";
       break;
     case "admin-confirmation":
@@ -44,7 +44,7 @@ export default function getRequestTemplate(
       html = getAdminBookingHTML(content);
       from = { name: "NBL Notifications", email: businessEmail };
       to = [{ name: "Admin", email: adminEmail }];
-      reference = content.appointment.reference;
+      reference = content._id;
       customId = "AdminAppointmentNotification";
       break;
     default:
@@ -89,8 +89,7 @@ function getCustomerBookingText(content: IAppointment): string {
     Your appointment for ${content.treatment.type} has been confirmed.
     Please find the details below.\n
     Reference: ${content._id}\n
-    Booking date: ${content.date.toDateString()}\n
-    At: ${content.time.from} - ${content.time.to}\n
+    Booking date: ${content.date.toDateString()} at: ${content.time.from} - ${content.time.to}\n
     Total Price: ${content.treatment.price} (GBP)\n
     Thanks,\n
     Tanya
@@ -106,8 +105,7 @@ function getCustomerBookingHTML(content: IAppointment): string {
       Please find the details below.
     </p>
     <p>Reference: ${content._id}</p>
-    <p>Booking date: ${content.date.toDateString()}</p>
-    <p>At: ${content.time.from} - ${content.time.to}</p>
+    <p>Booking date: ${content.date.toDateString()} at: ${content.time.from} - ${content.time.to}</p>
     <p>Total: ${content.treatment.price}</p>
     <p>Thanks,</p>
     <p>Tanya</p>
@@ -118,8 +116,7 @@ function getCustomerBookingHTML(content: IAppointment): string {
 function getAdminBookingText(content: IAppointment): string {
   return `
   Details (ref: ${content._id}):\n
-  For:\n
-  Name: ${content.person.name}\n
+  For: ${content.person.name}\n
   Email: ${content.person.email}\n
   Phone: ${content.person.phone}\n
   Treatment: ${content.treatment.type} (${content.treatment.price})\n
@@ -132,8 +129,7 @@ function getAdminBookingHTML(content: IAppointment): string {
   return `
   <div style='text-align:center;'>
     <p>Details (ref: ${content._id}):</p>
-    <p>For:</p> 
-    <p>Name: ${content.person.name}</p>
+    <p>For: ${content.person.name}</p>
     <p>Email: ${content.person.email}</p>
     <p>Phone: ${content.person.phone}</p>
     <p>Treatment: ${content.treatment.type} (${content.treatment.price})</p>
