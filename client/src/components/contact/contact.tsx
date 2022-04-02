@@ -61,18 +61,18 @@ export default function Contact() {
   /* eslint-disable */
   const submit = () => {
     if (loading || inputValidation.error) return;
-    isLoading();
     const request = { name, email, phone, message };
     const sendRequest = async () => {
+      isLoading();
       const res = await sendContactRequest(request);
       if (res) {
         setCurrSlide(1);
       } else {
         onError();
       }
+      loaded();
     }
-    sendRequest().catch(onError);
-    loaded();
+    sendRequest().catch(() => { onError(); loaded(); });
   };
 
   return currSlide === 0 ? (

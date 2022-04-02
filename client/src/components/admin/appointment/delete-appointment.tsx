@@ -24,13 +24,13 @@ export default function DeleteAppointment() {
   const onError = useCallback(() => createToast("error", "Error while deleting appointment."), []);
   useEffect(() => {
     if (!id || !deleteConfirmed || loading) return;
-    isLoading();
     const sendData = async () => {
+      isLoading();
       const res = await cancelAppointment(id);
       if (res) setCurrSlide(1);
+      loaded();
     }
-    sendData().catch(onError);
-    loaded();
+    sendData().catch(() => { onError(); loaded(); });
   }, [id, deleteConfirmed]);
   /* eslint-enable */
 

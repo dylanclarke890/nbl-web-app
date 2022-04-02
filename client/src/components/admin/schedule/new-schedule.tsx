@@ -11,7 +11,7 @@ import { LoadingContext } from "../../../contexts/loading-context/loading-contex
 export default function NewSchedule() {
   const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
-  
+
   const [schedule, setSchedule] = useState(new Schedule("", "", new Date(), [], false));
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [currSlide, setCurrSlide] = useState(0);
@@ -25,13 +25,13 @@ export default function NewSchedule() {
   const onError = useCallback(() => createToast("errror", "Error while saving schedule."), []);
   useEffect(() => {
     if (!readyToSubmit || loading) return;
-    isLoading();
     const sendData = async () => {
+      isLoading();
       await addSchedule(schedule);
       setCurrSlide(1);
+      loaded();
     }
-    sendData().catch(onError);
-    loaded();
+    sendData().catch(() => { onError(); loaded(); });;
   }, [schedule, readyToSubmit]);
   /* eslint-enable */
 

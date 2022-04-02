@@ -19,16 +19,16 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
   const onError = useCallback(() => createToast("error", "Error while loading treatment."), []);
   useEffect(() => {
     if (!id || loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       const result = await getTreatment(id);
       setType(result.type);
       setDuration(result.duration);
       setPrice(result.price);
       setIsActive(result.isActive);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });
   }, [id]);
   /* eslint-enable */
 

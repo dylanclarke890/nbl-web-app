@@ -27,13 +27,13 @@ export default function Calendar({ handleSelectedDate }: ICalendar) {
   const onError = useCallback(() => createToast("error", "Error loading month availability."), []);
   useEffect(() => {
     if (loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       let data = await getMonthOverview(currentMonth);
       setOverview(data);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });;
   }, [currentMonth]);
   /* eslint-enable */
 

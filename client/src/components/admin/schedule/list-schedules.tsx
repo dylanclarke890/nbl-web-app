@@ -14,19 +14,19 @@ import { LoadingContext } from '../../../contexts/loading-context/loading-contex
 export default function ListSchedules(): JSX.Element {
   const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
-  
+
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading schedules."), []);
   useEffect(() => {
     if (loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       await getAllSchedules(setSchedules);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });;
   }, []);
   /* eslint-enable */
   const URLPREFIX = '/admin/schedules/'

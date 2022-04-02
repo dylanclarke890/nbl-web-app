@@ -34,7 +34,7 @@ export default function CancelBooking() {
   const fetchAppointment = async (id: string) => {
     if (loading) return;
     isLoading();
-    const data = await getAppointment(id).catch(onError);
+    const data = await getAppointment(id).catch(() => { onError(); loaded(); });
     if (data?.person?.name == null) {
       onError();
       setError("Need a valid reference.")

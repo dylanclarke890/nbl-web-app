@@ -102,7 +102,7 @@ export default function AppointmentPicker({
     }
 
     await addAppointment(time!, { name, email, phone }, date, treatment, onSuccessfulSubmit, true)
-      .catch(onError);
+      .catch(() => { onError(); loaded(); });
     loaded();
   };
 

@@ -19,13 +19,13 @@ import { LoadingContext } from "../../../../contexts/loading-context/loading-con
 export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointmentForm): JSX.Element {
   const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
-  
+
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading appointment."), []);
   useEffect(() => {
     if (!id || loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       const result = await getAppointment(id);
       setFrom(result.from);
       setTo(result.to);
@@ -35,9 +35,9 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
       setName(result.person?.name!);
       setEmail(result.person?.email!);
       setPhone(result.person?.phone!);
+      loaded();
     };
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });
   }, [id]);
   /* eslint-enable */
 

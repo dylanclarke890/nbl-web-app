@@ -22,7 +22,7 @@ import { LoadingContext } from "../../../../contexts/loading-context/loading-con
 export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) {
   const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
-  
+
   const [currSlide, setCurrSlide] = useState(0);
   const [name, setName] = useState("");
   const dateWithoutTime = (d: Date) => new Date(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate());
@@ -220,8 +220,8 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
   const onError = useCallback(() => createToast("error", "Error while loading schedule."), []);
   useEffect(() => {
     if (!id || loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       const result = await getSchedule(id);
       setName(result.name);
       setStartDate(result.starts);
@@ -229,9 +229,9 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       setRunsIndefinitely(result.runsIndefinitely);
       setEndDate(result.ends == null ? new Date() : result.ends!);
       setCurrSlide(onSubmit ? 0 : 1);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });
   }, [id, onSubmit]);
   /* eslint-enable */
   useOnInitialized(() => {

@@ -27,13 +27,13 @@ export default function EditAppointment() {
   const onError = useCallback(() => createToast("error", "Error while saving appointment."), []);
   useEffect(() => {
     if (!readyToSubmit || loading) return;
-    isLoading();
     const sendData = async () => {
+      isLoading();
       const res = await editAppointment(appointment);
       if (res) setCurrSlide(1);
+      loaded();
     }
-    sendData().catch(onError);
-    loaded();
+    sendData().catch(() => { onError(); loaded(); });
   }, [appointment, readyToSubmit]);
   /* eslint-enable */
 

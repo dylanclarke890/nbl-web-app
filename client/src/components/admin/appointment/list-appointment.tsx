@@ -13,18 +13,18 @@ import { LoadingContext } from '../../../contexts/loading-context/loading-contex
 export default function ListAppointments(): JSX.Element {
   const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
-  
+
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   /* eslint-disable */
-  const onError = useCallback(() => createToast("error", "Error while loading appointments."), []);  
+  const onError = useCallback(() => createToast("error", "Error while loading appointments."), []);
   useEffect(() => {
     if (loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       await getAllAppointments(setAppointments);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });
   }, []);
   /* eslint-enable */
 

@@ -27,13 +27,13 @@ export default function EditSchedule() {
   const onError = useCallback(() => createToast("error", "Error while saving schedule."), []);
   useEffect(() => {
     if (!readyToSubmit || loading) return;
-    isLoading();
     const sendData = async () => {
+      isLoading();
       const res = await editSchedule(schedule);
       if (res) setCurrSlide(1);
+      loaded();
     }
-    sendData().catch(onError);
-    loaded();
+    sendData().catch(() => { onError(); loaded(); });;
   }, [schedule, readyToSubmit]);
   /* eslint-enable */
 

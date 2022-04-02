@@ -25,13 +25,13 @@ export default function NewTreatment() {
   const onError = useCallback(() => createToast("error", "Error while saving treatment."), []);
   useEffect(() => {
     if (!readyToSubmit || loading) return;
-    isLoading();
     const sendData = async () => {
+      isLoading();
       await addTreatment(treatment);
       setCurrSlide(1);
+      loaded();
     }
-    sendData().catch(onError);
-    loaded();
+    sendData().catch(() => { onError(); loaded(); });;
   }, [treatment, readyToSubmit]);
   /* eslint-enable */
 

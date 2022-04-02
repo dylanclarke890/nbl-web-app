@@ -20,12 +20,12 @@ export default function ListTreatments(): JSX.Element {
   const onError = useCallback(() => createToast("error", "Error while loading treatments."), []);
   useEffect(() => {
     if (loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       await getAllTreatments(setTreatments, true);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });;
   }, []);
   /* eslint-disable */
 

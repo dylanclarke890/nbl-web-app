@@ -29,12 +29,12 @@ export default function BookingOptions() {
   const onError = useCallback(() => createToast("Error", "Error while loading treatments."), []);
   useEffect(() => {
     if (loading) return;
-    isLoading();
     const fetchData = async () => {
+      isLoading();
       await getAllTreatments(updateTreatmentSelection, false);
+      loaded();
     }
-    fetchData().catch(onError);
-    loaded();
+    fetchData().catch(() => { onError(); loaded(); });;
   }, [loading]);
   /* eslint-enable */
 
