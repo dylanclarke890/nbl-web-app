@@ -22,7 +22,7 @@ export default function ListTreatments(): JSX.Element {
     if (loading) return;
     isLoading();
     const fetchData = async () => {
-      await getAllTreatments(setTreatments);
+      await getAllTreatments(setTreatments, true);
     }
     fetchData().catch(onError);
     loaded();

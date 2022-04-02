@@ -10,10 +10,10 @@ import {
 
 const treatmentRouter = express.Router();
 
-treatmentRouter.get("/all/:isInActive?", async (req, res) => {
+treatmentRouter.get("/all/:includeInActive?", async (req, res) => {
   let result: ITreatment[] = [];
   try {
-    result = await getAllTreatments(req.params.isInActive != undefined);
+    result = await getAllTreatments(req.params.includeInActive === "true");
   } catch {
     return res.status(500).send(`Internal error`);
   }

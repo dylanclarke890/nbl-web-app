@@ -31,7 +31,7 @@ export default function BookingOptions() {
     if (loading) return;
     isLoading();
     const fetchData = async () => {
-      await getAllTreatments(updateTreatmentSelection);
+      await getAllTreatments(updateTreatmentSelection, false);
     }
     fetchData().catch(onError);
     loaded();
