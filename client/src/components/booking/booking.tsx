@@ -46,7 +46,7 @@ export default function Booking() {
   /* eslint-disable */
   const onError = useCallback(() => createToast("Error", "Error while loading appointments."), []);
   useEffect(() => {
-    if (!treatmentId || loading || selectedDate.getDay() < new Date().getDay()) return;
+    if (!treatmentId || loading || selectedDate.valueOf() < new Date().valueOf()) return;
     isLoading();
     const fetchData = async () => {
       const data = await getAppointmentsByDay(selectedDate, treatmentId);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 
 import IAppointmentPicker from "./IAppointmentPicker";
@@ -88,12 +88,12 @@ export default function AppointmentPicker({
 
   const submit = async () => {
     if (loading) return;
+    isLoading();
     checkForEmptyInputs();
     checkTimeIsSelected();
     if (inputValidation.error || showTimeError) {
       return;
     }
-    isLoading();
     const time = availableTimes.find(ti => ti.id === selectedTime);
     if (!time) {
       onError();
@@ -131,7 +131,7 @@ export default function AppointmentPicker({
     selectedTime === ""
       ? format(date, dateFormat)
       : `${format(date, dateFormat)} - ${availableTimes.find(t => t.id === selectedTime)?.appointmentTime(" to ")}`;
-  return !availableTimes.length ?
+  return !availableTimes.length && !loading ?
     <TimesUnavailable titleMessage={titleMessage} closeModal={closeModal} /> :
     (
       <>
