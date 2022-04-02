@@ -14,7 +14,7 @@ const scheduleRouter = express.Router();
 scheduleRouter.get("/all/:includeExpired?", async (req, res) => {
   let result: ISchedule[] = [];
   try {
-    result = await getAllSchedules(req.params.includeExpired != undefined);
+    result = await getAllSchedules(req.params.includeExpired !== undefined);
   } catch {
     return res.status(500).send(`Internal error`);
   }

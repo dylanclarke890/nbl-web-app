@@ -1,24 +1,28 @@
 import MJ from "node-mailjet";
 require("dotenv").config();
 
-import IEmailRequest from "../interfaces/IEmailRequest";
-import IMailJetRequest from "../interfaces/IMailJetRequest";
+import IEmailRequest from "../../interfaces/IEmailRequest";
+import IMailJetRequest from "../../interfaces/IMailJetRequest";
 
 const apiKey = process.env.apiKey;
 const apiSecret = process.env.apiSecret;
 const mailjet = MJ.connect(apiKey, apiSecret);
 
-export function sendOne(emailRequest: IEmailRequest) {
+export async function sendOne(emailRequest: IEmailRequest) {
+  let success = false;
   const request = mailjet
     .post("send", { version: "v3.1" })
     .request(createMailJetRequest(emailRequest));
-  request
-    .then((result) => {
-      console.log(result.body);
+  await request
+    .then((res) => {
+      console.log(res.body);
+      success = true;
     })
     .catch((err) => {
       console.error(err);
+      success = false;
     });
+  return success;
 }
 
 function createMailJetRequest(req: IEmailRequest): IMailJetRequest {
