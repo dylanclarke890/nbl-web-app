@@ -10,17 +10,12 @@ import { getAvailableTimeSlots } from "./time-service";
 import { getScheduleInUse } from "./schedule-service";
 import { getTreatment } from "./treatment-service";
 import ITreatment from "../interfaces/ITreatment";
+import { sendAppointmentConfirmation } from "./email/email-service";
 
-export async function addAppointment(
-  req: any
-): Promise<
-  | { message: string; appointment?: undefined }
-  | { appointment: IAppointment; message?: undefined }
-> {
+export async function addAppointment(req: any): Promise<IAppointment> {
   const data = req.body;
-
   if (await hasExistingAppointment(data.date, data.time.from)) {
-    return { message: "Appointment already exists." };
+    throw Error("Conflicting time slot");
   }
 
   let appointment = new AppointmentModel({
@@ -29,15 +24,13 @@ export async function addAppointment(
     time: { ...data.time },
     treatment: data.treatment,
   });
+  await appointment.save();
 
-  try {
-    await appointment.save();
-  } catch (e) {
-    console.error(e);
-    return { message: "Error whilst saving." };
+  if (data.sendConfirmation) {
+    await sendAppointmentConfirmation(appointment);
   }
 
-  return { appointment };
+  return appointment;
 }
 
 export async function getAppointment(id: string): Promise<IAppointment> {
@@ -50,7 +43,7 @@ export async function getAllAppointments() {
 
 export async function getDailyAppointments(
   req: any
-): Promise<{ times: ITimeSlot[], treatment: ITreatment }> {
+): Promise<{ times: ITimeSlot[]; treatment: ITreatment }> {
   const params = req.params;
   const day = new Date(
     parseInt(params.year),

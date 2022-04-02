@@ -8,7 +8,7 @@ export default interface IEmailRequest {
   reference?: string;
 }
 
-interface IRecipient {
+export interface IRecipient {
   email: string;
   name: string;
 }

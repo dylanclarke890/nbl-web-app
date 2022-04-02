@@ -1,39 +1,22 @@
-require("dotenv").config();
-
+import IAppointment from "../../interfaces/IAppointment";
 import ICustomerQuery from "../../interfaces/ICustomerQuery";
-import { sendOne } from "./mailjet-service";
+import { sendMany, sendOne } from "./mailjet-service";
+import getRequestTemplate from "./template-service";
 
-const adminEmail = process.env.adminEmail!;
-
-export async function sendCustomerQuery(req: any) {
-  const result = await sendOne({
-    from: { name: "NBL Notification", email: "nblbytanya@gmail.com" },
-    to: [{ name: "Admin", email: adminEmail }],
-    subject: "You have a new message from a customer.",
-    textContent: createText(req.body.contactDetails),
-    HTMLContent: createHTML(req.body.contactDetails),
-    customId: "CustomerQueryNotification",
-  });
+export async function sendCustomerQuery(contactDetails: ICustomerQuery) {
+  const result = await sendOne(
+    getRequestTemplate("customer-query", contactDetails)
+  );
   return result;
 }
 
-function createText(query: ICustomerQuery) {
-  return `
-    Name: ${query.name}\n
-    Email: ${query.email}\n
-    Phone: ${query.phone}\n
-    Message: ${query.message}\n
-  `;
-}
+export async function sendAppointmentConfirmation(appointment: IAppointment) {
+  const adminEmail = getRequestTemplate("admin-confirmation", appointment);
+  const customerEmail = getRequestTemplate(
+    "customer-confirmation",
+    appointment
+  );
 
-function createHTML(query: ICustomerQuery) {
-  return `
-    <div style='text-align:center;'>
-      <p>Name: ${query.name}</p>
-      <p>Email: ${query.email}</p>
-      <p>Phone: ${query.phone}</p>
-      <p>Message:</p>
-      <p>"${query.message}"</p>
-    </div>
-  `;
+  const result = await sendMany([adminEmail, customerEmail]);
+  return result;
 }

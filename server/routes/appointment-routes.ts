@@ -25,20 +25,17 @@ appointmentRouter.get("/overview/:year/:month", async (req, res) => {
   return res.json(result);
 });
 
-appointmentRouter.get(
-  "/:day/:month/:year/:treatmentId",
-  async (req, res) => {
-    let result: { times: ITimeSlot[] };
+appointmentRouter.get("/:day/:month/:year/:treatmentId", async (req, res) => {
+  let result: { times: ITimeSlot[] };
 
-    try {
-      result = await getDailyAppointments(req);
-    } catch {
-      return res.status(500).send(`Internal error`);
-    }
-
-    return res.json(result);
+  try {
+    result = await getDailyAppointments(req);
+  } catch {
+    return res.status(500).send(`Internal error`);
   }
-);
+
+  return res.json(result);
+});
 
 appointmentRouter.get("/all", async (req, res) => {
   let result: IAppointment[];
@@ -65,17 +62,13 @@ appointmentRouter.get("/:id", async (req, res) => {
 });
 
 appointmentRouter.post("/new", async (req, res) => {
-  let result!:
-    | { message: string; appointment?: undefined }
-    | { appointment: IAppointment; message?: undefined };
-
+  let result: IAppointment;
   try {
     result = await addAppointment(req);
   } catch {
-    return res.status(500).send(`Internal error: ${result.message}`);
+    return res.status(500).send(`Internal error.`);
   }
-
-  return res.json(result.appointment);
+  return res.json(result);
 });
 
 appointmentRouter.put("/edit/:id", async (req, res) => {

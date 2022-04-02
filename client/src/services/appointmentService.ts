@@ -66,13 +66,15 @@ export async function addAppointment(
     message: string;
     reference: string;
     time: string;
-  }) => void
+  }) => void,
+  sendConfirmation?: boolean
 ): Promise<void> {
   let res = await axios.post(`${APIENDPOINT}new/`, {
     time: { from: appointment.from, to: appointment.to },
     person,
     date,
     treatment,
+    sendConfirmation
   });
   let booking = res.data;
   const successInfo = {
