@@ -1,10 +1,11 @@
 import express from "express";
+import IUserData from "../interfaces/IUserData";
 import { login, register } from "../services/auth-service";
 
 const authRouter = express.Router();
 
 authRouter.post("/login", async (req, res) => {
-  let result: { id: string; name: string; email: string; };
+  let result: IUserData | null = null;
 
   try {
     result = await login(req);
@@ -16,7 +17,7 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.post("/register", async (req, res) => {
-  let result: string = "";
+  let result: IUserData | null = null;
 
   try {
     result = await register(req);
