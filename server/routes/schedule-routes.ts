@@ -7,13 +7,14 @@ import {
   getById,
   update,
 } from "../controllers/schedule-controller";
+import { accessTokenValidator } from "../middlewares/access-token-validator";
 
 const scheduleRouter = express.Router();
 
-scheduleRouter.get("/all/:includeExpired?", getAll);
-scheduleRouter.get("/:id", getById);
-scheduleRouter.post("/new", add);
-scheduleRouter.put("/edit/:id", update);
-scheduleRouter.delete("/delete/:id", deleteById);
+scheduleRouter.get("/all/:includeExpired?", accessTokenValidator, getAll);
+scheduleRouter.get("/:id", accessTokenValidator, getById);
+scheduleRouter.post("/new", accessTokenValidator, add);
+scheduleRouter.put("/edit/:id", accessTokenValidator, update);
+scheduleRouter.delete("/delete/:id", accessTokenValidator, deleteById);
 
 export default scheduleRouter;

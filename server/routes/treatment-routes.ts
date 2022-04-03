@@ -7,13 +7,14 @@ import {
   getById,
   update,
 } from "../controllers/treatment-controller";
+import { accessTokenValidator } from "../middlewares/access-token-validator";
 
 const treatmentRouter = express.Router();
 
 treatmentRouter.get("/all/:includeInActive?", getAll);
-treatmentRouter.get("/:id", getById);
-treatmentRouter.post("/new", add);
-treatmentRouter.put("/edit/:id", update);
-treatmentRouter.delete("/delete/:id", deleteById);
+treatmentRouter.get("/:id", accessTokenValidator, getById);
+treatmentRouter.post("/new", accessTokenValidator, add);
+treatmentRouter.put("/edit/:id", accessTokenValidator, update);
+treatmentRouter.delete("/delete/:id", accessTokenValidator, deleteById);
 
 export default treatmentRouter;
