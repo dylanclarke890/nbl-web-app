@@ -6,6 +6,7 @@ import { ToastContext } from "../../../contexts/toast-context/toast-context";
 import { register } from "../../../services/authService";
 
 import CustomInput from "../../shared/input/custom-input/custom-input";
+import CheckmarkSvg from "../../shared/svgs/checkmark-svg";
 
 import './sign.css';
 
@@ -74,8 +75,11 @@ export default function Register() {
     </>
   ) : (
     <>
-      <h2 className="text-center">Success!</h2>
-      <Link className="custom-link" to={"/admin/login"}>Go to Login</Link>
+      <h2 className="text-center mt-1">Success!</h2>
+      <CheckmarkSvg />
+      <div className="flex justify-center mt-2">
+        <Link className="custom-link" to={"/admin/login"}>Go to Login</Link>
+      </div>
     </>
   )
 }
