@@ -1,31 +1,9 @@
 import express from "express";
-import IUserData from "../interfaces/IUserData";
-import { login, register } from "../services/auth-service";
+import { login, register } from "../controllers/auth-controller";
 
 const authRouter = express.Router();
 
-authRouter.post("/login", async (req, res) => {
-  let result: any | null = null;
-
-  try {
-    result = await login(req);
-  } catch {
-    return res.status(500).send(`Internal error`);
-  }
-
-  return res.json(result);
-});
-
-authRouter.post("/register", async (req, res) => {
-  let result: IUserData | null = null;
-
-  try {
-    result = await register(req);
-  } catch (err) {
-    return res.status(500).send(`Internal error`);
-  }
-
-  return res.json(result);
-});
+authRouter.post("/login", login);
+authRouter.post("/register", register);
 
 export default authRouter;

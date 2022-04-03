@@ -5,7 +5,7 @@ import { hashPassword, checkHash } from "../helpers/password";
 import { signJwtToken } from "../helpers/jwt";
 import IUserData from "../interfaces/IUserData";
 
-export async function register(req: any): Promise<IUserData> {
+export async function registerUser(req: any): Promise<IUserData> {
   const { name, email, password } = req.body;
   const hash = hashPassword(password);
   const newUser = { name, email, hash };
@@ -13,7 +13,7 @@ export async function register(req: any): Promise<IUserData> {
   return { id: user._id, name: user.name, email: user.email };
 }
 
-export async function login(req: any): Promise<any> {
+export async function loginUser(req: any): Promise<any> {
   const { email, password } = req.body;
   const user = await getUser(email);
   if (!user) throw Error("User not found.");

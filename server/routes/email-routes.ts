@@ -1,17 +1,9 @@
 import express from "express";
 
-import { sendCustomerQuery } from "../services/email/email-service";
+import { customerQuery } from "../controllers/email-controller";
 
 const emailRouter = express.Router();
 
-emailRouter.post("/", async (req, res) => {
-  let result: boolean = false;
-  try {
-    result = await sendCustomerQuery(req.body.contactDetails);
-  } catch {
-    return res.status(500).send(`Internal error`);
-  }
-  return res.json(result);
-});
+emailRouter.post("/", customerQuery);
 
 export default emailRouter;
