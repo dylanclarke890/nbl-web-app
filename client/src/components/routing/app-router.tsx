@@ -28,6 +28,7 @@ import Home from "../home/home";
 import Treatments from "../treatments/treatments";
 
 import Register from '../admin/auth/register';
+import Login from '../admin/auth/login';
 
 import NotFound from '../shared/error/not-found';
 import MainLayout from '../layouts/main-layout/main-layout';
@@ -50,6 +51,7 @@ export default function AppRouter() {
     [
       ["", <Admin />],
       ["/register", <Register />],
+      ["/login", <Login />],
       ["/appointments", <ListAppointments />],
       ["/appointments/new", <NewAppointment />],
       ["/appointments/edit/:id", <EditAppointment />],

@@ -5,7 +5,7 @@ import { login, register } from "../services/auth-service";
 const authRouter = express.Router();
 
 authRouter.post("/login", async (req, res) => {
-  let result: IUserData | null = null;
+  let result: any | null = null;
 
   try {
     result = await login(req);
