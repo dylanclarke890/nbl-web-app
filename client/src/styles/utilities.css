@@ -97,6 +97,10 @@
   display: none;
 }
 
+.grid {
+  display: grid;
+}
+
 .block {
   display: block;
 }

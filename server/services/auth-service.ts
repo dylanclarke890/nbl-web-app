@@ -12,6 +12,7 @@ export async function register(req: any): Promise<IUserData> {
     email: req.body.email,
     hash,
   });
+
   await user.save();
   return { id: user._id, name: user.name, email: user.email };
 }
@@ -26,36 +27,17 @@ export async function login(req: any): Promise<IUserData> {
 }
 
 function checkHash(password: string, hashedPassword: string) {
-  let isAMatch = false;
-  bcrypt.compare(password, hashedPassword, async (err, isMatch) => {
-    if (!isMatch || err) {
-      console.log(hashedPassword + " is not encryption of " + password);
-    }
-    isAMatch = isMatch && !err;
-    console.log("Encrypted password is: ", password);
-    console.log("Decrypted password is: ", hashedPassword);
-  });
-  return isAMatch;
+  return bcrypt.compareSync(password, hashedPassword);
 }
 
 function getHash(password: string, salt: string) {
-  let generated = "";
-  bcrypt.hash(password, salt, (err, hash) => {
-    const errMsg = "Error while hashing.";
-    if (err) throw Error(errMsg);
-    if (!checkHash(password, hash)) throw Error(errMsg);
-    generated = hash;
-  });
-
+  const generated = bcrypt.hashSync(password, salt);
+  if (!checkHash(password, generated)) throw Error("Issue with hash.");
   return generated;
 }
 
 function hashPassword(password: string) {
-  let hashedPassword = "";
-  bcrypt.genSalt(10, (err, Salt) => {
-    if (err) throw Error("Error while generating salt.");
-    hashedPassword = getHash(password, Salt);
-  });
-
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = getHash(password, salt);
   return hashedPassword;
 }

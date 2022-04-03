@@ -21,7 +21,7 @@ authRouter.post("/register", async (req, res) => {
 
   try {
     result = await register(req);
-  } catch {
+  } catch (err) {
     return res.status(500).send(`Internal error`);
   }
 

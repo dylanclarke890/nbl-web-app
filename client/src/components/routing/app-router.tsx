@@ -18,6 +18,7 @@ import EditSchedule from '../admin/schedule/edit-schedule';
 import ListSchedules from '../admin/schedule/list-schedules';
 import NewSchedule from '../admin/schedule/new-schedule';
 import ViewSchedule from '../admin/schedule/view-schedule';
+
 import Booking from "../booking/booking";
 import BookingOptions from '../booking/booking-options/booking-options';
 import CancelBooking from '../booking/cancel-appointment/cancel-booking';
@@ -25,6 +26,8 @@ import Contact from "../contact/contact";
 import Gallery from "../gallery/gallery";
 import Home from "../home/home";
 import Treatments from "../treatments/treatments";
+
+import Register from '../admin/auth/register';
 
 import NotFound from '../shared/error/not-found';
 import MainLayout from '../layouts/main-layout/main-layout';
@@ -46,6 +49,7 @@ export default function AppRouter() {
   const adminRoutes: [string, JSX.Element][] =
     [
       ["", <Admin />],
+      ["/register", <Register />],
       ["/appointments", <ListAppointments />],
       ["/appointments/new", <NewAppointment />],
       ["/appointments/edit/:id", <EditAppointment />],
