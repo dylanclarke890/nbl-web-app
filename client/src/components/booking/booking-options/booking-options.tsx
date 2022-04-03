@@ -35,7 +35,7 @@ export default function BookingOptions() {
       loaded();
     }
     fetchData().catch(() => { onError(); loaded(); });;
-  }, [loading]);
+  }, []);
   /* eslint-enable */
 
   return (
