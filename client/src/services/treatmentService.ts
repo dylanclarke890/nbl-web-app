@@ -3,7 +3,10 @@ import Treatment from "../models/treatment";
 
 const APIENDPOINT = "/api/treatments/";
 
-export async function getAllTreatments(onSuccess: (data: Treatment[]) => void, includeInActive?: boolean) {
+export async function getAllTreatments(
+  onSuccess: (data: Treatment[]) => void,
+  includeInActive?: boolean
+) {
   let res: any = {};
   res = await axios.get(`${APIENDPOINT}all/${includeInActive}`);
   let treatments: Treatment[] = [];

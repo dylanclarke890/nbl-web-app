@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import Schedule from "../models/schedule";
 
 const APIENDPOINT = "/api/schedules/";

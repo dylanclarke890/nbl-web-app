@@ -36,7 +36,7 @@ export default function Login() {
     isLoading();
     const res = await login({ email, password })
       .catch(onError);
-    console.log(res);
+    if (res) window.location.href = "/admin";
     loaded();
   }
 
