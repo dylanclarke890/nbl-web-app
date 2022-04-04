@@ -55,7 +55,6 @@ export default function Register() {
     isLoading();
     const res = await register({ name, email, password })
       .catch(onError);
-    console.log(res);
     if (res) setCurrSlide(1);
     loaded();
   }

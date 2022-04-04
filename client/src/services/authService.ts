@@ -19,7 +19,6 @@ export async function login(data: ILoginData): Promise<boolean> {
   const res = await axios.post(`${APIENDPOINT}login`, data);
   if (res.data) {
     setJWT(res.data);
-    console.log("JWT set");
     return true;
   }
   return false;
