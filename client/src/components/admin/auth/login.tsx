@@ -34,8 +34,9 @@ export default function Login() {
     const valid = validateFields();
     if (loading || !valid) return;
     isLoading();
-    await login({ email, password })
+    const res = await login({ email, password })
       .catch(onError);
+    console.log(res);
     loaded();
   }
 

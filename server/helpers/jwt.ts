@@ -15,19 +15,15 @@ export function signJwtToken(
   });
 }
 
-export function verifyJwtToken({ token, secret }) {
+export function verifyJwtToken({ token, secret }: { token: any; secret: any }) {
   return new Promise((resolve, reject) => {
-    jwt.verify(
-      token,
-      secret,
-      (err: { name: string; message: any }, payload: any) => {
-        if (err) {
-          const message =
-            err.name === "TokenExpiredError" ? err.message : "Unauthorized";
-          return reject(message);
-        }
-        resolve(payload);
+    jwt.verify(token, secret, (err: any, payload: any) => {
+      if (err) {
+        const message =
+          err.name === "TokenExpiredError" ? err.message : "Unauthorized";
+        return reject(message);
       }
-    );
+      resolve(payload);
+    });
   });
 }
