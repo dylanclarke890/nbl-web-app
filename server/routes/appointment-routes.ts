@@ -16,6 +16,7 @@ appointmentRouter.get("/overview/:year/:month", getOverview);
 appointmentRouter.get("/:day/:month/:year/:treatmentId", getDaily);
 appointmentRouter.get("/all", accessTokenValidator, getAll);
 appointmentRouter.get("/:id", accessTokenValidator, getById);
+appointmentRouter.post("/new/admin", accessTokenValidator, add);
 appointmentRouter.post("/new", add);
 appointmentRouter.put("/edit/:id", accessTokenValidator, update);
 appointmentRouter.delete("/cancel/:id", accessTokenValidator, deleteById);

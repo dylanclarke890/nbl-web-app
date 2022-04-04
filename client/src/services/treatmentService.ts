@@ -8,7 +8,9 @@ export async function getAllTreatments(
   includeInActive?: boolean
 ) {
   let res: any = {};
-  res = await axios.get(`${APIENDPOINT}all/${includeInActive}`);
+  res = await axios.get(
+    `${APIENDPOINT}all${includeInActive ? "/admin" : null}`
+  );
   let treatments: Treatment[] = [];
 
   res.data.forEach((el: Treatment) => {

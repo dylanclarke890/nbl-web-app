@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
-import { addAppointment } from "../../../services/appointmentService";
+import { ToastContext } from "../../../contexts/toast-context/toast-context";
+import { LoadingContext } from "../../../contexts/loading-context/loading-context";
+import { addAdminAppointment } from "../../../services/appointmentService";
 import Appointment from "../../../models/appointment";
 
 import AppointmentForm from "../../shared/forms/appointment-form/appointment-form";
 import Header from "../../shared/header/header";
-import { ToastContext } from "../../../contexts/toast-context/toast-context";
-import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 
 export default function NewAppointment() {
   const { createToast } = useContext(ToastContext);
@@ -27,7 +27,7 @@ export default function NewAppointment() {
     if (!readyToSubmit || loading) return;
     const sendData = async () => {
       isLoading();
-      await addAppointment(appointment, { ...appointment.person }, appointment.date!, appointment.treatment!, () => setCurrSlide(1));
+      await addAdminAppointment(appointment, { ...appointment.person }, appointment.date!, appointment.treatment!, () => setCurrSlide(1));
       setCurrSlide(1);
       loaded();
     }

@@ -10,7 +10,17 @@ import {
 export async function getAll(req: any, res: any) {
   let result: ITreatment[];
   try {
-    result = await getAllTreatments(req.params.includeInActive === "true");
+    result = await getAllTreatments(false);
+  } catch {
+    return res.status(500).send(`Internal error`);
+  }
+  return res.json(result);
+}
+
+export async function getAllAdmin(req: any, res: any) {
+  let result: ITreatment[];
+  try {
+    result = await getAllTreatments(true);
   } catch {
     return res.status(500).send(`Internal error`);
   }

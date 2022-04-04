@@ -85,6 +85,34 @@ export async function addAppointment(
   onSuccess(successInfo);
 }
 
+export async function addAdminAppointment(
+  appointment: Appointment,
+  person: IPerson,
+  date: Date,
+  treatment: Treatment,
+  onSuccess: (arg0: {
+    message: string;
+    reference: string;
+    time: string;
+  }) => void,
+  sendConfirmation?: boolean
+): Promise<void> {
+  let res = await axios.post(`${APIENDPOINT}new/admin`, {
+    time: { from: appointment.from, to: appointment.to },
+    person,
+    date,
+    treatment,
+    sendConfirmation,
+  });
+  let booking = res.data;
+  const successInfo = {
+    message: res.data.message,
+    reference: booking._id,
+    time: `${booking.time.from} - ${booking.time.to}`,
+  };
+  onSuccess(successInfo);
+}
+
 export async function getAppointmentsByDay(
   day: Date,
   treatmentId: string
