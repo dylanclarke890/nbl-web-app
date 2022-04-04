@@ -1,16 +1,17 @@
 import { AxiosRequestConfig as Config } from "axios";
 
+const JWTStorageName = "JWT";
+
 export function setJWT(token: any) {
-  localStorage.setItem("JWT", JSON.stringify(token));
+  localStorage.setItem(JWTStorageName, JSON.stringify(token));
 }
 
 export function getJWT() {
-  return localStorage.getItem("JWT");
+  return localStorage.getItem(JWTStorageName);
 }
 
 export function setAuthHeaders(config: Config<any>): Config<any> {
-  console.log("Intercepted");
   const token = getJWT();
-  config.headers!.authorization = `Bearer ${token}`;
+  if (token) config.headers!.authorization = `Bearer ${token}`;
   return config;
 }
