@@ -11,6 +11,7 @@ import CheckmarkSvg from "../../shared/svgs/checkmark-svg";
 
 import './cancel-booking.css';
 import { LoadingContext } from "../../../contexts/loading-context/loading-context";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function CancelBooking() {
   const { createToast } = useContext(ToastContext);
@@ -61,9 +62,10 @@ export default function CancelBooking() {
       onError();
     }
   }
-
+  const titleAndDesc = <TitleAndDesc title="Cancel a booking" desc="Cancel an existing appointment." />
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       {showModal ?
         <Modal setShowModal={setShowModal} >
           <div className="confirmation-modal-content">
@@ -92,6 +94,7 @@ export default function CancelBooking() {
     </>
   ) :
     <>
+      {titleAndDesc}
       <div className="flex flex-column col-center mt-2">
         <CheckmarkSvg />
         <p className="title">Your appointment has been successfully cancelled. Hope to see you again soon!</p>

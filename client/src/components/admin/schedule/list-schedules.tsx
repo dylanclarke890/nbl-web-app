@@ -53,7 +53,7 @@ export default function ListSchedules(): JSX.Element {
 
   return (
     <>
-      <TitleAndDesc title="View All Schedule" desc="" />
+      <TitleAndDesc title="View All Schedules" desc="" />
       <Header headerTitle='Schedules' />
       <div className="table-wrapper">
         <table>

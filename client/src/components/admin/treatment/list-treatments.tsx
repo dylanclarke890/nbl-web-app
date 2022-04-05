@@ -49,7 +49,7 @@ export default function ListTreatments(): JSX.Element {
 
   return (
     <>
-      <TitleAndDesc title="View All Treatment" desc="" />
+      <TitleAndDesc title="View All Treatments" desc="" />
       <Header headerTitle='Treatments' />
       <div className="table-wrapper">
         <table>
