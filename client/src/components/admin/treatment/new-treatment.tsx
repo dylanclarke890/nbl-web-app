@@ -7,6 +7,7 @@ import TreatmentForm from "../../shared/forms/treatment-form/treatment-form";
 import Header from "../../shared/header/header";
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
 import { LoadingContext } from "../../../contexts/loading-context/loading-context";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function NewTreatment() {
   const { createToast } = useContext(ToastContext);
@@ -35,13 +36,16 @@ export default function NewTreatment() {
   }, [treatment, readyToSubmit]);
   /* eslint-enable */
 
+  const titleAndDesc = <TitleAndDesc title="New Treatment" desc="" />;
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <Header headerTitle="New" returnLinkUrl={'../admin/treatments'} linkText={'Back to all'} />
       <TreatmentForm onSubmit={handleSubmit} />
     </>
   ) : (
     <>
+      {titleAndDesc}
       <Header headerTitle="Success!" returnLinkUrl={'../admin/treatments'} linkText={'Back to all'} />
     </>
   )

@@ -8,6 +8,7 @@ import Header from '../../shared/header/header';
 import '../styles/admin.css'
 import { ToastContext } from '../../../contexts/toast-context/toast-context';
 import { LoadingContext } from '../../../contexts/loading-context/loading-context';
+import TitleAndDesc from '../../shared/title-and-desc/title-and-desc';
 
 
 export default function ListTreatments(): JSX.Element {
@@ -48,6 +49,7 @@ export default function ListTreatments(): JSX.Element {
 
   return (
     <>
+      <TitleAndDesc title="View All Treatment" desc="" />
       <Header headerTitle='Treatments' />
       <div className="table-wrapper">
         <table>

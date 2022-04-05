@@ -7,6 +7,7 @@ import { deleteTreatment } from "../../../services/treatmentService";
 
 import TreatmentForm from "../../shared/forms/treatment-form/treatment-form";
 import Header from "../../shared/header/header";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function DeleteTreatment() {
   const { id } = useParams();
@@ -34,8 +35,10 @@ export default function DeleteTreatment() {
   }, [deleteConfirmed, id]);
   /* eslint-enable */
 
+  const titleAndDesc = <TitleAndDesc title="Delete Treatment" desc="" />;
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <Header headerTitle={`Delete`} returnLinkUrl={'../admin/treatments'} linkText={'Back to all'} />
       <TreatmentForm id={id} readOnly />
       <h2 className="title text-center">Are you sure you want to delete this?</h2>
@@ -45,6 +48,7 @@ export default function DeleteTreatment() {
     </>
   ) : (
     <>
+      {titleAndDesc}
       <Header headerTitle="Success!" returnLinkUrl={'../admin/treatments'} linkText={'Back to all'} />
     </>
   )
