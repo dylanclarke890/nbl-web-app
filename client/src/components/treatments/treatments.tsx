@@ -4,6 +4,7 @@ import { LoadingContext } from "../../contexts/loading-context/loading-context";
 import { ToastContext } from "../../contexts/toast-context/toast-context";
 import Treatment from "../../models/treatment";
 import { getAllTreatments } from "../../services/treatmentService";
+import TreatmentItem from "./treatment-item/treatment-item";
 
 import './treatments.css';
 
@@ -15,13 +16,8 @@ export default function Treatments() {
   const updateTreatmentSelection = useCallback((treatments: Treatment[]) => {
     const treatmentOptions: JSX.Element[] = [];
     for (let i = 0; i < treatments.length; i++) {
-      const el = treatments[i];
       treatmentOptions.push((
-        <div key={el._id} className="treatment-option flex">
-          <p className="treatment-option-type">{el.type} <span>({el.duration} mins)</span></p>
-          <p className="treatment-option-separator"></p>
-          <p className="treatment-option-duration">&#163; {el.price}</p>
-        </div>
+        <TreatmentItem key={treatments[i]._id} treatment={treatments[i]} />
       ));
     }
     setTreatmentOptions([...treatmentOptions]);
@@ -47,7 +43,7 @@ export default function Treatments() {
         {treatmentOptions}
       </div>
       <div className="flex justify-center mt-3">
-        <Link className="btn" to="/make-a-booking/booking-options">Book Now!</Link>
+        <Link className="btn" to="/booking-options">Book Now!</Link>
       </div>
     </>
   )

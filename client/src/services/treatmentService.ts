@@ -13,7 +13,14 @@ export async function getAllTreatments(
 
   res.data.forEach((el: Treatment) => {
     treatments.push(
-      new Treatment(el._id, el.type, el.duration, el.price, el.isActive)
+      new Treatment(
+        el._id,
+        el.type,
+        el.duration,
+        el.price,
+        el.isActive,
+        el.description
+      )
     );
   });
   onSuccess(treatments);

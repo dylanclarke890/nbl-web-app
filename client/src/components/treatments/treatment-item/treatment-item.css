@@ -1,0 +1,22 @@
+.treatment-option {
+  text-align: center;
+  font-size: larger;
+  margin: 0.5em;
+  min-height: 3em;
+}
+
+.treatment-option p span {
+  font-size: medium;
+}
+
+.treatment-option-type,
+.treatment-option-duration {
+  width: 33%;
+}
+
+.treatment-option-separator {
+  width: 100%;
+  border-bottom: 1px solid #aaa;
+  position: relative;
+  bottom: 0.65em;
+}
