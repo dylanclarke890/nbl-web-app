@@ -3,6 +3,7 @@ import { LoadingContext } from "../../../contexts/loading-context/loading-contex
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
 import { login } from "../../../services/authService";
 import CustomInput from "../../shared/input/custom-input/custom-input";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function Login() {
   const { createToast } = useContext(ToastContext);
@@ -42,6 +43,7 @@ export default function Login() {
 
   return (
     <>
+      <TitleAndDesc title="Login" desc="Login to your account." />
       <div className="sign-form">
         <h2 className="title text-center">Login</h2>
         <CustomInput inputId="email" error={emailErrMsg} active={email !== ""} onChange={setEmail} />

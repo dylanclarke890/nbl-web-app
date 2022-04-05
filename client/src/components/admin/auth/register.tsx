@@ -7,6 +7,7 @@ import { register } from "../../../services/authService";
 
 import CustomInput from "../../shared/input/custom-input/custom-input";
 import CheckmarkSvg from "../../shared/svgs/checkmark-svg";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 import './sign.css';
 
@@ -58,9 +59,10 @@ export default function Register() {
     if (res) setCurrSlide(1);
     loaded();
   }
-
+  const titleAndDesc = <TitleAndDesc title="Register" desc="Sign up an account today." />
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <div className="sign-form">
         <h2 className="title text-center">Sign Up</h2>
         <CustomInput inputId="name" error={nameErrMsg} active={name !== ""} onChange={setName} />
@@ -74,6 +76,7 @@ export default function Register() {
     </>
   ) : (
     <>
+      {titleAndDesc}
       <h2 className="text-center mt-1">Success!</h2>
       <CheckmarkSvg />
       <div className="flex justify-center mt-2">
