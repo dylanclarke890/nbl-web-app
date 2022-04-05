@@ -4,7 +4,6 @@ let treatmentSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    lowercase: true,
   },
   duration: {
     type: Number,
