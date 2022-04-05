@@ -29,6 +29,10 @@ header p {
   transition: all 0.3s ease-in;
 }
 
+.available-times {
+  min-height: 13em;
+}
+
 .time-slot:hover {
   background-color: rgba(183, 110, 121, 0.2);
 }

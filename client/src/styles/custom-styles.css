@@ -24,6 +24,7 @@
 .btn {
   padding: 15px 32px;
   border-radius: 5px;
+  font-weight: 500;
 }
 
 .cancel-btn {

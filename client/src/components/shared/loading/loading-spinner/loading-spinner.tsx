@@ -11,7 +11,7 @@ export default function LoadingSpinner({ loadingText }: ILoadingSpinner) {
         <div className="h-100 flex flex-column justify-center align-center">
           <div className="loading-spinner">
           </div>
-          <p className="text-center title">{loadingText}</p>
+          <p className="text-center title loading-text">{loadingText}</p>
         </div>
       </div>
     </>

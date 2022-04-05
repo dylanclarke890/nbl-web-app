@@ -17,7 +17,9 @@ export default function Treatments() {
     const treatmentOptions: JSX.Element[] = [];
     for (let i = 0; i < treatments.length; i++) {
       treatmentOptions.push((
-        <TreatmentItem key={treatments[i]._id} treatment={treatments[i]} />
+        <div className={`fade-in delay-${i * 200}`}>
+          <TreatmentItem key={treatments[i]._id} treatment={treatments[i]} />
+        </div>
       ));
     }
     setTreatmentOptions([...treatmentOptions]);
@@ -36,7 +38,7 @@ export default function Treatments() {
   }, []);
   /* eslint-enable */
 
-  return (
+  return loading ? null : (
     <>
       <h1 className="title text-center">Treatments</h1>
       <div className="treatments-container mb-3">

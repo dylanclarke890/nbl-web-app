@@ -15,14 +15,14 @@ export default function CallToAction() {
         </div>
       </div>
       <div className="hero-box">
-        <div className="left-side">
+        <div className="left-side fade-in">
           <p className="title hero-title text-white">NBL by Tanya</p>
           <p className="text-white">
             High quality treatments available at low prices.
           </p>
           <Link className="btn" to={"/booking-options"}>Book Now!</Link>
         </div>
-        <div className="right-side">
+        <div className="right-side fade-in">
           <div className="image-box">
             <div className="hero-image"></div>
           </div>

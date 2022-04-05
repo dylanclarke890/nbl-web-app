@@ -12,8 +12,8 @@ import { LoadingContext } from "../../../contexts/loading-context/loading-contex
 export default function BookingOptions() {
   const { createToast } = useContext(ToastContext);
   const { isLoading, loaded, loading } = useContext(LoadingContext);
-  const [treatmentOptions, setTreatmentOptions] = useState<JSX.Element[]>([]);
 
+  const [treatmentOptions, setTreatmentOptions] = useState<JSX.Element[]>([]);
   const updateTreatmentSelection = useCallback((treatments: Treatment[]) => {
     const treatmentOptions: JSX.Element[] = [];
     for (let i = 0; i < treatments.length; i++) {
@@ -38,11 +38,13 @@ export default function BookingOptions() {
   }, []);
   /* eslint-enable */
 
-  return (
+  return loading ? null : (
     <>
       <TreatmentOptionSelector treatmentOptionButtons={treatmentOptions} />
-      <p className="sub-title text-center mt-2">Or</p>
-      <CancellationOption />
+      <p className={`sub-title text-center mt-2 fade-in delay-${treatmentOptions.length * 200}`}>Or</p>
+      <div className={`fade-in delay-${(treatmentOptions.length * 200) + 200}`}>
+        <CancellationOption />
+      </div>
     </>
   )
 }
