@@ -67,8 +67,8 @@ export default function Register() {
         <h2 className="title text-center">Sign Up</h2>
         <CustomInput inputId="name" error={nameErrMsg} active={name !== ""} onChange={setName} />
         <CustomInput inputId="email" error={emailErrMsg} active={email !== ""} onChange={setEmail} />
-        <CustomInput inputId="password" error={passwordErrMsg} active={password !== ""} onChange={setPassword} />
-        <CustomInput inputId="confirmPassword" labelText="password again" error={confirmPasswordErrMsg} active={confirmPassword !== ""} onChange={setConfirmPassword} />
+        <CustomInput inputId="password" error={passwordErrMsg} active={password !== ""} onChange={setPassword} password />
+        <CustomInput inputId="confirmPassword" labelText="password again" error={confirmPasswordErrMsg} active={confirmPassword !== ""} onChange={setConfirmPassword} password />
         <div className="flex justify-center">
           <button className="btn" onClick={submit}>Submit</button>
         </div>

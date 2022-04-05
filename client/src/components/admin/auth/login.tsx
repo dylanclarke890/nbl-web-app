@@ -47,7 +47,7 @@ export default function Login() {
       <div className="sign-form">
         <h2 className="title text-center">Login</h2>
         <CustomInput inputId="email" error={emailErrMsg} active={email !== ""} onChange={setEmail} />
-        <CustomInput inputId="password" error={passwordErrMsg} active={password !== ""} onChange={setPassword} />
+        <CustomInput inputId="password" error={passwordErrMsg} active={password !== ""} onChange={setPassword} password />
         <div className="flex justify-center">
           <button className="btn" onClick={submit}>Login</button>
         </div>

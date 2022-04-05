@@ -7,4 +7,5 @@ interface ICustomInput {
   onChange: any;
   onKeyPress?: any;
   readonly?: boolean;
+  password?: boolean;
 }
