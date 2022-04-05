@@ -22,7 +22,7 @@ app.use("/api/contact", emailRouter);
 
 app.use(reactFilesRequestHandler);
 
-app.use(express.static(path.join(__dirname, "../../client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
