@@ -18,7 +18,7 @@ app.use("/api/treatments", treatmentRouter);
 app.use("/api/schedules", scheduleRouter);
 app.use("/api/contact", emailRouter);
 
-app.use((req: any, res: any, next: any) => {
+app.use((req, res, next) => {
   if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
     next();
   } else {
