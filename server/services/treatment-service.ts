@@ -31,7 +31,7 @@ export async function editTreatment(id: string, item: any) {
   const update = item.treatment;
   try {
     const doc = await TreatmentModel.findById(id).exec();
-    doc.treatment = update.treatment;
+    doc.type = update.type;
     doc.duration = update.duration;
     doc.price = update.price;
     doc.isActive = update.isActive;
