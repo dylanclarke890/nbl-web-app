@@ -1,5 +1,5 @@
-var webpackConfig = require("./webpack.config");
-module.exports = function (config) {
+import webpackConfig from "./webpack.config";
+export default function (config) {
   config.set({
     basePath: "",
     frameworks: ["jasmine"],
