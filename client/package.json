@@ -1,6 +1,6 @@
 {
   "name": "nbl-web-app",
-  "homepage": "https://dylanclarke890.github.io",
+  "homepage": "/",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
