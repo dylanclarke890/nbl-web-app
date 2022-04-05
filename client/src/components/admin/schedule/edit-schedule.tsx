@@ -8,6 +8,7 @@ import ScheduleForm from "../../shared/forms/schedule-form/schedule-form";
 import Header from "../../shared/header/header";
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
 import { LoadingContext } from "../../../contexts/loading-context/loading-context";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function EditSchedule() {
   const { id } = useParams();
@@ -37,13 +38,16 @@ export default function EditSchedule() {
   }, [schedule, readyToSubmit]);
   /* eslint-enable */
 
+  const titleAndDesc = <TitleAndDesc title="Edit Schedule" desc="" />;
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <Header headerTitle={`Edit`} returnLinkUrl={'../admin/schedules'} linkText={'Back to all'} />
       <ScheduleForm id={id} onSubmit={handleSubmit} />
     </>
   ) : (
     <>
+      {titleAndDesc}
       <Header headerTitle="Success!" returnLinkUrl={'../admin/schedules'} linkText={'Back to all'} />
     </>
   )

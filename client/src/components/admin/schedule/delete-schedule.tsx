@@ -7,12 +7,13 @@ import { deleteSchedule } from "../../../services/scheduleService";
 
 import ScheduleForm from "../../shared/forms/schedule-form/schedule-form";
 import Header from "../../shared/header/header";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function DeleteSchedule() {
   const { id } = useParams();
   const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
-  
+
   const [currSlide, setCurrSlide] = useState(0);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
@@ -34,8 +35,10 @@ export default function DeleteSchedule() {
   }, [deleteConfirmed, id]);
   /* eslint-enable */
 
+  const titleAndDesc = <TitleAndDesc title="Delete Schedule" desc="" />;
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <Header headerTitle={`Delete`} returnLinkUrl={'../admin/schedules'} linkText={'Back to all'} />
       <ScheduleForm id={id} readOnly />
       <h2 className="title text-center">Are you sure you want to delete this?</h2>
@@ -45,6 +48,7 @@ export default function DeleteSchedule() {
     </>
   ) : (
     <>
+      {titleAndDesc}
       <Header headerTitle="Success!" returnLinkUrl={'../admin/schedules'} linkText={'Back to all'} />
     </>
   )

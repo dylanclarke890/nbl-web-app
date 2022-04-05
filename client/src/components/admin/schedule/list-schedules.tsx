@@ -9,6 +9,7 @@ import '../styles/admin.css'
 import { differenceInCalendarDays } from 'date-fns';
 import { ToastContext } from '../../../contexts/toast-context/toast-context';
 import { LoadingContext } from '../../../contexts/loading-context/loading-context';
+import TitleAndDesc from '../../shared/title-and-desc/title-and-desc';
 
 
 export default function ListSchedules(): JSX.Element {
@@ -52,6 +53,7 @@ export default function ListSchedules(): JSX.Element {
 
   return (
     <>
+      <TitleAndDesc title="View All Schedule" desc="" />
       <Header headerTitle='Schedules' />
       <div className="table-wrapper">
         <table>

@@ -7,6 +7,7 @@ import ScheduleForm from "../../shared/forms/schedule-form/schedule-form";
 import Header from "../../shared/header/header";
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
 import { LoadingContext } from "../../../contexts/loading-context/loading-context";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function NewSchedule() {
   const { createToast } = useContext(ToastContext);
@@ -35,13 +36,16 @@ export default function NewSchedule() {
   }, [schedule, readyToSubmit]);
   /* eslint-enable */
 
+  const titleAndDesc = <TitleAndDesc title="New Schedule" desc="" />;
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <Header headerTitle="New" returnLinkUrl={'../admin/schedules'} linkText={'Back to all'} />
       <ScheduleForm onSubmit={handleSubmit} />
     </>
   ) : (
     <>
+      {titleAndDesc}
       <Header headerTitle="Success!" returnLinkUrl={'../admin/schedules'} linkText={'Back to all'} />
     </>
   )
