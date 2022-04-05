@@ -1,0 +1,25 @@
+.treatments-container {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.treatment-option {
+  text-align: center;
+  font-size: larger;
+}
+
+.treatment-option p span {
+  font-size: medium;
+}
+
+.treatment-option-type, .treatment-option-duration {
+  width: 10em;
+}
+
+.treatment-option-separator {
+  width: 100%;
+  border-bottom: 1px solid #aaa;
+  position: relative;
+  bottom: 0.65em;
+  margin-left: 1.3em;
+}
