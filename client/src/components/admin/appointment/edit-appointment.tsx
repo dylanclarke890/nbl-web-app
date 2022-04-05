@@ -8,6 +8,7 @@ import Appointment from "../../../models/appointment";
 import AppointmentForm from "../../shared/forms/appointment-form/appointment-form";
 import Header from "../../shared/header/header";
 import { LoadingContext } from "../../../contexts/loading-context/loading-context";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function EditAppointment() {
   const { id } = useParams();
@@ -37,13 +38,16 @@ export default function EditAppointment() {
   }, [appointment, readyToSubmit]);
   /* eslint-enable */
 
+  const titleAndDesc = <TitleAndDesc title="Edit Appointment" desc="" />
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <Header headerTitle={`Edit`} returnLinkUrl={'../admin/appointments'} linkText={'Back to all'} />
       <AppointmentForm id={id} onSubmit={handleSubmit} />
     </>
   ) : (
     <>
+      {titleAndDesc}
       <Header headerTitle="Success!" returnLinkUrl={'../admin/appointments'} linkText={'Back to all'} />
     </>
   )

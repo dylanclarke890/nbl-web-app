@@ -9,6 +9,7 @@ import Header from '../../shared/header/header';
 
 import '../styles/admin.css'
 import { LoadingContext } from '../../../contexts/loading-context/loading-context';
+import TitleAndDesc from '../../shared/title-and-desc/title-and-desc';
 
 export default function ListAppointments(): JSX.Element {
   const { createToast } = useContext(ToastContext);
@@ -47,6 +48,7 @@ export default function ListAppointments(): JSX.Element {
 
   return (
     <>
+      <TitleAndDesc title="View All Appointments" desc="" />
       <Header headerTitle='Appointments' />
       <div className="table-wrapper">
         <table>

@@ -7,6 +7,7 @@ import Appointment from "../../../models/appointment";
 
 import AppointmentForm from "../../shared/forms/appointment-form/appointment-form";
 import Header from "../../shared/header/header";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function NewAppointment() {
   const { createToast } = useContext(ToastContext);
@@ -35,13 +36,16 @@ export default function NewAppointment() {
   }, [appointment, readyToSubmit]);
   /* eslint-enable */
 
+  const titleAndDesc = <TitleAndDesc title="New Appointment" desc="" />
   return currSlide === 0 ? (
     <>
+      {titleAndDesc}
       <Header headerTitle="New" returnLinkUrl={'../admin/appointments'} linkText={'Back to all'} />
       <AppointmentForm onSubmit={handleSubmit} />
     </>
   ) : (
     <>
+      {titleAndDesc}
       <Header headerTitle="Success!" returnLinkUrl={'../admin/appointments'} linkText={'Back to all'} />
     </>
   )
