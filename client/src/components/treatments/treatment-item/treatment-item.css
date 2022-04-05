@@ -20,3 +20,16 @@
   position: relative;
   bottom: 0.65em;
 }
+
+.treatment-option-desc {
+  width: 60%;
+  margin: 0 auto;
+  font-size: small;
+  text-align: left;
+}
+
+.treatment-option .plus-button {
+  position: relative;
+  bottom: 0.65em;
+  left: 0.4em;
+}

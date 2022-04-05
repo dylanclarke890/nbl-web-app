@@ -70,6 +70,7 @@ svg {
   position: relative;
   cursor: pointer;
 }
+
 .plus-button:after,
 .plus-button:before {
   content: "";
@@ -94,10 +95,10 @@ svg {
 }
 
 .plus-button-sm {
-	font-size: 12px;
+  font-size: 12px;
 }
 
 .plus-button-lg {
-	font-size: 22px;
+  font-size: 22px;
 }
 /* END OF PLUS BUTTON*/
