@@ -14,6 +14,7 @@ import AppointmentPicker from "./appointment/appointment-picker/appointment-pick
 import AppointmentConfirmation from "./appointment/appointment-confirmation/appointment-confirmation";
 
 import "./booking.css";
+import TitleAndDesc from "../shared/title-and-desc/title-and-desc";
 
 export default function Booking() {
   const { treatmentId } = useParams();
@@ -67,6 +68,7 @@ export default function Booking() {
 
   return (
     <>
+      <TitleAndDesc title="Make a booking" desc="Book your treatment today!" />
       <div className="booking-content">
         <div>
           {showModal ? (

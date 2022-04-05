@@ -4,6 +4,7 @@ import { LoadingContext } from "../../contexts/loading-context/loading-context";
 import { ToastContext } from "../../contexts/toast-context/toast-context";
 import Treatment from "../../models/treatment";
 import { getAllTreatments } from "../../services/treatmentService";
+import TitleAndDesc from "../shared/title-and-desc/title-and-desc";
 import TreatmentItem from "./treatment-item/treatment-item";
 
 import './treatments.css';
@@ -37,9 +38,10 @@ export default function Treatments() {
     fetchData().catch(() => { onError(); loaded(); });;
   }, []);
   /* eslint-enable */
-
-  return loading ? null : (
+  const titleAndDesc = <TitleAndDesc title="Treatments" desc="Check out our services!" />
+  return loading ? titleAndDesc : (
     <>
+      {titleAndDesc}
       <h1 className="title text-center">Treatments</h1>
       <div className="treatments-container mb-3">
         {treatmentOptions}

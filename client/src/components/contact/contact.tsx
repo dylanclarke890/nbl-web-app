@@ -11,6 +11,7 @@ import CustomTextArea from "../shared/input/custom-textarea/custom-textarea";
 import MessageConfirmation from "./message-confirmation/message-confirmation";
 
 import "./contact.css";
+import TitleAndDesc from "../shared/title-and-desc/title-and-desc";
 
 export default function Contact() {
   const { createToast } = useContext(ToastContext);
@@ -75,23 +76,26 @@ export default function Contact() {
     sendRequest().catch(() => { onError(); loaded(); });
   };
 
-  return currSlide === 0 ? (
-    <div className="contact-content">
-      <p className="text-center contact-title fade-in">Contact Us</p>
-      <div className="contact-form fade-in">
-        <ContactForm inputValidation={inputValidation} setInputValidation={setInputValidation} name={name} setName={setName} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} />
-        <CustomTextArea inputId={'message'} active={message !== ""} error={inputValidation.message} onChange={setMessage} />
-        <br />
-        <div className="form-button fade-in">
-          <button onClick={submit} className="btn" type="button">
-            Send
-          </button>
+  return <>
+    <TitleAndDesc title="Contact us" desc="Got a question? Get in touch!" />
+    {currSlide === 0 ? (
+      <div className="contact-content">
+        <p className="text-center contact-title fade-in">Contact Us</p>
+        <div className="contact-form fade-in">
+          <ContactForm inputValidation={inputValidation} setInputValidation={setInputValidation} name={name} setName={setName} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} />
+          <CustomTextArea inputId={'message'} active={message !== ""} error={inputValidation.message} onChange={setMessage} />
+          <br />
+          <div className="form-button fade-in">
+            <button onClick={submit} className="btn" type="button">
+              Send
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="mt-3">
-      <MessageConfirmation />
-    </div>
-  )
+    ) : (
+      <div className="mt-3">
+        <MessageConfirmation />
+      </div>
+    )}
+  </>
 }

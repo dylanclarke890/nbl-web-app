@@ -8,6 +8,7 @@ import TreatmentOptionSelector from "../treatment/treatment-option-selector/trea
 import Treatment from "../../../models/treatment";
 import CancellationOption from "../cancel-appointment/cancellation-option";
 import { LoadingContext } from "../../../contexts/loading-context/loading-context";
+import TitleAndDesc from "../../shared/title-and-desc/title-and-desc";
 
 export default function BookingOptions() {
   const { createToast } = useContext(ToastContext);
@@ -37,9 +38,10 @@ export default function BookingOptions() {
     fetchData().catch(() => { onError(); loaded(); });;
   }, []);
   /* eslint-enable */
-
-  return loading ? null : (
+  const titleAndDesc = <TitleAndDesc title="Select a treatment" desc="Book your treatment today!" />
+  return loading ? titleAndDesc : (
     <>
+      {titleAndDesc}
       <TreatmentOptionSelector treatmentOptionButtons={treatmentOptions} />
       <p className={`sub-title text-center mt-2 fade-in delay-${treatmentOptions.length * 200}`}>Or</p>
       <div className={`fade-in delay-${(treatmentOptions.length * 200) + 200}`}>
