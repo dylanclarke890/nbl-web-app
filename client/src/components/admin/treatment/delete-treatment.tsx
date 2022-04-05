@@ -35,7 +35,7 @@ export default function DeleteTreatment() {
   }, [deleteConfirmed, id]);
   /* eslint-enable */
 
-  const titleAndDesc = <TitleAndDesc title="Delete Treatment" desc="" />;
+  const titleAndDesc = <TitleAndDesc title="Delete Treatment"  />;
   return currSlide === 0 ? (
     <>
       {titleAndDesc}

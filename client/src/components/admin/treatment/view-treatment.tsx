@@ -10,7 +10,7 @@ export default function ViewTreatment() {
 
   return (
     <>
-      <TitleAndDesc title="View Treatment" desc="" />
+      <TitleAndDesc title="View Treatment"  />
       <Header headerTitle={`View`} returnLinkUrl={'../admin/treatments'} linkText={'Back to all'} />
       <TreatmentForm id={id} readOnly />
     </>

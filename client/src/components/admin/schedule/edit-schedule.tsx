@@ -38,7 +38,7 @@ export default function EditSchedule() {
   }, [schedule, readyToSubmit]);
   /* eslint-enable */
 
-  const titleAndDesc = <TitleAndDesc title="Edit Schedule" desc="" />;
+  const titleAndDesc = <TitleAndDesc title="Edit Schedule"  />;
   return currSlide === 0 ? (
     <>
       {titleAndDesc}

@@ -38,7 +38,7 @@ export default function Treatments() {
     fetchData().catch(() => { onError(); loaded(); });;
   }, []);
   /* eslint-enable */
-  const titleAndDesc = <TitleAndDesc title="Treatments" desc="Check out our services!" />
+  const titleAndDesc = <TitleAndDesc title="Treatments" desc="Check out the services on offer!" />
   return loading ? titleAndDesc : (
     <>
       {titleAndDesc}

@@ -10,7 +10,7 @@ export default function ViewAppointment() {
 
   return (
     <>
-      <TitleAndDesc title="View Appointment" desc="" />
+      <TitleAndDesc title="View Appointment"  />
       <Header headerTitle={`View`} returnLinkUrl={'../admin/appointments'} linkText={'Back to all'} />
       <AppointmentForm id={id} readOnly />
     </>

@@ -38,7 +38,7 @@ export default function EditTreatment() {
   }, [treatment, readyToSubmit]);
   /* eslint-disable */
 
-  const titleAndDesc = <TitleAndDesc title="Edit Treatment" desc="" />;
+  const titleAndDesc = <TitleAndDesc title="Edit Treatment"  />;
   return currSlide === 0 ? (
     <>
       {titleAndDesc}

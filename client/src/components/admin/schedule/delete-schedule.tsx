@@ -35,7 +35,7 @@ export default function DeleteSchedule() {
   }, [deleteConfirmed, id]);
   /* eslint-enable */
 
-  const titleAndDesc = <TitleAndDesc title="Delete Schedule" desc="" />;
+  const titleAndDesc = <TitleAndDesc title="Delete Schedule"  />;
   return currSlide === 0 ? (
     <>
       {titleAndDesc}

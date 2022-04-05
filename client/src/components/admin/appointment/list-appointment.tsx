@@ -48,7 +48,7 @@ export default function ListAppointments(): JSX.Element {
 
   return (
     <>
-      <TitleAndDesc title="View All Appointments" desc="" />
+      <TitleAndDesc title="View All Appointments"  />
       <Header headerTitle='Appointments' />
       <div className="table-wrapper">
         <table>

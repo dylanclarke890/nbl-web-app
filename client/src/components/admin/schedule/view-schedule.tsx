@@ -10,7 +10,7 @@ export default function ViewSchedule() {
 
   return (
     <>
-      <TitleAndDesc title="View Schedule" desc="" />
+      <TitleAndDesc title="View Schedule"  />
       <Header headerTitle={`View`} returnLinkUrl={'../admin/schedules'} linkText={'Back to all'} />
       <ScheduleForm id={id} readOnly />
     </>
