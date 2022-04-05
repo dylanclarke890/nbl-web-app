@@ -15,6 +15,10 @@ let treatmentSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
   },
+  description: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Treatment", treatmentSchema);

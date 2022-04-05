@@ -4,4 +4,5 @@ export default interface ITreatment {
   duration: number;
   price: number;
   isActive: boolean;
+  description?: string;
 }

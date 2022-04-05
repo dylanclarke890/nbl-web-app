@@ -48,7 +48,7 @@ export default function ListTreatments(): JSX.Element {
 
   return (
     <>
-      <Header headerTitle='Appointment Types' />
+      <Header headerTitle='Treatments' />
       <div className="table-wrapper">
         <table>
           <thead>

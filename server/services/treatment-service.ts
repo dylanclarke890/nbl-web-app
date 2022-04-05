@@ -11,9 +11,7 @@ export async function getAllTreatments(
     : await TreatmentModel.where("isActive").equals(true);
 }
 
-export async function getTreatment(
-  _id: string
-): Promise<ITreatment> {
+export async function getTreatment(_id: string): Promise<ITreatment> {
   return await TreatmentModel.findById(_id).exec();
 }
 
@@ -37,6 +35,7 @@ export async function editTreatment(id: string, item: any) {
     doc.duration = update.duration;
     doc.price = update.price;
     doc.isActive = update.isActive;
+    doc.description = update.description;
     await doc.save();
     success = true;
   } catch (e) {

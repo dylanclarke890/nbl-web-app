@@ -10,6 +10,7 @@ import CustomInput from "../../input/custom-input/custom-input";
 import './treatment-form.css'
 import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 import { LoadingContext } from "../../../../contexts/loading-context/loading-context";
+import CustomTextArea from "../../input/custom-textarea/custom-textarea";
 
 export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm) {
   const { createToast } = useContext(ToastContext);
@@ -26,6 +27,7 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
       setDuration(result.duration);
       setPrice(result.price);
       setIsActive(result.isActive);
+      setDescription(result.description ? result.description : "");
       loaded();
     }
     fetchData().catch(() => { onError(); loaded(); });
@@ -36,10 +38,12 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [isActive, setIsActive] = useState(true);
+  const [description, setDescription] = useState("");
   const [modelValidation, setModelValidation] = useState({
     type: "",
     duration: "",
     price: "",
+    description: "",
     error: false
   });
   const handleisActiveChange = () => {
@@ -161,6 +165,13 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
           error={modelValidation.price}
           onKeyPress={Validation.handlePriceNumberKeyPress}
           onChange={updatePrice}
+          readonly={readOnly}
+        />
+        <CustomTextArea inputId={"description"}
+          value={description}
+          active={description !== ""}
+          error={modelValidation.description}
+          onChange={setDescription}
           readonly={readOnly}
         />
         <div className="center-content">

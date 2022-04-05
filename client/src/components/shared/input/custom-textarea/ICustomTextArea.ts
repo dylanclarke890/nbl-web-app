@@ -4,4 +4,5 @@ export default interface ICustomTextArea {
   error: string;
   active: boolean;
   onChange: any;
+  readonly?: boolean;
 }

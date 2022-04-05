@@ -4,7 +4,7 @@ import ICustomTextArea from "./ICustomTextArea";
 
 import './custom-textarea.css';
 
-export default function CustomTextArea({ inputId, value, error, active, onChange }: ICustomTextArea) {
+export default function CustomTextArea({ inputId, value, error, active, onChange, readonly }: ICustomTextArea) {
   return (
     <div className="custom-field">
       <textarea
@@ -12,6 +12,7 @@ export default function CustomTextArea({ inputId, value, error, active, onChange
         placeholder="&nbsp;"
         value={value}
         onChange={e => onChange(e.currentTarget.value)}
+        readOnly={readonly}
       />
       <label
         htmlFor={inputId}
