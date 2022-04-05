@@ -232,7 +232,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
       loaded();
     }
     fetchData().catch(() => { onError(); loaded(); });
-  }, [id, onSubmit]);
+  }, [id]);
   /* eslint-enable */
   useOnInitialized(() => {
     setFirSlideErrs((curr) => ({

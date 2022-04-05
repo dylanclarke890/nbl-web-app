@@ -276,7 +276,7 @@ export default function AppointmentForm({ id, onSubmit, readOnly }: IAppointment
 
   return (
     <>
-      <div className="treatment-form">
+      <div className="appointment-admin-form mt-2">
         <CustomInput inputId={"name"}
           value={name}
           active={name !== ""}

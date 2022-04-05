@@ -142,7 +142,7 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
 
   return (
     <>
-      <div className="treatment-form">
+      <div className="treatment-form mt-2">
         <CustomInput inputId={"name"}
           value={type}
           active={type !== ""}
