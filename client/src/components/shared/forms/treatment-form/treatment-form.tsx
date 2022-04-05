@@ -135,7 +135,7 @@ export default function TreatmentForm({ id, onSubmit, readOnly }: ITreatmentForm
     if (!onSubmit) return;
     if (modelValidation.error) return;
 
-    const model = new Treatment(id!, type, parseInt(duration), parseFloat(price), isActive);
+    const model = new Treatment(id!, type, parseInt(duration), parseFloat(price), isActive, description);
     onSubmit!(model);
   }
   const submitButton = onSubmit ? <button className="btn" onClick={forwardClick}>Save</button> : null;
