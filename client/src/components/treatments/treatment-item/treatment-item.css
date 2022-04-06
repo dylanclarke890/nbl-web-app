@@ -1,34 +1,39 @@
-.treatment-option {
+.treatment {
   text-align: center;
   font-size: larger;
   margin: 0.5em;
   min-height: 3em;
 }
 
-.treatment-option p span {
+.treatment p span {
   font-size: medium;
 }
 
-.treatment-option-type,
-.treatment-option-duration {
+.treatment-type,
+.treatment-price {
   width: 33%;
 }
 
-.treatment-option-separator {
+.treatment-separator {
   width: 100%;
   border-bottom: 1px solid #aaa;
   position: relative;
   bottom: 0.65em;
 }
 
-.treatment-option-desc {
+.treatment-desc {
   width: 60%;
   margin: 0 auto;
   font-size: small;
   text-align: left;
 }
 
-.treatment-option .plus-button {
+.treatment-duration {
+  position: relative;
+  float: right;
+}
+
+.treatment .plus-button {
   position: relative;
   bottom: 0.65em;
   left: 0.4em;
