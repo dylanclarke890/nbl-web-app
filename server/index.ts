@@ -1,17 +1,20 @@
 import express from "express";
 import path from "path";
-
 let database = require("./services/database");
+
+import reactFilesRequestHandler from "./middlewares/react-files-request-handler";
+import { requestRateLimiter } from "./middlewares/request-rate-limiter";
 
 import appointmentRouter from "./routes/appointment-routes";
 import treatmentRouter from "./routes/treatment-routes";
 import scheduleRouter from "./routes/schedule-routes";
 import emailRouter from "./routes/email-routes";
 import authRouter from "./routes/auth-routes";
-import reactFilesRequestHandler from "./middlewares/react-files-request-handler";
+
 
 const app = express();
 
+app.use(requestRateLimiter);
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
