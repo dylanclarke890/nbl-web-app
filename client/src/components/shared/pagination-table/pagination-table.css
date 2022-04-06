@@ -1,3 +1,8 @@
+.table-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -25,15 +30,4 @@ td .custom-link {
 
 td .custom-link:not(:first-child) {
   margin: 0 0 0 5px;
-}
-
-.table-wrapper {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.new-btn {
-  display: flex;
-  justify-content: center;
-  margin-top: 1em;
 }
