@@ -4,7 +4,7 @@ import UserModel from "../models/user";
 import IUserInternal from "../interfaces/IUserInternal";
 
 export async function getUser(email: string) {
-  return await UserModel.findOne({ email });
+  return await UserModel.findOne({ email: email });
 }
 
 export async function addUser({ name, email, hash }: IUserInternal) {

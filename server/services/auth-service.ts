@@ -3,6 +3,7 @@ require("dotenv").config();
 import { addUser, getUser } from "./user-service";
 import { hashPassword, checkHash } from "../helpers/password";
 import { signJwtToken } from "../helpers/jwt";
+import * as Validation from "../helpers/validation";
 import IUserData from "../interfaces/IUserData";
 
 export async function registerUser(req: any): Promise<IUserData> {
@@ -15,11 +16,10 @@ export async function registerUser(req: any): Promise<IUserData> {
 
 export async function loginUser(req: any): Promise<any> {
   const { email, password } = req.body;
+  if (!Validation.validateEmail(email)) throw Error("Invalid email");
   const user = await getUser(email);
   if (!user) throw Error("User not found.");
-  if (!checkHash(password, user.hash)) {
-    throw Error("Password does not match.");
-  }
+  if (!checkHash(password, user.hash)) throw Error("Password does not match.");
   const token = await tokenHandler({
     id: user._id,
     name: user.name,
