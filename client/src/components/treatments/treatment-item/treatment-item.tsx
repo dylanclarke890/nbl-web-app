@@ -12,7 +12,7 @@ export default function TreatmentItem({ treatment }: ITreatmentItem) {
         <div className="treatment-option-duration">&#163; {treatment.price}
         </div>
       </div>
-      <div className="treatment-option-desc">{treatment.description} ({treatment.duration})</div>
+      <div className="treatment-option-desc">{treatment.description} {treatment.duration} mins</div>
     </div>
   )
 }
