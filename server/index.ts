@@ -10,7 +10,7 @@ import treatmentRouter from "./routes/treatment-routes";
 import scheduleRouter from "./routes/schedule-routes";
 import emailRouter from "./routes/email-routes";
 import authRouter from "./routes/auth-routes";
-
+import dashboardRouter from "./routes/dashboard-routes";
 
 const app = express();
 
@@ -22,9 +22,9 @@ app.use("/api/appointments", appointmentRouter);
 app.use("/api/treatments", treatmentRouter);
 app.use("/api/schedules", scheduleRouter);
 app.use("/api/contact", emailRouter);
+app.use("/api/dashboard", dashboardRouter);
 
 app.use(reactFilesRequestHandler);
-
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 const PORT = process.env.PORT || 3001;
