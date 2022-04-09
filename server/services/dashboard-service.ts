@@ -12,7 +12,7 @@ export async function getDashboard(req: any) {
   const weekEnd = endOfWeek(today);
 
   const appointmentsYTD = allAppointments.filter(
-    (a) => a.date.getFullYear() === today.getFullYear()
+    (a) => a.date.getFullYear() === today.getFullYear() && a.date <= today
   );
   const appointmentsMonth = appointmentsYTD.filter(
     (a) => a.date.getMonth() === today.getMonth()
@@ -54,7 +54,7 @@ function calculateEarnings(appointments: IAppointment[]) {
     const curr = appointments[i];
     total += curr.treatment.price;
   }
-  
+
   return parseFloat(total.toPrecision(4));
 }
 
