@@ -1,7 +1,8 @@
+import IDashboardData from "../interfaces/IDashboardData";
 import { getDashboard } from "../services/dashboard-service";
 
 export async function dashboard(req: any, res: any) {
-  let result: any;
+  let result: IDashboardData;
   try {
     result = await getDashboard(req);
   } catch {

@@ -1,14 +1,18 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+
 import { LoadingContext } from "../../../contexts/loading-context/loading-context";
 import { ToastContext } from "../../../contexts/toast-context/toast-context";
+
+import IDashboardData from "../../../interfaces/IDashboardData";
 import { getDashboard } from "../../../services/dashboardService";
 
 import './admin-dashboard.css';
 
-
 export default function AdminDashboard() {
   const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
+
+  const [dashboardData, setDashboardData] = useState<IDashboardData>()
 
   /* eslint-disable */
   const onError = useCallback(() => createToast("error", "Error while loading dashboard."), []);
@@ -17,7 +21,7 @@ export default function AdminDashboard() {
     const getData = async () => {
       isLoading();
       const res = await getDashboard();
-      if (res) alert(res);
+      setDashboardData(res);
       loaded();
     }
     getData().catch(() => { onError(); loaded(); });;
@@ -28,21 +32,21 @@ export default function AdminDashboard() {
     <>
       <div className="admin-dashboard">
         <div className="flex justify-between">
-          <div className="past-appointments-summary summary-box">
-            <h2 className="text-center">Past Appointments</h2>
-            <p>Appointments Today: <span className="data-figure">0</span></p>
-            <p>Appointments This Week: <span className="data-figure">4</span></p>
-            <p>Appointments This Month: <span className="data-figure">19</span></p>
-            <p>Appointments YTD: <span className="data-figure">87</span></p>
-            <p>Total Past Appointments: <span className="data-figure">219</span></p>
+          <div className="summary-box">
+            <h2 className="text-center">Appointments</h2>
+            <p>Appointments Today : <span className="data-figure">{dashboardData?.today.appointments}</span></p>
+            <p>Appointments This Week : <span className="data-figure">{dashboardData?.thisWeek.appointments}</span></p>
+            <p>Appointments This Month : <span className="data-figure">{dashboardData?.thisMonth.appointments}</span></p>
+            <p>Appointments YTD : <span className="data-figure">{dashboardData?.yearToDate.appointments}</span></p>
+            <p>Appointments All Time : <span className="data-figure">{dashboardData?.allTime.appointments}</span></p>
           </div>
-          <div className="past-earnings-summary summary-box">
-            <h2 className="text-center">Past Earnings</h2>
-            <p>Earnings Today: <span className="data-figure">&#163; 0</span></p>
-            <p>Earnings This Week: <span className="data-figure">&#163; 12.32</span></p>
-            <p>Earnings This Month: <span className="data-figure">&#163; 84.43</span></p>
-            <p>Earnings YTD: <span className="data-figure">&#163; 983.32</span></p>
-            <p>Total Past Earnings: <span className="data-figure">&#163; 12843.52</span></p>
+          <div className="summary-box">
+            <h2 className="text-center">Earnings</h2>
+            <p>Earnings Today : <span className="data-figure">&#163; {dashboardData?.today.earnings}</span></p>
+            <p>Earnings This Week : <span className="data-figure">&#163; {dashboardData?.thisWeek.earnings}</span></p>
+            <p>Earnings This Month : <span className="data-figure">&#163; {dashboardData?.thisMonth.earnings}</span></p>
+            <p>Earnings YTD : <span className="data-figure">&#163; {dashboardData?.yearToDate.earnings}</span></p>
+            <p>Earnings All Time : <span className="data-figure">&#163; {dashboardData?.allTime.earnings}</span></p>
           </div>
         </div>
       </div>
