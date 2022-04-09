@@ -25,10 +25,9 @@ export default function PaginationTable({ tableHeaderRow, tableRows, resultsPerP
 
   const pageIndicator = (
     <p className="text-center">
-      Showing {(currentPage * resultsPerPage) + 1} - {(currentPage * resultsPerPage) + resultsPerPage} appointments out of {tableRows.length}.
+      Showing {(currentPage * resultsPerPage) + 1} - {(currentPage * resultsPerPage) + resultsPerPage} results out of {tableRows.length}.
     </p>
   )
-
 
   return (
     <>
