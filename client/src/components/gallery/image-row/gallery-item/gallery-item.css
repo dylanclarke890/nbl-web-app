@@ -16,3 +16,13 @@
   text-align: center;
   padding: 0.625rem 1.25rem;
 }
+
+@media only screen and (max-width: 900px) {
+  .polaroid {
+    width: 100%;
+  }
+
+  .polaroid-container {
+    margin: 2rem 0;
+  }
+}

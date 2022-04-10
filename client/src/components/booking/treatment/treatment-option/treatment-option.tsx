@@ -9,7 +9,7 @@ export default function TreatmentOption({
 }: ITreatmentOption) {
   return (
     <div className={`fade-in delay-${delay}`}>
-      <Link className="btn" to={`make-a-booking/${item._id}`}>{item.type}</Link>
+      <Link className="btn btn-sm" to={`make-a-booking/${item._id}`}>{item.type}</Link>
     </div>
   );
 }

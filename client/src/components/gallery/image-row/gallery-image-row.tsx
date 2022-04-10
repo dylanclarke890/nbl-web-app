@@ -4,11 +4,11 @@ import GalleryItem from "./gallery-item/gallery-item";
 
 import './../gallery.css';
 
-const samplework1 = require("../../../images/portfolio/samplework1.jpg");
-const samplework2 = require("../../../images/portfolio/samplework2.jpg");
-const samplework3 = require("../../../images/portfolio/samplework3.jpg");
-const samplework4 = require("../../../images/portfolio/samplework4.jpg");
-const samplework5 = require("../../../images/portfolio/samplework5.jpg");
+import samplework1 from "../../../images/portfolio/samplework1.jpg";
+import samplework2 from "../../../images/portfolio/samplework2.jpg";
+import samplework3 from "../../../images/portfolio/samplework3.jpg";
+import samplework4 from "../../../images/portfolio/samplework4.jpg";
+import samplework5 from "../../../images/portfolio/samplework5.jpg";
 
 export default function GalleryImageRow() {
   return (

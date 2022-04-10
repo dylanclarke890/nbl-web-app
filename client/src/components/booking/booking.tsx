@@ -90,7 +90,7 @@ export default function Booking() {
             </Modal>
           ) : null}
         </div>
-        <div className="calendar-wrapper">
+        <div className="calendar-wrapper mt-3">
           <Calendar handleSelectedDate={updateDate} />
         </div>
       </div>

@@ -25,7 +25,7 @@
 }
 
 .contact-btn {
-  background-color: rgba(183,110,121,1);
+  background-color: rgba(183, 110, 121, 1);
   border: none;
   color: white;
   padding: 0.9375rem 2rem;
@@ -35,4 +35,10 @@
   cursor: pointer;
   position: relative;
   bottom: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .contact-form {
+    width: calc(100% - 1rem);
+  }
 }

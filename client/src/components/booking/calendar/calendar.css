@@ -135,3 +135,25 @@
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "liga";
 }
+
+.calendar-wrapper {
+  margin: 20px 10% 0 10%;
+  border: 1px solid rgba(183, 110, 121, 1);
+}
+
+@media only screen and (max-width: 1100px) {
+  .calendar-wrapper {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .calendar .body .cell .bg {
+    font-size: 3.5rem;
+    top: 1.9rem;
+  }
+
+  .calendar .body .selected {
+    border-left: none;
+  }
+}
