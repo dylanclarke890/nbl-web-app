@@ -7,10 +7,6 @@
   flex-direction: row;
 }
 
-.hero-img img {
-  width: 100%;
-}
-
 .hero-work-one {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../../../images/portfolio/samplework5.jpg");
@@ -77,6 +73,10 @@
   position: relative;
 }
 
+.mobile-cta-image {
+  height: 10em;
+}
+
 .hero-box .right-side .image-box .hero-image {
   background-image: url("../../../images/nbl-logo.jpg");
   background-size: cover;
@@ -84,4 +84,16 @@
   background-repeat: no-repeat;
   height: 100%;
   border-bottom-right-radius: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .cta {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .mobile-cta {
+    display: none;
+  }
 }
