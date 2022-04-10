@@ -10,6 +10,7 @@ import { addAppointment } from "../../../../services/appointmentService";
 
 import "./appointment-picker.css";
 import { LoadingContext } from "../../../../contexts/loading-context/loading-context";
+import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 
 export default function AppointmentPicker({
   closeModal,
@@ -18,9 +19,9 @@ export default function AppointmentPicker({
   setSelectedTime,
   selectedTime,
   treatment,
-  onError,
   onSuccessfulSubmit
 }: IAppointmentPicker) {
+  const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const times = [];
@@ -92,6 +93,8 @@ export default function AppointmentPicker({
     checkForEmptyInputs();
     checkTimeIsSelected();
   }
+
+  const onError = () => createToast("error", "Error while saving appointment.");
   useEffect(() => {
     if (!readyToSubmit) return;
     if (inputValidation.error) {

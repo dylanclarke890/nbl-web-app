@@ -81,7 +81,6 @@ export default function Booking() {
                   setSelectedTime={setSelectedTime}
                   selectedTime={selectedTime}
                   treatment={treatment}
-                  onError={onError}
                   onSuccessfulSubmit={changeSlide}
                 />
               ) : (
