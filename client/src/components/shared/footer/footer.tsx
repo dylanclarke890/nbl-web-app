@@ -1,10 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
 import SocialIcon from "./social-icon/social-icon";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 import "./footer.css";
+import NavbarLinks from "../navbar/nav-links";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -19,21 +19,7 @@ export default function Footer() {
       </div>
       <nav className="footer-nav">
         <div className="footer-items-wrapper">
-          <NavLink className="footer-item" to="/">
-            Home
-          </NavLink>
-          <NavLink className="footer-item" to="/treatments">
-            Treatments
-          </NavLink>
-          <NavLink className="footer-item" to="/booking-options">
-            Book Appointment
-          </NavLink>
-          <NavLink className="footer-item" to="/gallery">
-            Gallery
-          </NavLink>
-          <NavLink className="footer-item" to="/contact">
-            Contact
-          </NavLink>
+          <NavbarLinks itemClassNames="footer-item" />
         </div>
       </nav>
       <div>

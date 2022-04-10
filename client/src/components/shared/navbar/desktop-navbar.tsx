@@ -1,11 +1,11 @@
 import React from 'react';
-import NavbarLinks from './navbar-links';
+import NavbarLinks from './nav-links';
 
 export default function DesktopNavbar() {
   return (
     <>
       <div className="desktop-navbar hide-mobile">
-        <NavbarLinks />
+        <NavbarLinks itemClassNames="navbar-item" />
       </div>
     </>
   )

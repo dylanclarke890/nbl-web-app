@@ -1,35 +1,35 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function NavbarLinks() {
+export default function NavbarLinks({ itemClassNames }: { itemClassNames: string }) {
   return (
     <>
       <NavLink
-        className="navbar-item"
+        className={itemClassNames}
         to="/"
       >
         Home
       </NavLink>
       <NavLink
-        className="navbar-item"
+        className={itemClassNames}
         to="/treatments"
       >
         Treatments
       </NavLink>
       <NavLink
-        className="navbar-item"
+        className={itemClassNames}
         to="/booking-options"
       >
-        Book Appointment
+        Bookings
       </NavLink>
       <NavLink
-        className="navbar-item"
+        className={itemClassNames}
         to="/gallery"
       >
         Gallery
       </NavLink>
       <NavLink
-        className="navbar-item"
+        className={itemClassNames}
         to="/contact"
       >
         Contact

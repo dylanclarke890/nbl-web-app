@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavbarLinks from "./navbar-links";
+import NavbarLinks from "./nav-links";
 
 export default function MobileNavbar() {
   const [visible, setVisible] = useState(false);
@@ -15,7 +15,7 @@ export default function MobileNavbar() {
         {visible ? (
           <>
             <div className="navbar-dropdown">
-              <NavbarLinks />
+              <NavbarLinks itemClassNames="navbar-item" />
             </div>
           </>) : null}
       </div>
