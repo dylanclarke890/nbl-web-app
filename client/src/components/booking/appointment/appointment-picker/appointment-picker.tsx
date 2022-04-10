@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 
 import IAppointmentPicker from "./IAppointmentPicker";
@@ -86,23 +86,39 @@ export default function AppointmentPicker({
     setShowTimeError(selectedTime === "");
   }
 
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
+  const updateReadyToSubmit = () => {
+    setReadyToSubmit(true);
+    checkForEmptyInputs();
+    checkTimeIsSelected();
+  }
+  useEffect(() => {
+    if (!readyToSubmit) return;
+    if (inputValidation.error) {
+      setReadyToSubmit(false);
+      return;
+    }
+    submit()
+      .catch(() => { onError(); loaded(); setReadyToSubmit(false); });
+    setReadyToSubmit(false);
+  }, [readyToSubmit]);
+
   const submit = async () => {
     if (loading) return;
     isLoading();
-    checkForEmptyInputs();
-    checkTimeIsSelected();
+
     if (inputValidation.error || showTimeError) {
+      setReadyToSubmit(false);
       return;
     }
     const time = availableTimes.find(ti => ti.id === selectedTime);
     if (!time) {
-      onError();
+      setReadyToSubmit(false);
       loaded();
       return;
     }
 
-    await addAppointment(time!, { name, email, phone }, date, treatment, onSuccessfulSubmit, true)
-      .catch(() => { onError(); loaded(); });
+    await addAppointment(time!, { name, email, phone }, date, treatment, onSuccessfulSubmit, true);
     loaded();
   };
 
@@ -162,7 +178,7 @@ export default function AppointmentPicker({
               <button className="btn cancel-btn" onClick={() => closeModal()}>
                 Cancel
               </button>
-              <button className="btn float-right" onClick={() => submit()}>
+              <button className="btn float-right" onClick={() => updateReadyToSubmit()}>
                 Confirm
               </button>
             </div>
