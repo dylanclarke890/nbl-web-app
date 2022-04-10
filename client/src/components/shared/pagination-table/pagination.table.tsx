@@ -40,10 +40,11 @@ export default function PaginationTable({ tableHeaderRow, tableRows, resultsPerP
         </tbody>
       </table>
       <p className="mb-2">{pageIndicator}</p>
-      <div className="flex justify-center">
-        <button className="btn mr-1" onClick={prevPage}>Prev</button>
-        <button className="btn ml-1" onClick={nextPage}>Next</button>
-      </div>
+      {tableRowPages.length > 1 ?
+        <div className="flex justify-center">
+          <button className="btn mr-1" onClick={prevPage}>Prev</button>
+          <button className="btn ml-1" onClick={nextPage}>Next</button>
+        </div> : null}
     </>
   )
 }
