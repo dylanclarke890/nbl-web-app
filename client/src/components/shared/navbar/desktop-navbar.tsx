@@ -4,9 +4,9 @@ import NavbarLinks from './nav-links';
 export default function DesktopNavbar() {
   return (
     <>
-      <div className="desktop-navbar hide-mobile">
+      <header className="desktop-navbar hide-mobile">
         <NavbarLinks itemClassNames="navbar-item" />
-      </div>
+      </header>
     </>
   )
 }

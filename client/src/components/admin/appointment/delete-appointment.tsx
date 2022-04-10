@@ -35,7 +35,7 @@ export default function DeleteAppointment() {
   }, [id, deleteConfirmed]);
   /* eslint-enable */
 
-  const titleAndDesc = <TitleAndDesc title="Delete Appointment"  />
+  const titleAndDesc = <TitleAndDesc title="Delete Appointment" />
   return currSlide === 0 ? (
     <>
       {titleAndDesc}

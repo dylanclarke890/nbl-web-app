@@ -14,9 +14,9 @@ export default function MobileNavbar() {
         </div>
         {visible ? (
           <>
-            <div className="navbar-dropdown">
+            <nav className="navbar-dropdown">
               <NavbarLinks itemClassNames="navbar-item" />
-            </div>
+            </nav>
           </>) : null}
       </div>
     </>

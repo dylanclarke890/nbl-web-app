@@ -6,13 +6,13 @@ import CheckmarkSvg from "../../../shared/svgs/checkmark-svg";
 
 export default function AppointmentConfirmation({ time, date, reference }: IAppointmentConfirmation) {
   return (
-    <div className="text-center">
-      <p className="title">Success!</p>
+    <section className="text-center">
+      <h1 className="title">Success!</h1>
       <CheckmarkSvg />
-      <p className="title">Your appointment is confirmed for {date.toDateString()}</p>
-      <p className="title">{time}</p>
+      <h2 className="title">Your appointment is confirmed for {date.toDateString()}</h2>
+      <h2 className="title">{time}</h2>
       <p>Your reference is:</p>
-      <p className="title">{reference}</p>
-    </div>
+      <h2 className="title">{reference}</h2>
+    </section>
   )
 }
