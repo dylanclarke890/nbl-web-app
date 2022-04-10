@@ -8,6 +8,5 @@ export default interface IAppointmentPicker {
   setSelectedTime: any;
   selectedTime: string;
   treatment: Treatment;
-  onError: any;
   onSuccessfulSubmit: any;
 }

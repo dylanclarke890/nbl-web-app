@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 
 import IAppointmentPicker from "./IAppointmentPicker";
@@ -10,6 +10,7 @@ import { addAppointment } from "../../../../services/appointmentService";
 
 import "./appointment-picker.css";
 import { LoadingContext } from "../../../../contexts/loading-context/loading-context";
+import { ToastContext } from "../../../../contexts/toast-context/toast-context";
 
 export default function AppointmentPicker({
   closeModal,
@@ -18,9 +19,9 @@ export default function AppointmentPicker({
   setSelectedTime,
   selectedTime,
   treatment,
-  onError,
   onSuccessfulSubmit
 }: IAppointmentPicker) {
+  const { createToast } = useContext(ToastContext);
   const { loading, isLoading, loaded } = useContext(LoadingContext);
 
   const times = [];
@@ -86,23 +87,41 @@ export default function AppointmentPicker({
     setShowTimeError(selectedTime === "");
   }
 
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
+  const updateReadyToSubmit = () => {
+    setReadyToSubmit(true);
+    checkForEmptyInputs();
+    checkTimeIsSelected();
+  }
+
+  const onError = () => createToast("error", "Error while saving appointment.");
+  useEffect(() => {
+    if (!readyToSubmit) return;
+    if (inputValidation.error) {
+      setReadyToSubmit(false);
+      return;
+    }
+    submit()
+      .catch(() => { onError(); loaded(); setReadyToSubmit(false); });
+    setReadyToSubmit(false);
+  }, [readyToSubmit]);
+
   const submit = async () => {
     if (loading) return;
     isLoading();
-    checkForEmptyInputs();
-    checkTimeIsSelected();
+
     if (inputValidation.error || showTimeError) {
+      setReadyToSubmit(false);
       return;
     }
     const time = availableTimes.find(ti => ti.id === selectedTime);
     if (!time) {
-      onError();
+      setReadyToSubmit(false);
       loaded();
       return;
     }
 
-    await addAppointment(time!, { name, email, phone }, date, treatment, onSuccessfulSubmit, true)
-      .catch(() => { onError(); loaded(); });
+    await addAppointment(time!, { name, email, phone }, date, treatment, onSuccessfulSubmit, true);
     loaded();
   };
 
@@ -138,7 +157,7 @@ export default function AppointmentPicker({
         <div className="w-100">
           <header className="booker-header">
             <p className="text-center title">{titleMessage}</p>
-            <p className={`text-left ml-3 title ${showTimeError ? "text-error" : ""}`}>Select a time:</p>
+            <p className={`select-time-header sub-title ${showTimeError ? "text-error" : ""}`}>Select a time:</p>
           </header>
           <div className="appointment-booker">
             <div>
@@ -162,7 +181,7 @@ export default function AppointmentPicker({
               <button className="btn cancel-btn" onClick={() => closeModal()}>
                 Cancel
               </button>
-              <button className="btn float-right" onClick={() => submit()}>
+              <button className="btn float-right" onClick={() => updateReadyToSubmit()}>
                 Confirm
               </button>
             </div>
