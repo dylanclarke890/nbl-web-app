@@ -7,10 +7,10 @@
   }
 }
 .loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 10px solid rgba(183, 110, 121, 0.1);
-  border-top: 10px solid rgba(183, 110, 121, 1);
+  width: 3.125rem;
+  height: 3.125rem;
+  border: 0.625rem solid rgba(183, 110, 121, 0.1);
+  border-top: 0.625rem solid rgba(183, 110, 121, 1);
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
   position: relative;

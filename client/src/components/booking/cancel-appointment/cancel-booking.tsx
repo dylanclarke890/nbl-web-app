@@ -83,12 +83,14 @@ export default function CancelBooking() {
           </div>
         </Modal> : null}
       <p className="title text-center">Please enter your booking reference:</p>
-      <div className="cancel-booking-wrapper">
+      <div className="cancel-booking flex justify-center">
         <CustomInput
           inputId="reference"
           active={reference !== ""}
           error={error}
           onChange={setReference} />
+      </div>
+      <div className="flex justify-center">
         <button className="btn mt-1" onClick={handleClick}>Next</button>
       </div>
     </>

@@ -43,8 +43,7 @@ export default function BookingOptions() {
     <>
       {titleAndDesc}
       <TreatmentOptionSelector treatmentOptionButtons={treatmentOptions} />
-      <p className={`sub-title text-center mt-2 fade-in delay-${treatmentOptions.length * 200}`}>Or</p>
-      <div className={`fade-in delay-${(treatmentOptions.length * 200) + 200}`}>
+      <div className={`fade-in delay-${(treatmentOptions.length * 200)}`}>
         <CancellationOption />
       </div>
     </>

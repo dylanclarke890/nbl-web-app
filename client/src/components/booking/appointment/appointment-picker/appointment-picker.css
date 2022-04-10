@@ -9,20 +9,19 @@ header p {
 }
 
 .booker-header {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 
 .select-time-header {
-  margin-left: 3em;
-  padding-left: 4em;
+  margin-left: 8.75rem;
 }
 
 .time-slot {
-  width: 12em;
-  height: 3em;
+  width: 15rem;
+  height: 3.75rem;
   background-color: rgba(183, 110, 121, 0.1);
-  border-radius: 0.25em;
-  margin: 1em;
+  border-radius: 0.25rem;
+  margin: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +34,7 @@ header p {
 }
 
 .available-times {
-  min-height: 13em;
+  min-height: 13rem;
 }
 
 .time-slot:hover {
@@ -43,15 +42,15 @@ header p {
 }
 
 .selected-time {
-  box-shadow: 0 0 0 5px #d1a7a7;
+  box-shadow: 0 0 0 0.3125rem #d1a7a7;
 }
 
 .times-action-buttons {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 30px;
+  margin-top: 2rem;
 }
 
 .appointment-form {
-  width: 250px;
+  width: 15rem;
 }

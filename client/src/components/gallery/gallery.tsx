@@ -9,7 +9,7 @@ export default function Gallery() {
   return (
     <>
       <TitleAndDesc title="Gallery" desc="Check out my previous work!" />
-      <div className="gallery-images">
+      <div className="gallery-images mt-3">
         <GalleryImageRow />
       </div>
     </>

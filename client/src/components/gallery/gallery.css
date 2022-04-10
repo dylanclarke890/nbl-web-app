@@ -1,9 +1,19 @@
 .gallery-images {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .gallery-image-row {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   display: flex;
   justify-content: space-evenly;
+}
+
+@media only screen and (max-width: 900px) {
+  .gallery-image-row {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+  }
 }

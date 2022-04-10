@@ -79,7 +79,7 @@ export default function Contact() {
   return <>
     <TitleAndDesc title="Contact us" desc="Got a question? Get in touch!" />
     {currSlide === 0 ? (
-      <div className="contact-content">
+      <div className="contact-content mt-3">
         <p className="text-center contact-title fade-in">Contact Us</p>
         <div className="contact-form fade-in">
           <ContactForm inputValidation={inputValidation} setInputValidation={setInputValidation} name={name} setName={setName} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} />

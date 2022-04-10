@@ -6,7 +6,7 @@ export default function TreatmentOptionSelector({
   treatmentOptionButtons
 }: ITreatmentOptionSelector) {
   return <>
-    <div className="treatment-selector title text-center ">
+    <div className="treatment-selector title text-center mt-3">
       <div className="mt-1 mb-1 fade-in">Please select the treatment you would like:</div>
       <div className="treatment-options mt-1">
         {treatmentOptionButtons}
