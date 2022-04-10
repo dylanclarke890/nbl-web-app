@@ -95,6 +95,7 @@ export default function AppointmentPicker({
   }
 
   const onError = () => createToast("error", "Error while saving appointment.");
+  /* eslint-disable */
   useEffect(() => {
     if (!readyToSubmit) return;
     if (inputValidation.error) {
@@ -105,6 +106,7 @@ export default function AppointmentPicker({
       .catch(() => { onError(); loaded(); setReadyToSubmit(false); });
     setReadyToSubmit(false);
   }, [readyToSubmit]);
+  /* eslint-enable */
 
   const submit = async () => {
     if (loading) return;
