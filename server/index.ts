@@ -26,8 +26,8 @@ app.use("/api/contact", emailRouter);
 app.use("/api/dashboard", dashboardRouter);
 
 app.use(reactFilesRequestHandler);
-app.use(favicon(path.join(__dirname, "../client/build/nbl-favicon.ico")));
 app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(favicon(path.join(__dirname, "../client/build/favicon.ico")));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
