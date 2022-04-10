@@ -12,6 +12,11 @@ header p {
   margin-top: 1em;
 }
 
+.select-time-header {
+  margin-left: 3em;
+  padding-left: 4em;
+}
+
 .time-slot {
   width: 12em;
   height: 3em;
