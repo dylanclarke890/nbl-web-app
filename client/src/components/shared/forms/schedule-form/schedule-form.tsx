@@ -334,7 +334,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
 
     return applicable !== "" ? applicable.substring(0, applicable.lastIndexOf(",")).trim() : "None Selected";
   }
-  const inputButton = (onClick: any, name: string, extraClasses: string) => onSubmit ? <button className={`btn ${extraClasses}`} onClick={onClick}>{name}</button> : null;
+  const inputButton = (onClick: any, name: string, extraClasses: string, disabled = false) => onSubmit ? <button className={`btn ${extraClasses}`} onClick={onClick} disabled={disabled}>{name}</button> : null;
   const endDateInput = !runsIndefinitely ? (
     <CustomDateInput inputId="end-date"
       value={endDate}
@@ -438,7 +438,7 @@ export default function ScheduleForm({ id, onSubmit, readOnly }: IScheduleForm) 
             />
           </div></> : null}
         <div className="flex justify-center mb-1">
-          {inputButton(saveTimes, "Save and Add Other Day(s)", " btn-sm")}
+          {inputButton(saveTimes, "Save and Add Other Day(s)", " btn-sm", times.length === 0)}
         </div>
         <div className="mb-2">
           <h1 className="title text-center semi-bold">Schedule Summary</h1>
