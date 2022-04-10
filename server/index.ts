@@ -1,4 +1,5 @@
 import express from "express";
+import favicon from "serve-favicon";
 import path from "path";
 let database = require("./services/database");
 
@@ -25,6 +26,7 @@ app.use("/api/contact", emailRouter);
 app.use("/api/dashboard", dashboardRouter);
 
 app.use(reactFilesRequestHandler);
+app.use(favicon(path.join(__dirname, "../client/build/nbl-favicon.ico")));
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 const PORT = process.env.PORT || 3001;
