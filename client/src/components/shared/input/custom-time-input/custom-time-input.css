@@ -11,9 +11,9 @@ input[type="time"] {
 .error-message {
   display: flex;
   align-items: center;
-  padding: 0 8px;
-  font-size: 12px;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
   background: #d30909;
   color: #fff;
-  height: 24px;
+  height: 1.5rem;
 }

@@ -12,7 +12,7 @@ table {
 td,
 th {
   text-align: center;
-  padding: 8px;
+  padding: 0.5rem;
 }
 
 tr:nth-child(even) {
@@ -25,9 +25,9 @@ tr td:last-child {
 }
 
 td .custom-link {
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
 }
 
 td .custom-link:not(:first-child) {
-  margin: 0 0 0 5px;
+  margin: 0 0 0 0.3125rem;
 }

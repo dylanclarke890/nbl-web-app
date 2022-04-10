@@ -3,15 +3,15 @@
   position: relative;
   width: 100%;
   background: var(--neutral-color);
-  border-top: 1px solid var(--border-color);
+  border-top: 0.0625rem solid var(--border-color);
 }
 
 .calendar .header {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 115%;
-  padding: 1.5em 0;
-  border-bottom: 1px solid var(--calender-border-color);
+  padding: 1.5rem 0;
+  border-bottom: 0.0625rem solid var(--calender-border-color);
 }
 
 .calendar .header .icon {
@@ -26,11 +26,11 @@
 }
 
 .calendar .header .icon:first-of-type {
-  margin-left: 1em;
+  margin-left: 1rem;
 }
 
 .calendar .header .icon:last-of-type {
-  margin-right: 1em;
+  margin-right: 1rem;
 }
 
 .calendar .days {
@@ -38,14 +38,14 @@
   font-weight: 400;
   color: var(--text-color-light);
   font-size: 70%;
-  padding: 0.75em 0;
-  border-bottom: 1px solid var(--calender-border-color);
+  padding: 0.75rem 0;
+  border-bottom: 0.0625rem solid var(--calender-border-color);
 }
 
 .calendar .body .cell {
   position: relative;
-  height: 5em;
-  border-right: 1px solid var(--calender-border-color);
+  height: 5rem;
+  border-right: 0.0625rem solid var(--calender-border-color);
   overflow: hidden;
   cursor: pointer;
   background: var(--neutral-color);
@@ -58,7 +58,7 @@
 }
 
 .calendar .body .selected {
-  border-left: 10px solid transparent;
+  border-left: 0.6125rem solid transparent;
   border-image: linear-gradient(
     45deg,
     rgba(183, 110, 121, 1) 0%,
@@ -68,7 +68,7 @@
 }
 
 .calendar .body .row {
-  border-bottom: 1px solid var(--calender-border-color);
+  border-bottom: 0.0625rem solid var(--calender-border-color);
 }
 
 .calendar .body .row:last-child {
@@ -83,8 +83,8 @@
   position: absolute;
   font-size: 82.5%;
   line-height: 1;
-  top: 0.75em;
-  right: 0.75em;
+  top: 0.5rem;
+  right: 0.5rem;
   font-weight: 700;
 }
 
@@ -98,10 +98,10 @@
   line-height: 1;
   color: var(--main-color);
   opacity: 0;
-  font-size: 8em;
+  font-size: 7.25rem;
   position: absolute;
-  top: -0.2em;
-  right: -0.05em;
+  top: -1.4rem;
+  right: -0.05rem;
   transition: 0.25s ease-out;
   letter-spacing: -0.07em;
 }
