@@ -8,7 +8,7 @@ import "./call-to-action.css";
 export default function CallToAction() {
   return (
     <>
-      <div className="cta">
+      <section className="cta">
         <div className="hero-bg">
           <div className="hero-img hero-work-one">
           </div>
@@ -31,8 +31,8 @@ export default function CallToAction() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="mobile-cta">
+      </section>
+      <section className="mobile-cta">
         <h1 className="title text-center mt-3">NBL by Tanya</h1>
         <p className="text-center">High quality treatments available at low prices.</p>
         <div className="flex justify-center">
@@ -41,7 +41,7 @@ export default function CallToAction() {
         <div className="flex justify-center mt-2">
           <Link className="btn btn-sm" to={"/booking-options"}>Book Now!</Link>
         </div>
-      </div>
+      </section>
     </>
   );
 }

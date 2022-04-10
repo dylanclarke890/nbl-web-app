@@ -12,7 +12,7 @@ export default function Footer() {
   const instaLink = "https://www.instagram.com/nbl_bytanya/";
 
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="social-icons">
         <SocialIcon link={facebookLink}><FaFacebook /></SocialIcon>
         <SocialIcon link={instaLink}><FaInstagram /></SocialIcon>
@@ -25,6 +25,6 @@ export default function Footer() {
       <div>
         <p className="text-center no-pad-margin">© CK Web Designs - {currentYear}</p>
       </div>
-    </div>
+    </footer>
   );
 }

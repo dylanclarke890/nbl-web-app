@@ -6,14 +6,14 @@ import Navbar from '../../shared/navbar/navbar';
 
 export default function MainLayout({ children }: IChildren): JSX.Element {
   return (
-    <main>
-      <section>
+    <section>
+      <div>
         <Navbar />
-        <div className="main-content">
+        <main className="main-content">
           {children}
-        </div>
+        </main>
         <Footer />
-      </section>
-    </main>
+      </div>
+    </section>
   )
 }

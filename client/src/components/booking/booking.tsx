@@ -69,7 +69,7 @@ export default function Booking() {
   return (
     <>
       <TitleAndDesc title="Make a booking" desc="Book your treatment today!" />
-      <div className="booking-content">
+      <section className="booking-content">
         <div>
           {showModal ? (
             <Modal setShowModal={setModal}>
@@ -90,10 +90,10 @@ export default function Booking() {
             </Modal>
           ) : null}
         </div>
-        <div className="calendar-wrapper mt-3">
+        <section className="calendar-wrapper mt-3">
           <Calendar handleSelectedDate={updateDate} />
-        </div>
-      </div>
+        </section>
+      </section>
     </>
   );
 }

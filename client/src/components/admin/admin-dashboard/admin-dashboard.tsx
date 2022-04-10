@@ -30,26 +30,26 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <div className="admin-dashboard">
+      <section className="admin-dashboard">
         <div className="flex justify-between">
-          <div className="summary-box">
+          <section className="summary-box">
             <h2 className="text-center">Appointments</h2>
             <p>Appointments Today : <span className="data-figure">{dashboardData?.today.appointments}</span></p>
             <p>Appointments This Week : <span className="data-figure">{dashboardData?.thisWeek.appointments}</span></p>
             <p>Appointments This Month : <span className="data-figure">{dashboardData?.thisMonth.appointments}</span></p>
             <p>Appointments YTD : <span className="data-figure">{dashboardData?.yearToDate.appointments}</span></p>
             <p>Appointments All Time : <span className="data-figure">{dashboardData?.allTime.appointments}</span></p>
-          </div>
-          <div className="summary-box">
+          </section>
+          <section className="summary-box">
             <h2 className="text-center">Earnings</h2>
             <p>Earnings Today : <span className="data-figure">&#163; {dashboardData?.today.earnings}</span></p>
             <p>Earnings This Week : <span className="data-figure">&#163; {dashboardData?.thisWeek.earnings}</span></p>
             <p>Earnings This Month : <span className="data-figure">&#163; {dashboardData?.thisMonth.earnings}</span></p>
             <p>Earnings YTD : <span className="data-figure">&#163; {dashboardData?.yearToDate.earnings}</span></p>
             <p>Earnings All Time : <span className="data-figure">&#163; {dashboardData?.allTime.earnings}</span></p>
-          </div>
+          </section>
         </div>
-      </div>
+      </section>
     </>
   )
 }

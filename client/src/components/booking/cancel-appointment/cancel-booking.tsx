@@ -82,14 +82,14 @@ export default function CancelBooking() {
             </div>
           </div>
         </Modal> : null}
-      <p className="title text-center">Please enter your booking reference:</p>
-      <div className="cancel-booking flex justify-center">
+      <h1 className="title text-center">Please enter your booking reference:</h1>
+      <section className="cancel-booking flex justify-center">
         <CustomInput
           inputId="reference"
           active={reference !== ""}
           error={error}
           onChange={setReference} />
-      </div>
+      </section>
       <div className="flex justify-center">
         <button className="btn mt-1" onClick={handleClick}>Next</button>
       </div>
@@ -99,7 +99,7 @@ export default function CancelBooking() {
       {titleAndDesc}
       <div className="flex flex-column col-center mt-2">
         <CheckmarkSvg />
-        <p className="title">Your appointment has been successfully cancelled. Hope to see you again soon!</p>
+        <h1 className="title">Your appointment has been successfully cancelled. Hope to see you again soon!</h1>
         <div>
           <Link className="btn mt-1" to={'/'}>Back to home</Link>
         </div>

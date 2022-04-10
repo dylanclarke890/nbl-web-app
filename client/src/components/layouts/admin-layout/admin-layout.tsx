@@ -16,15 +16,15 @@ export default function AdminLayout({ children }: IChildren): JSX.Element {
   }, [])
 
   return (
-    <main>
-      <section>
+    <section>
+      <div>
         <Navbar />
         <AdminNavbar />
-        <div className="main-content">
+        <main className="main-content">
           {children}
-        </div>
+        </main>
         <Footer />
-      </section>
-    </main>
+      </div>
+    </section>
   )
 }

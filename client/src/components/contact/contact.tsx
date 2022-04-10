@@ -79,8 +79,8 @@ export default function Contact() {
   return <>
     <TitleAndDesc title="Contact us" desc="Got a question? Get in touch!" />
     {currSlide === 0 ? (
-      <div className="contact-content mt-3">
-        <p className="text-center contact-title fade-in">Contact Us</p>
+      <section className="contact-content mt-3">
+        <h1 className="text-center contact-title fade-in">Contact Us</h1>
         <div className="contact-form fade-in">
           <ContactForm inputValidation={inputValidation} setInputValidation={setInputValidation} name={name} setName={setName} email={email} setEmail={setEmail} phone={phone} setPhone={setPhone} />
           <CustomTextArea inputId={'message'} active={message !== ""} error={inputValidation.message} onChange={setMessage} />
@@ -91,7 +91,7 @@ export default function Contact() {
             </button>
           </div>
         </div>
-      </div>
+      </section>
     ) : (
       <div className="mt-3">
         <MessageConfirmation />
