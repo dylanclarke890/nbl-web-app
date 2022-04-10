@@ -33,10 +33,13 @@ export function getTimeStampAsDate(time: string) {
 
 export function to24hr(time: string) {
   if (time === undefined || time === "") return time;
-  const [hour, min] = parseMeridianTime(time);
-  let strHour = hour.toString();
-  if (strHour.length === 1) strHour = `0${strHour}`;
-  return `${strHour}:${min}`;
+  const [hourNum, minNum] = parseMeridianTime(time);
+  const strHour = hourNum.toString();
+
+  const hour = strHour.length === 1 ? `0${strHour}` : strHour;
+  const min = minNum === 0 ? "00" : minNum.toString();
+
+  return `${hour}:${min}`;
 }
 
 function parseMeridianTime(time: string): [hour: number, minutes: number] {
