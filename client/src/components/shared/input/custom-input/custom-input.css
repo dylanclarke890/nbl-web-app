@@ -12,7 +12,7 @@
   background: #f2f2f2;
   border: none;
   border-radius: 0.1875rem;
-  cursor: default;
+  cursor: text;
   font-size: 0.875rem;
   padding: 0.75rem;
   width: 100%;
@@ -51,10 +51,6 @@
 }
 
 .custom-field .has-content .custom-field + input {
-  cursor: text;
-}
-
-.custom-field input {
   cursor: text;
 }
 
