@@ -15,7 +15,7 @@
 }
 
 .navbar-brand {
-  margin: 0.5rem 2rem 0rem 1rem;
+  margin: 0.5rem 2rem 0 1rem;
   max-width: 11.25rem;
   min-width: 11.25rem;
 }
@@ -125,6 +125,7 @@
   .navbar {
     justify-content: space-between;
   }
+
   .desktop-navbar {
     display: none;
   }
