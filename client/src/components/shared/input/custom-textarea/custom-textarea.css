@@ -10,13 +10,10 @@
   border: none;
   border-radius: 0.1875rem;
   background: #f2f2f2;
-  cursor: default;
+  cursor: text;
   font-size: 0.875rem;
   padding: 0.75rem;
   width: 100%;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -webkit-appearance: none;
 }
 
 .custom-field .placeholder {
@@ -54,10 +51,6 @@
 }
 
 .custom-field .has-content .custom-field + textarea {
-  cursor: text;
-}
-
-.custom-field textarea {
   cursor: text;
 }
 

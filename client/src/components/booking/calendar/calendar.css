@@ -14,6 +14,21 @@
   text-transform: uppercase;
 }
 
+.icon {
+  direction: ltr;
+  display: inline-block;
+  font-feature-settings: "liga";
+  font-family: "Material Icons", serif;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
 .calendar .header .icon {
   cursor: pointer;
   transition: 0.15s ease-out;
@@ -116,23 +131,6 @@
   flex-basis: calc(100% / 7);
   flex-grow: 0;
   width: calc(100% / 7);
-}
-
-.icon {
-  direction: ltr;
-  display: inline-block;
-  font-feature-settings: "liga";
-  font-family: "Material Icons", serif;
-  font-style: normal;
-  letter-spacing: normal;
-  line-height: 1;
-  text-rendering: optimizeLegibility;
-  text-transform: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  word-wrap: normal;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
 }
 
 .calendar-wrapper {

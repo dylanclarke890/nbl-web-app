@@ -27,8 +27,6 @@ body {
   line-height: 1.5;
   margin: 0;
   position: relative;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
 }
 
 code {
