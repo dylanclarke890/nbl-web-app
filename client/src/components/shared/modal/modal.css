@@ -1,40 +1,40 @@
 #portal .container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 100vh;
-  display: flex;
   align-items: center;
-  justify-content: center;
   background: rgba(0, 0, 0, 0.7);
+  bottom: 0;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   z-index: 299;
 }
 
 .container .modal {
-  z-index: 300;
-  width: 43.75rem;
-  height: fit-content;
+  animation: animate 0.5s;
   background: white;
   border-radius: 0.3125rem;
-  position: relative;
-  animation: animate 0.5s;
+  height: fit-content;
   padding-bottom: 1rem;
+  position: relative;
+  width: 43.75rem;
+  z-index: 300;
 }
 
 .modal-button {
-  position: absolute;
-  top: 0.4375rem;
-  right: 0.4375rem;
-  padding: 0.5rem 0.6875rem;
   background: crimson;
-  color: white;
-  font-weight: bold;
   border: none;
-  outline: none;
   border-radius: 0.125rem;
+  color: white;
   cursor: pointer;
+  font-weight: bold;
+  outline: none;
+  padding: 0.5rem 0.6875rem;
+  position: absolute;
+  right: 0.4375rem;
+  top: 0.4375rem;
 }
 
 @keyframes animate {

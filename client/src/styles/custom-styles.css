@@ -1,15 +1,15 @@
 .btn,
 .custom-link {
-  font-size: 1rem;
   background-color: rgba(183, 110, 121, 1);
   border: none;
+  bottom: 0;
   color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  position: relative;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  bottom: 0;
 }
 
 .btn.btn-sm {
@@ -17,14 +17,14 @@
 }
 
 .custom-link {
-  padding: 0.3125rem 0.5rem;
   border-radius: 0.375rem;
+  padding: 0.3125rem 0.5rem;
 }
 
 .btn {
-  padding: 0.945rem 2rem;
   border-radius: 0.3125rem;
   font-weight: 500;
+  padding: 0.945rem 2rem;
 }
 
 .cancel-btn {
@@ -40,10 +40,10 @@
 }
 
 svg {
-  height: 2rem;
-  width: 2rem;
-  margin: 0.5rem;
   color: rgba(183, 110, 121, 1);
+  height: 2rem;
+  margin: 0.5rem;
+  width: 2rem;
 }
 
 .title {
@@ -60,28 +60,27 @@ svg {
   min-height: 65vh;
 }
 
-/* PLUS BUTTON START */
 .plus-button {
-  border: 0.125rem solid rgba(183, 110, 121, 0.6);
   background-color: rgba(183, 110, 121, 0.9);
-  height: 2.5rem;
-  width: 2.5rem;
+  border: 0.125rem solid rgba(183, 110, 121, 0.6);
   border-radius: 100%;
-  position: relative;
   cursor: pointer;
+  height: 2.5rem;
+  position: relative;
+  width: 2.5rem;
 }
 
 .plus-button:after,
 .plus-button:before {
-  content: "";
-  display: block;
   background-color: #fff;
+  border-radius: 0.125rem;
+  content: "";
+  cursor: pointer;
+  display: block;
+  left: 50%;
   position: absolute;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
-  cursor: pointer;
-  border-radius: 0.125rem;
 }
 
 .plus-button:before {
@@ -101,4 +100,7 @@ svg {
 .plus-button-lg {
   font-size: 1.25rem;
 }
-/* END OF PLUS BUTTON*/
+
+.icon {
+  cursor: pointer;
+}

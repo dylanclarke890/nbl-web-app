@@ -1,7 +1,7 @@
 .schedule-form,
 .availability-form {
-  width: 40%;
   margin: 0 auto;
+  width: 40%;
 }
 
 .date-inputs,
@@ -10,10 +10,10 @@
 }
 
 .center-content {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .center-content > *:not(:first-child) {

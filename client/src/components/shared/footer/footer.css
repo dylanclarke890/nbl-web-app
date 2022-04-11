@@ -12,11 +12,11 @@
 }
 
 .footer-nav {
+  align-items: center;
+  border-bottom: 0.0975rem solid rgba(127, 127, 127, 0.3);
+  border-radius: 0.25rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-radius: 0.25rem;
-  border-bottom: 0.0975rem solid rgba(127, 127, 127, 0.3);
 }
 
 .footer-items-wrapper {
@@ -25,26 +25,26 @@
 }
 
 .footer-brand {
+  margin: 0.5rem 2rem 0 1rem;
   max-width: 11.25rem;
   min-width: 11.25rem;
-  margin: 0.5rem 2rem 0rem 1rem;
 }
 
 .footer-img {
   display: block;
-  max-width: 100%;
   height: auto;
+  max-width: 100%;
 }
 
 .footer-item {
-  margin: 1rem;
-  cursor: pointer;
-  text-decoration: none;
-  letter-spacing: 0.15rem;
-  font-weight: 500;
-  text-indent: 0.3rem;
-  color: rgba(127, 127, 127, 1);
   border-bottom: 0.0975rem solid transparent;
+  color: rgba(127, 127, 127, 1);
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.15rem;
+  margin: 1rem;
+  text-decoration: none;
+  text-indent: 0.3rem;
   transition: all 0.5s ease-in-out;
 }
 
