@@ -29,8 +29,8 @@
 
 .cancel-btn {
   background-color: rgba(183, 110, 121, 0.6);
-  padding: 0.625rem 1.5rem;
   margin-top: 0.625rem;
+  padding: 0.625rem 1.5rem;
 }
 
 .btn:hover,

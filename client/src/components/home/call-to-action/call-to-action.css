@@ -65,9 +65,9 @@
 }
 
 .hero-box .right-side .image-box {
-  height: 22rem;
   border: 0.3125rem solid rgba(183, 110, 121, 1);
   border-bottom-right-radius: 1.25rem;
+  height: 22rem;
   margin: auto;
   position: relative;
   width: 22rem;
