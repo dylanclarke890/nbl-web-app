@@ -10,8 +10,8 @@
   display: inline-block;
   height: 2rem;
   opacity: 0;
-  width: 2rem;
   vertical-align: -0.125em;
+  width: 2rem;
 }
 
 .fade-in {

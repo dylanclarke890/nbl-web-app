@@ -17,8 +17,8 @@
 .icon {
   direction: ltr;
   display: inline-block;
-  font-feature-settings: "liga";
   font-family: "Material Icons", serif;
+  font-feature-settings: "liga";
   font-style: normal;
   letter-spacing: normal;
   line-height: 1;
@@ -121,8 +121,8 @@
   transition: 0.25s ease-out;
 }
 
-.calendar .body .cell:hover .bg,
-.calendar .body .selected .bg {
+.calendar .body .selected .bg,
+.calendar .body .cell:hover .bg {
   opacity: 0.15;
   transition: 0.5s ease-in;
 }
