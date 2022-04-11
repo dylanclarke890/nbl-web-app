@@ -36,7 +36,7 @@ code {
     monospace;
 }
 
-body section:first,
+body section:first-child,
 html {
   background-color: #fff;
   min-height: fit-content;
