@@ -3,17 +3,17 @@
 }
 
 .gallery-image-row {
-  margin-top: 1.25rem;
   display: flex;
   justify-content: space-evenly;
+  margin-top: 1.25rem;
 }
 
 @media only screen and (max-width: 900px) {
   .gallery-image-row {
-    margin-top: 1.25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 1.25rem;
     place-items: center;
   }
 }

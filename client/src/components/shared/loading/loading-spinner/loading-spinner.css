@@ -7,20 +7,20 @@
   }
 }
 .loading-spinner {
-  width: 3.125rem;
-  height: 3.125rem;
-  border: 0.625rem solid rgba(183, 110, 121, 0.1);
-  border-top: 0.625rem solid rgba(183, 110, 121, 1);
-  border-radius: 50%;
   animation: spinner 1.5s linear infinite;
+  border: 0.625rem solid rgba(183, 110, 121, 0.1);
+  border-radius: 50%;
+  border-top: 0.625rem solid rgba(183, 110, 121, 1);
+  height: 3.125rem;
   position: relative;
+  width: 3.125rem;
 }
 
 .loading-spinner-container {
-  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
   height: 100%;
   position: absolute;
-  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
   z-index: 1000;
 }
 

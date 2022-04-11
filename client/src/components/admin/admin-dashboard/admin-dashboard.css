@@ -1,7 +1,6 @@
 .admin-dashboard {
+  margin:2rem auto 0 auto;
   width: 60%;
-  margin-inline: auto;
-  margin-top: 2em;
 }
 
 .summary-box {

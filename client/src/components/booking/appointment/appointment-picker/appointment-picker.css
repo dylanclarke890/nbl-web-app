@@ -17,20 +17,20 @@ header p {
 }
 
 .time-slot {
-  width: 15rem;
-  height: 3.75rem;
+  align-items: center;
   background-color: rgba(183, 110, 121, 0.1);
   border-radius: 0.25rem;
-  margin: 1.25rem;
+  box-shadow: none;
+  cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   font-size: 1.25em;
   font-weight: 700;
-  cursor: pointer;
-  box-shadow: none;
+  height: 3.75rem;
+  justify-content: center;
+  margin: 1.25rem;
+  text-align: center;
   transition: all 0.3s ease-in;
+  width: 15rem;
 }
 
 .available-times {

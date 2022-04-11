@@ -1,9 +1,9 @@
 .contact-content {
-  padding-top: 0.625rem;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  padding-top: 0.625rem;
 }
 
 .contact-form {
@@ -12,11 +12,11 @@
 }
 
 .contact-title {
-  margin: 0;
-  padding: 0;
+  border-bottom: 0.25rem solid rgba(127, 127, 127, 1);
   font-size: 1.5rem;
   font-weight: 500;
-  border-bottom: 0.25rem solid rgba(127, 127, 127, 1);
+  margin: 0;
+  padding: 0;
 }
 
 .form-button {
@@ -27,14 +27,14 @@
 .contact-btn {
   background-color: rgba(183, 110, 121, 1);
   border: none;
+  bottom: 0;
   color: white;
+  cursor: pointer;
+  display: inline-block;
   padding: 0.9375rem 2rem;
+  position: relative;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  bottom: 0;
 }
 
 @media only screen and (max-width: 768px) {
