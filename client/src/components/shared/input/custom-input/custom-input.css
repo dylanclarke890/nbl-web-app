@@ -16,9 +16,6 @@
   font-size: 0.875rem;
   padding: 0.75rem;
   width: 100%;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -webkit-appearance: none;
 }
 
 .custom-field .placeholder {

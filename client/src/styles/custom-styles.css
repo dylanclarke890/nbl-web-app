@@ -70,8 +70,8 @@ svg {
   width: 2.5rem;
 }
 
-.plus-button:after,
-.plus-button:before {
+.plus-button::after,
+.plus-button::before {
   background-color: #fff;
   border-radius: 0.125rem;
   content: "";
@@ -83,12 +83,12 @@ svg {
   transform: translate(-50%, -50%);
 }
 
-.plus-button:before {
+.plus-button::before {
   height: 1rem;
   width: 0.2rem;
 }
 
-.plus-button:after {
+.plus-button::after {
   height: 0.2rem;
   width: 1rem;
 }
