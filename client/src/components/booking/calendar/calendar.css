@@ -121,18 +121,18 @@
 .icon {
   direction: ltr;
   display: inline-block;
-  font-family: "Material Icons", serif;
   font-feature-settings: "liga";
+  font-family: "Material Icons", serif;
   font-style: normal;
   letter-spacing: normal;
   line-height: 1;
   text-rendering: optimizeLegibility;
   text-transform: none;
+  vertical-align: middle;
   white-space: nowrap;
   word-wrap: normal;
-  vertical-align: middle;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 .calendar-wrapper {

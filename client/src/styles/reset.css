@@ -19,8 +19,6 @@
 }
 
 body {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
   background: var(--bg-color);
   color: var(--text-color);
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -29,6 +27,8 @@ body {
   line-height: 1.5;
   margin: 0;
   position: relative;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 code {

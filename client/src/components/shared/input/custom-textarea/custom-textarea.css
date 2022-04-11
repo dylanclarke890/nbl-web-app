@@ -6,9 +6,6 @@
 }
 
 .custom-field textarea {
-  -webkit-appearance: none;
-  -ms-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   border: none;
   border-radius: 0.1875rem;
@@ -17,6 +14,9 @@
   font-size: 0.875rem;
   padding: 0.75rem;
   width: 100%;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
 }
 
 .custom-field .placeholder {
@@ -24,8 +24,8 @@
   color: #aaa;
   cursor: text;
   height: fit-content;
-  overflow: hidden;
   left: 0.75rem;
+  overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
   top: 1.25rem;

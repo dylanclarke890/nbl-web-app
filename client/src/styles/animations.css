@@ -4,7 +4,6 @@
 }
 
 .spinner-grow {
-  -webkit-animation: 0.75s linear infinite spinner-grow;
   animation: 0.75s linear infinite spinner-grow;
   background-color: #fff;
   border-radius: 50%;
@@ -13,6 +12,7 @@
   opacity: 0;
   width: 2rem;
   vertical-align: -0.125em;
+  -webkit-animation: 0.75s linear infinite spinner-grow;
 }
 
 .fade-in {
